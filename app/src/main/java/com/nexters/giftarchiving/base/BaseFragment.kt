@@ -7,16 +7,19 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavArgs
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.nexters.giftarchiving.BR
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.util.BackDirections
+import com.nexters.giftarchiving.util.EmptyNavArgs
 
 internal abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> : Fragment() {
     abstract val layoutId: Int
     abstract val viewModel: VM
+    protected open val navArgs: NavArgs = EmptyNavArgs
 
     lateinit var binding: VB
 
@@ -40,6 +43,8 @@ internal abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> :
             observe(toast) { toast(it) }
             observe(navDirections) { navigation(it) }
         }
+
+        viewModel.navArgs(navArgs)
     }
 
     private fun navigation(navDirections: NavDirections) {
