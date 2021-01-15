@@ -26,7 +26,7 @@
             />
 
         <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
+            android:id="@+id/home_tab_layout"
             android:layout_width="100dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/logo"
@@ -36,12 +36,12 @@
             app:tabIndicatorColor="@color/black" />
 
         <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/pager"
+            android:id="@+id/home_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tab_layout"
+            app:layout_constraintTop_toBottomOf="@id/home_tab_layout"
             android:layout_marginTop="10dp"/>
 
 
