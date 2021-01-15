@@ -56,6 +56,9 @@ dependencies {
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    //viewpager2
+    implementation 'androidx.viewpager2:viewpager2:1.0.0'
+
     // Test
     testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
