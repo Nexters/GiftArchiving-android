@@ -27,11 +27,13 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
-            android:layout_width="90dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/logo"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginStart="24dp"/>
+            android:layout_marginStart="24dp"
+            app:tabTextAppearance="@style/tab_text"
+            app:tabIndicatorColor="@color/black" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"

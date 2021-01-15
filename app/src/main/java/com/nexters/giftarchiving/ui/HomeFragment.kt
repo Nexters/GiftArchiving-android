@@ -1,6 +1,8 @@
 package com.nexters.giftarchiving.ui
 
-import androidx.navigation.fragment.navArgs
+import android.os.Bundle
+import android.view.View
+import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentHomeBinding
@@ -10,4 +12,15 @@ import org.koin.android.viewmodel.ext.android.viewModel
 internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>() {
     override val layoutId = R.layout.fragment_home
     override val viewModel: HomeViewModel by viewModel()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val tabLayout = binding.tabLayout
+        val viewPager = binding.pager
+        val tabTextList = arrayListOf(getString(R.string.taken_button_name),getString(R.string.given_button_name))
+        viewPager.adapter = HomeViewPagerAdapter(this)
+        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+            tab.text = String.format(tabTextList[position])
+        }.attach()
+    }
 }

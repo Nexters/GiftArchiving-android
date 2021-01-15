@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GiftArchiving</string>
+    <string name="taken_button_name">받은</string>
+    <string name="given_button_name">보낸</string>
 </resources>
