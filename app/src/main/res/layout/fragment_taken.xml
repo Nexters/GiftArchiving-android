@@ -1,12 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.TakenFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Taken"/>
-</FrameLayout>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nexters.giftarchiving.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.TakenFragment">
+
+        <TextView
+            android:id="@+id/taken_main_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/taken_main_string"
+            android:textSize="24sp"
+            android:textColor="#8c8c8c"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/write_taken_button"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="24dp"/>
+
+        <Button
+            android:id="@+id/write_taken_button"
+            android:layout_width="74dp"
+            android:layout_height="35dp"
+            android:text="@string/home_write_button_name"
+            app:layout_constraintTop_toBottomOf="@id/taken_main_textview"
+            app:layout_constraintLeft_toLeftOf="@id/taken_main_textview"
+            app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
+            android:textSize="13sp"
+            android:layout_marginTop="18dp"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_taken_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/write_taken_button"
+            android:layout_marginTop="100dp"
+            />
+
+        <TextView
+            android:id="@+id/home_taken_list_textview"
+            android:text="@string/home_taken_list_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
+            app:layout_constraintLeft_toLeftOf="@id/home_taken_viewpager"
+            android:textSize="18sp"
+            android:textColor="@color/black"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="11dp"/>
+
+        <Button
+            android:id="@+id/taken_detail_button"
+            android:text="@string/home_detail_button_name"
+            android:layout_width="52dp"
+            android:layout_height="20dp"
+            android:background="@android:color/transparent"
+            app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
+            app:layout_constraintRight_toRightOf="@id/home_taken_viewpager"
+            android:textColor="#8c8c8c"
+            android:textSize="14sp"
+            android:layout_marginEnd="23.5dp"
+            android:layout_marginBottom="11dp"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

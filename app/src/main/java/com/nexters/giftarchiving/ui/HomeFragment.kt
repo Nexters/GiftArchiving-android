@@ -17,7 +17,7 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
         super.onViewCreated(view, savedInstanceState)
         val tabLayout = binding.homeTabLayout
         val viewPager = binding.homeViewpager
-        val tabTextList = arrayListOf(getString(R.string.taken_button_name),getString(R.string.given_button_name))
+        val tabTextList = arrayListOf(getString(R.string.home_taken_button_name),getString(R.string.home_given_button_name))
         viewPager.adapter = HomeViewPagerAdapter(this)
         TabLayoutMediator(tabLayout, viewPager) { tab, position ->
             tab.text = String.format(tabTextList[position])
