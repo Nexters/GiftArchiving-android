@@ -11,7 +11,7 @@ internal class SplashViewModel : BaseViewModel() {
         viewModelScope.launch {
             delay(1000L)
             navDirections.value =
-                SplashFragmentDirections.actionSplashFragmentToLoginFragment("먹튀방지위원회")
+                SplashFragmentDirections.actionSplashFragmentToHomeFragment()
         }
     }
 }
