@@ -669,6 +669,10 @@ public class StickerView extends FrameLayout {
     }
   }
 
+  public void removeStickerHandler() {
+    handlingSticker = null;
+  }
+
   public boolean remove(@Nullable Sticker sticker) {
     if (stickers.contains(sticker)) {
       stickers.remove(sticker);
@@ -676,7 +680,7 @@ public class StickerView extends FrameLayout {
         onStickerOperationListener.onStickerDeleted(sticker);
       }
       if (handlingSticker == sticker) {
-        handlingSticker = null;
+        removeStickerHandler();
       }
       invalidate();
 
@@ -696,7 +700,7 @@ public class StickerView extends FrameLayout {
     stickers.clear();
     if (handlingSticker != null) {
       handlingSticker.release();
-      handlingSticker = null;
+      removeStickerHandler();
     }
     invalidate();
   }
@@ -787,7 +791,7 @@ public class StickerView extends FrameLayout {
   }
 
   @NonNull public Bitmap createBitmap() throws OutOfMemoryError {
-    handlingSticker = null;
+    removeStickerHandler();
     Bitmap bitmap = Bitmap.createBitmap(getWidth(), getHeight(), Bitmap.Config.ARGB_8888);
     Canvas canvas = new Canvas(bitmap);
     this.draw(canvas);
