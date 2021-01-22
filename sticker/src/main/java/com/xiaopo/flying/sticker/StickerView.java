@@ -195,7 +195,9 @@ public class StickerView extends FrameLayout {
     for (int i = 0; i < stickers.size(); i++) {
       Sticker sticker = stickers.get(i);
       if (sticker != null) {
+        setLocked(true);
         sticker.draw(canvas);
+        setLocked(false);
       }
     }
 
