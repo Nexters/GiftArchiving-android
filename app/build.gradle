@@ -55,6 +55,7 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation project(path: ':sticker')
 
     // Test
     testImplementation 'junit:junit:4.13'
