@@ -25,4 +25,11 @@ internal class WriteViewModel : BaseViewModel() {
         stickerResourceList.add(R.drawable.ic_launcher_foreground)
         stickerResources.value = stickerResourceList
     }
+
+    private fun convertLayoutToBitmap(v: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        v.draw(canvas)
+        return bitmap
+    }
 }
