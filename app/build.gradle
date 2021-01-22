@@ -6,13 +6,13 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'koin'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "29.0.3"
+    compileSdkVersion rootProject.compile_sdk_version
+    buildToolsVersion rootProject.build_tools_version
 
     defaultConfig {
         applicationId "com.nexters.giftarchiving"
-        minSdkVersion 23
-        targetSdkVersion 30
+        minSdkVersion rootProject.min_sdk_version
+        targetSdkVersion rootProject.target_sdk_version
         versionCode 1
         versionName "1.0"
 
@@ -42,6 +42,9 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
+    // module dependency
+    implementation project(path: ':sticker')
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
@@ -55,7 +58,6 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(path: ':sticker')
 
     // Test
     testImplementation 'junit:junit:4.13'

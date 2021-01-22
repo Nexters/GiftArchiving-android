@@ -1,12 +1,12 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion rootProject.compile_sdk_version
+    buildToolsVersion rootProject.build_tools_version
 
     defaultConfig {
-        minSdkVersion 9
-        targetSdkVersion 26
+        minSdkVersion rootProject.min_sdk_version
+        targetSdkVersion rootProject.target_sdk_version
         versionCode 1
         versionName "1.0"
 
@@ -23,8 +23,8 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-    androidTestImplementation 'androidx.annotation:annotation:1.0.0'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    androidTestImplementation 'androidx.annotation:annotation:1.1.0'
 }
 
 //apply plugin: 'com.android.library'
