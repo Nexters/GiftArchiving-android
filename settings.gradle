@@ -1,3 +1,4 @@
+include ':cropper'
 include ':sticker'
 include ':app'
 rootProject.name = "GiftArchiving"
