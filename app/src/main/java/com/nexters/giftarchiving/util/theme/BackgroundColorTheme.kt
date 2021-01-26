@@ -1,9 +1,9 @@
-package com.nexters.giftarchiving.util.color
+package com.nexters.giftarchiving.util.theme
 
 import androidx.annotation.ColorRes
 import com.nexters.giftarchiving.R
 
-enum class BackgroundColor(@ColorRes val backgroundColor: Int, @ColorRes val fontColor: Int) {
+enum class BackgroundColorTheme(@ColorRes val backgroundColor: Int, @ColorRes val fontColor: Int) {
     MONO(R.color.colorMono, R.color.colorWhite),
     BLUE(R.color.colorBlue, R.color.colorWhite),
     ORANGE(R.color.colorOrange, R.color.colorWhite),

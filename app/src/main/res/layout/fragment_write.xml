@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-        <import type="com.nexters.giftarchiving.util.color.BackgroundColor" />
-        <import type="com.nexters.giftarchiving.util.color.FontColor" />
+        <import type="com.nexters.giftarchiving.util.theme.BackgroundColorTheme" />
 
         <variable
             name="viewModel"
@@ -15,8 +15,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{viewModel.backgroundColor}"
-        android:padding="10dp">
+        android:background="@{viewModel.backgroundColorTheme}"
+        tools:background="@color/colorMono">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_layout"
@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@{viewModel.fontColor}"
+                android:textColor="@{viewModel.backgroundColorTheme}"
                 android:text="배경색상"/>
 
             <LinearLayout
@@ -71,13 +71,13 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColor.RED)}"
+                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.ORANGE)}"
                     android:text="빨강" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColor.GREEN)}"
+                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.YELLOW)}"
                     android:text="초록"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -85,7 +85,7 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColor.BLUE)}"
+                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.BLUE)}"
                     android:text="파랑"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -93,52 +93,8 @@
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColor.WHITE)}"
+                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.MONO)}"
                     android:text="하양"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@{viewModel.fontColor}"
-                android:text="글자색상"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setFontColor(FontColor.RED)}"
-                    android:text="빨강" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setFontColor(FontColor.GREEN)}"
-                    android:text="초록"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setFontColor(FontColor.BLUE)}"
-                    android:text="파랑"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setFontColor(FontColor.BLACK)}"
-                    android:text="검정"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </LinearLayout>
