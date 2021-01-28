@@ -21,12 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/taken_main_string"
-            android:textSize="24sp"
-            android:textColor="#8c8c8c"
+            android:textSize="26sp"
+            android:lineHeight="36sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/write_taken_button"
-            android:layout_marginTop="50dp"
             android:layout_marginStart="24dp"/>
 
         <Button
@@ -34,46 +35,38 @@
             android:layout_width="74dp"
             android:layout_height="35dp"
             android:text="@string/home_write_button_name"
+            android:background="@drawable/writing_button"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/taken_main_textview"
             app:layout_constraintLeft_toLeftOf="@id/taken_main_textview"
             app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
-            android:textSize="13sp"
-            android:layout_marginTop="18dp"/>
+            android:textSize="14sp"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_taken_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:background="#292929"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.6"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/write_taken_button"
             android:layout_marginTop="100dp"
             />
-
-        <TextView
-            android:id="@+id/home_taken_list_textview"
-            android:text="@string/home_taken_list_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
-            app:layout_constraintLeft_toLeftOf="@id/home_taken_viewpager"
-            android:textSize="18sp"
-            android:textColor="@color/black"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="11dp"/>
 
         <Button
             android:id="@+id/taken_detail_button"
             android:text="@string/home_detail_button_name"
-            android:layout_width="52dp"
+            android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:background="@android:color/transparent"
-            app:layout_constraintBottom_toTopOf="@id/home_taken_viewpager"
+            android:drawableRight="@drawable/ic_icon_right_arrow"
+            app:layout_constraintTop_toTopOf="@id/home_taken_viewpager"
             app:layout_constraintRight_toRightOf="@id/home_taken_viewpager"
-            android:textColor="#8c8c8c"
+            android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginEnd="23.5dp"
-            android:layout_marginBottom="11dp"/>
+            android:layout_marginTop="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
