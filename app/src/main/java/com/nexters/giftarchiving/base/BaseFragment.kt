@@ -48,7 +48,16 @@ internal abstract class BaseFragment<VM : BaseViewModel, VB : ViewDataBinding> :
     }
 
     private fun navigation(navDirections: NavDirections) {
-        if (navDirections is BackDirections) findNavController().popBackStack()
-        else findNavController().navigate(navDirections)
+        if (navDirections is BackDirections) {
+            if (navDirections.destinationId == -1) {
+                findNavController().popBackStack()
+            } else {
+                with(navDirections) {
+                    findNavController().popBackStack(destinationId, inclusive)
+                }
+            }
+        } else {
+            findNavController().navigate(navDirections)
+        }
     }
 }
