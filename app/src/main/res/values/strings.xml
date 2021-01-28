@@ -6,4 +6,6 @@
     <string name="given_main_string">새로운 선물을\n보냈나요?</string>
     <string name="home_write_button_name">기록하기</string>
     <string name="home_detail_button_name">선물함</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
