@@ -31,5 +31,20 @@
         android:id="@+id/homeFragment"
         android:name="com.nexters.giftarchiving.ui.HomeFragment"
         android:label="HomeFragment">
+        <action
+            android:id="@+id/action_takenFragment_to_listFragment"
+            app:destination="@id/listFragment"/>
+        <action
+            android:id="@+id/action_givenFragment_to_listFragment"
+            app:destination="@id/listFragment"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.nexters.giftarchiving.ui.ListFragment"
+        android:label="ListFragment">
+        <argument
+            android:name="title"
+            app:argType="string"/>
     </fragment>
 </navigation>

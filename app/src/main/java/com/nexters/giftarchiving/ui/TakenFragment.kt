@@ -14,21 +14,22 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseFragment
+import com.nexters.giftarchiving.databinding.FragmentHomeBinding
+import com.nexters.giftarchiving.databinding.FragmentTakenBinding
+import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.fragment_taken.view.*
-import java.lang.Math.abs
-import java.time.temporal.ValueRange
-import kotlin.math.ceil
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class TakenFragment : Fragment() {
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view: View = inflater.inflate(R.layout.fragment_taken, container, false)
-        val viewPager = view.home_taken_viewpager
+internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>() {
+    override val layoutId = R.layout.fragment_taken
+    override val viewModel: HomeViewModel by viewModel()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val viewPager = binding.homeTakenViewpager
         val bgColors = arrayListOf<Int>(R.color.blue,R.color.orange,R.color.yellow)
         val people = arrayListOf<String>("test1","test2","test3")
         val dates = arrayListOf<String>("2021-01-29","2021-01-29","2021-01-29")
@@ -38,6 +39,7 @@ class TakenFragment : Fragment() {
 
         viewPager.apply {
             offscreenPageLimit = 1
+            clipToPadding = false
             setPageTransformer(pageTransformer)
             addItemDecoration(itemDecoration)
             adapter = ItemViewPagerAdapter(bgColors, people, dates)
@@ -58,8 +60,8 @@ class TakenFragment : Fragment() {
                 }
             })
         }
-        return view
     }
+
 
     inner class PreviewSidePageTransformer : ViewPager2.PageTransformer{
 
@@ -70,7 +72,6 @@ class TakenFragment : Fragment() {
         override fun transformPage(page: View, position: Float) {
             page.apply {
                 translationX = -pageTranslationX * position
-                scaleY = 1 - (0.25f * Math.abs(position))
             }
         }
     }

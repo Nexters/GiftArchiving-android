@@ -65,7 +65,8 @@
             android:textColor="@color/white"
             android:textSize="14sp"
             android:layout_marginEnd="23.5dp"
-            android:layout_marginTop="20dp"/>
+            android:layout_marginTop="20dp"
+            android:onClick="@{viewModel.onClickGivenListButtonListener}"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
