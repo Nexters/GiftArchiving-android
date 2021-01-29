@@ -47,7 +47,6 @@
             android:id="@+id/home_taken_viewpager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="#292929"
             app:layout_constraintHeight_default="percent"
             app:layout_constraintHeight_percent="0.6"
             app:layout_constraintBottom_toBottomOf="parent"
