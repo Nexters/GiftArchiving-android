@@ -49,6 +49,7 @@ dependencies {
 
     // module dependency
     implementation project(path: ':sticker')
+    implementation project(path: ':cropper')
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -63,7 +64,6 @@ dependencies {
     implementation "org.koin:koin-android-viewmodel:$koin_version"
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation project(path: ':cropper')
 
     // Kakao
     implementation "com.kakao.sdk:v2-user:$kakao_version"
