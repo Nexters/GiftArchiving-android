@@ -10,15 +10,19 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.giftarchiving.R
 
-class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val people: ArrayList<String>, private val dates:ArrayList<String>) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
+class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val people: ArrayList<String>, private val dates:ArrayList<String>, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemImageView: ImageView = itemView.findViewById(R.id.item_image)
+        private val constraintLayout: ConstraintLayout = itemView.findViewById(R.id.item_constraintLayout)
         private val personTextView: TextView = itemView.findViewById(R.id.item_person)
         private val dateTextView: TextView = itemView.findViewById(R.id.item_date)
 
         fun bind(bgColor: Int, person: String, date: String, position: Int) {
+            if(viewType==1){
+                constraintLayout.setBackgroundColor(ContextCompat.getColor(constraintLayout.context,bgColor))
+            }
             personTextView.text = person
             dateTextView.text = date
         }

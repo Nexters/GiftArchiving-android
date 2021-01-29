@@ -29,14 +29,12 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
         val dates = arrayListOf<String>("2021-01-29","2021-01-29","2021-01-29")
 
         val pageTransformer = PreviewSidePageTransformer()
-        val itemDecoration = HorizontalMarginItemDecoration(requireContext(), R.dimen.viewpager_current_item_horizontal_margin)
 
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
             setPageTransformer(pageTransformer)
-            addItemDecoration(itemDecoration)
-            adapter = ItemViewPagerAdapter(bgColors, people, dates)
+            adapter = ItemViewPagerAdapter(bgColors, people, dates,0)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 var current = 0
                 override fun onPageSelected(position: Int) {
@@ -56,6 +54,11 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                     current=position
                 }
             })
+            val itemDecoration = HorizontalMarginItemDecoration(
+                context,
+                R.dimen.viewpager_current_item_margin
+            )
+            addItemDecoration(itemDecoration)
         }
     }
 
@@ -63,7 +66,7 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
     inner class PreviewSidePageTransformer : ViewPager2.PageTransformer{
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
 
         override fun transformPage(page: View, position: Float) {
@@ -82,10 +85,8 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
         override fun getItemOffsets(
             outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
         ) {
-            outRect.apply {
-                right = horizontalMarginInPx
-                left = horizontalMarginInPx
-            }
+            outRect.right = horizontalMarginInPx
+            outRect.left = horizontalMarginInPx
         }
     }
 }

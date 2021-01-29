@@ -6,21 +6,15 @@ import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.annotation.DimenRes
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
-import com.nexters.giftarchiving.databinding.FragmentHomeBinding
 import com.nexters.giftarchiving.databinding.FragmentTakenBinding
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.fragment_taken.view.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>() {
@@ -35,14 +29,12 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
         val dates = arrayListOf<String>("2021-01-29","2021-01-29","2021-01-29")
 
         val pageTransformer = PreviewSidePageTransformer()
-        val itemDecoration = HorizontalMarginItemDecoration(requireContext(), R.dimen.viewpager_current_item_horizontal_margin)
 
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
             setPageTransformer(pageTransformer)
-            addItemDecoration(itemDecoration)
-            adapter = ItemViewPagerAdapter(bgColors, people, dates)
+            adapter = ItemViewPagerAdapter(bgColors, people, dates,0)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 var current = 0
                 override fun onPageSelected(position: Int) {
@@ -59,6 +51,11 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
                     current=position
                 }
             })
+            val itemDecoration = HorizontalMarginItemDecoration(
+                context,
+                R.dimen.viewpager_current_item_margin
+            )
+            addItemDecoration(itemDecoration)
         }
     }
 
@@ -66,7 +63,7 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
     inner class PreviewSidePageTransformer : ViewPager2.PageTransformer{
 
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
-        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+        val currentItemHorizontalMarginPx = resources.getDimension(R.dimen.viewpager_current_item_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
 
         override fun transformPage(page: View, position: Float) {
@@ -85,11 +82,8 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
         override fun getItemOffsets(
             outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
         ) {
-            outRect.apply {
-                right = horizontalMarginInPx
-                left = horizontalMarginInPx
-            }
+            outRect.right = horizontalMarginInPx
+            outRect.left = horizontalMarginInPx
         }
     }
-
 }

@@ -17,6 +17,8 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val listTypeViewPager = binding.listViewPager
+        listTypeViewPager.isUserInputEnabled = false
+        listTypeViewPager.adapter = ListViewPagerAdapter(this)
     }
 }
