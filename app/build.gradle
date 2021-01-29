@@ -30,6 +30,11 @@ android {
         dataBinding true
     }
 
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
     }
@@ -59,6 +64,10 @@ dependencies {
     implementation "org.koin:koin-android-ext:$koin_version"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation project(path: ':cropper')
+
+    // Kakao
+    implementation "com.kakao.sdk:v2-user:$kakao_version"
+    implementation "com.kakao.sdk:v2-talk:$kakao_version"
 
     // Test
     testImplementation 'junit:junit:4.13'
