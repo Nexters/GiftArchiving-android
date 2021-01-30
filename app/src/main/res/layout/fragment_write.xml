@@ -30,7 +30,7 @@
                 android:layout_width="22dp"
                 android:layout_height="20dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_back : @drawable/ic_btn_back_b}"
-                android:onClick="@{(v) -> viewModel.onClickNext(editorLayout)}"
+                android:onClick="@{(v) -> viewModel.onClickBack()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

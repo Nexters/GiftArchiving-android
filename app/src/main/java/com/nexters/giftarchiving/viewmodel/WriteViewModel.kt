@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.ui.WriteFragmentArgs
 import com.nexters.giftarchiving.ui.WriteFragmentDirections
+import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.util.theme.BackgroundColorTheme
 import kotlinx.coroutines.flow.collect
@@ -43,6 +44,10 @@ internal class WriteViewModel : BaseViewModel() {
         if (image.value != null) {
             addSticker.call()
         }
+    }
+
+    fun onClickBack() {
+        navDirections.value = BackDirections()
     }
 
     fun onClickNext(v: View) {
