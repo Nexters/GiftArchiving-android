@@ -17,6 +17,8 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "KAKAO_NATIVE_APP_KEY", "\"${getProperty("local.properties", "KAKAO_NATIVE_APP_KEY")}\""
     }
 
     buildTypes {
@@ -37,6 +39,21 @@ android {
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8
+    }
+}
+
+def getProperty(String fileName, String key) {
+    def propsFile = rootProject.file(fileName)
+    if (propsFile.exists()) {
+        def props = new Properties()
+        props.load(new FileInputStream(propsFile))
+        if (props[key] != null) {
+            return props[key]
+        } else {
+            print("No such property " + key + " in file " + fileName)
+        }
+    } else {
+        print(fileName + " does not exist!")
     }
 }
 
