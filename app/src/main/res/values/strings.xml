@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">GiftArchiving</string>
+    <string name="notice_select_image">하단의 버튼을 눌러,\n선물의 사진을 등록해보세요.</string>
+    <string name="hint_write_emotion">지금 이 감정을 기록해 보세요.</string>
+    <string name="write_name_from">From.&#160;</string>
+    <string name="hint_write_name">이름 입력</string>
     <string name="home_taken_button_name">받은</string>
     <string name="home_given_button_name">보낸</string>
     <string name="taken_main_string">새로운 선물을\n받았나요?</string>

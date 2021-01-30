@@ -1,15 +1,37 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
     ext {
+        compile_sdk_version = 30
+        build_tools_version = "29.0.3"
+        target_sdk_version = 29
+        min_sdk_version = 26
+
         kotlin_version = '1.4.0'
         nav_version = '2.3.2'
         coroutine_version = '1.4.2'
         koin_version = '2.2.2'
+        kakao_version = '2.3.0'
+
+        PUBLISH_GROUP_ID = 'com.theartofdev.edmodo'
+        PUBLISH_ARTIFACT_ID = 'android-image-cropper'
+        PUBLISH_VERSION = '2.8.0'
     }
+
     repositories {
         google()
         jcenter()
     }
+
+    allprojects {
+        repositories {
+            google()
+            jcenter()
+            
+            // 카카오 SDK 레파지토리 설정
+            maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/' }
+        }
+    }
+
     dependencies {
         classpath "com.android.tools.build:gradle:4.0.0"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -18,13 +40,6 @@ buildscript {
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
-    }
-}
-
-allprojects {
-    repositories {
-        google()
-        jcenter()
     }
 }
 
