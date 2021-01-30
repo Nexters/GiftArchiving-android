@@ -37,6 +37,9 @@
         <action
             android:id="@+id/action_givenFragment_to_listFragment"
             app:destination="@id/listFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
     </fragment>
 
     <fragment
@@ -46,5 +49,38 @@
         <argument
             android:name="title"
             app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/writeFragment"
+        android:name="com.nexters.giftarchiving.ui.WriteFragment"
+        android:label="WriteFragment" >
+        <action
+            android:id="@+id/action_writeFragment_to_shareFragment"
+            app:destination="@id/shareFragment"
+            app:enterAnim="@anim/nav_default_enter_anim" />
+        <action
+            android:id="@+id/action_writeFragment_to_cropFragment"
+            app:destination="@id/cropFragment" />
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.nexters.giftarchiving.ui.ShareFragment"
+        android:label="ShareFragment" >
+        <argument
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap" />
+    </fragment>
+    <fragment
+        android:id="@+id/cropFragment"
+        android:name="com.nexters.giftarchiving.ui.CropFragment"
+        android:label="CropFragment" >
+        <argument
+            android:name="image_uri"
+            app:argType="string" />
     </fragment>
 </navigation>

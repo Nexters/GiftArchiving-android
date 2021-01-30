@@ -16,6 +16,12 @@ internal class HomeViewModel : BaseViewModel() {
         onClickTakenListButton()
     }
 
+    fun onClickWrite(){
+        viewModelScope.launch {
+            navDirections.value=HomeFragmentDirections.actionHomeFragmentToWriteFragment()
+        }
+    }
+
     private fun onClickTakenListButton(){
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")

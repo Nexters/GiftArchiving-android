@@ -41,7 +41,8 @@
             app:layout_constraintTop_toBottomOf="@id/given_main_textview"
             app:layout_constraintLeft_toLeftOf="@id/given_main_textview"
             app:layout_constraintBottom_toTopOf="@id/home_given_viewpager"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:onClick="@{() -> viewModel.onClickWrite()}"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/home_given_viewpager"
