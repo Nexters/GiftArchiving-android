@@ -9,20 +9,20 @@ import kotlinx.coroutines.launch
 internal class HomeViewModel : BaseViewModel() {
 
     val onClickGivenListButtonListener = View.OnClickListener(){
-        OnClickGivenListButton()
+        onClickGivenListButton()
     }
 
     val onClickTakenListButtonListener = View.OnClickListener(){
-        OnClickTakenListButton()
+        onClickTakenListButton()
     }
 
-    fun OnClickTakenListButton(){
+    private fun onClickTakenListButton(){
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")
         }
     }
 
-    fun OnClickGivenListButton(){
+    private fun onClickGivenListButton(){
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물")
         }

@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:background="@android:color/transparent"
-            android:drawableRight="@drawable/ic_icon_right_arrow"
+            android:drawableEnd="@drawable/ic_icon_right_arrow"
             app:layout_constraintTop_toTopOf="@id/home_taken_viewpager"
             app:layout_constraintRight_toRightOf="@id/home_taken_viewpager"
             android:textColor="@color/white"

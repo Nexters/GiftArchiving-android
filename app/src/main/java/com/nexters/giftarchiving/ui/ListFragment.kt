@@ -3,7 +3,6 @@ package com.nexters.giftarchiving.ui
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentListBinding

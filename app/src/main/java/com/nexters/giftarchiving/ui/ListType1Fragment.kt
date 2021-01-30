@@ -75,11 +75,11 @@ class ListType1Fragment : Fragment() {
         }
     }
 
-    inner class VerticalMarginItemDecoration(context: Context, @DimenRes horizontalMarginInDp: Int) :
+    inner class VerticalMarginItemDecoration(context: Context, @DimenRes verticalMarginInDp: Int) :
         RecyclerView.ItemDecoration() {
 
         private val verticalMarginInPx: Int =
-            context.resources.getDimension(horizontalMarginInDp).toInt()
+            context.resources.getDimension(verticalMarginInDp).toInt()
 
         override fun getItemOffsets(
             outRect: Rect, view: View, parent: RecyclerView, state: RecyclerView.State
