@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nexters.giftarchiving.viewmodel.HomeViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        tools:context=".ui.GivenFragment">
+
+        <TextView
+            android:id="@+id/given_main_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/given_main_string"
+            android:textSize="26sp"
+            android:lineHeight="36sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/write_given_button"
+            android:layout_marginStart="24dp"/>
+
+        <Button
+            android:id="@+id/write_given_button"
+            android:layout_width="74dp"
+            android:layout_height="35dp"
+            android:background="@drawable/writing_button"
+            android:text="@string/home_write_button_name"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/given_main_textview"
+            app:layout_constraintLeft_toLeftOf="@id/given_main_textview"
+            app:layout_constraintBottom_toTopOf="@id/home_given_viewpager"
+            android:textSize="14sp"/>
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/home_given_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_default="percent"
+            app:layout_constraintHeight_percent="0.6"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+        <Button
+            android:id="@+id/given_detail_button"
+            android:text="@string/home_detail_button_name"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:background="@android:color/transparent"
+            android:drawableEnd="@drawable/ic_icon_right_arrow"
+            app:layout_constraintTop_toTopOf="@id/home_given_viewpager"
+            app:layout_constraintRight_toRightOf="@id/home_given_viewpager"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:layout_marginEnd="23.5dp"
+            android:layout_marginTop="20dp"
+            android:onClick="@{viewModel.onClickGivenListButtonListener}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

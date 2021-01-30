@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">GiftArchiving</string>
+    <string name="home_taken_button_name">받은</string>
+    <string name="home_given_button_name">보낸</string>
+    <string name="taken_main_string">새로운 선물을\n받았나요?</string>
+    <string name="given_main_string">새로운 선물을\n보냈나요?</string>
+    <string name="home_write_button_name">기록하기</string>
+    <string name="home_detail_button_name">선물함</string>
 </resources>
