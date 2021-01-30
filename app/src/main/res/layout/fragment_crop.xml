@@ -14,5 +14,25 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark">
 
+        <com.theartofdev.edmodo.cropper.CropImageView
+            android:id="@+id/crop_iv"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:cropAspectRatioX="5"
+            app:cropAspectRatioY="5"
+            app:cropShape="rectangle"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+
+        <ImageView
+            android:id="@+id/finish_iv"
+            android:layout_width="30dp"
+            android:layout_height="25dp"
+            android:layout_margin="20dp"
+            android:background="@drawable/ic_btn_fin_b"
+            android:onClick="@{(v) -> viewModel.onCrop(cropIv)}"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
