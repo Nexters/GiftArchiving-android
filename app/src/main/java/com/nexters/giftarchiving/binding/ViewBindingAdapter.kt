@@ -20,15 +20,27 @@ private fun getColorByResource(context: Context, @ColorRes colorId: Int) =
 
 @BindingAdapter("android:textColor")
 fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
+    val colorRes =
+        if (colorTheme?.isDarkMode == false) {
+            R.color.colorDarkGray
+        } else {
+            R.color.colorWhite
+        }
     val colorByResource =
-        getColorByResource(tv.context, colorTheme?.fontColor ?: R.color.colorWhite)
+        getColorByResource(tv.context, colorRes)
     tv.setTextColor(colorByResource)
 }
 
 @BindingAdapter("android:textColorHint")
 fun setFontHintColor(et: EditText, colorTheme: BackgroundColorTheme?) {
+    val colorRes =
+        if (colorTheme?.isDarkMode == false) {
+            R.color.colorDarkGray
+        } else {
+            R.color.colorWhite
+        }
     val colorByResource =
-        getColorByResource(et.context, colorTheme?.fontColor ?: R.color.colorWhite)
+        getColorByResource(et.context, colorRes)
     et.setHintTextColor(colorByResource)
 }
 
