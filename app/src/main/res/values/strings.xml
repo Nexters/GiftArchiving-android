@@ -10,4 +10,8 @@
     <string name="given_main_string">새로운 선물을\n보냈나요?</string>
     <string name="home_write_button_name">기록하기</string>
     <string name="home_detail_button_name">선물함</string>
+    <string name="write_frame">프레임</string>
+    <string name="frame_square">정사각형</string>
+    <string name="frame_oval">원</string>
+    <string name="frame_window">창문</string>
 </resources>
