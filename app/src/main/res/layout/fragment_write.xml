@@ -27,8 +27,8 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="20dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_back : @drawable/ic_btn_back_b}"
                 android:onClick="@{(v) -> viewModel.onClickBack()}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -57,16 +57,16 @@
                 <ImageView
                     android:layout_width="8dp"
                     android:layout_height="4dp"
-                    android:layout_marginStart="6dp"
+                    android:layout_marginStart="8dp"
                     android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_datedropdown : @drawable/ic_btn_datedropdown_b}"
                     tools:background="@drawable/ic_btn_datedropdown"/>
             </LinearLayout>
 
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="16dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_fin : @drawable/ic_btn_fin_b}"
-                android:onClick="@{(v) -> viewModel.onClickNext(editorLayout)}"
+                android:onClick="@{(v) -> viewModel.onClickNext(stickerView)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -218,10 +218,11 @@
                     android:textColor="@{viewModel.backgroundColorTheme}"
                     android:textColorHint="@{viewModel.backgroundColorTheme}"
                     android:text="@={viewModel.name}"
-                    android:hint="@string/hint_write_name"
+                    android:hint='@{viewModel.name.length() > 0 ? "" :@string/hint_write_name}'
                     android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
                     android:background="@null"
-                    tools:textColorHint="@color/colorWhite" />
+                    tools:textColorHint="@color/colorWhite"
+                    tools:hint="@string/hint_write_name"/>
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -243,16 +244,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/write_information_icon_background"
-                        android:alpha="0.24">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/write_information_icon_background"
+                            android:alpha="0.24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_oval_copy_10 : @drawable/ic_oval_copy_10_b}"
+                            tools:background="@drawable/ic_oval_copy_10"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -260,7 +275,8 @@
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
                         tools:text="화장품"
-                        tools:textColor="@color/colorWhite"/>
+                        tools:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -273,16 +289,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/write_information_icon_background"
-                        android:alpha="0.24">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/write_information_icon_background"
+                            android:alpha="0.24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_present : @drawable/ic_icon_present_b}"
+                            tools:background="@drawable/ic_icon_present"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -290,7 +320,8 @@
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
                         tools:text="생일 선물"
-                        tools:textColor="@color/colorWhite"/>
+                        tools:textColor="@color/colorWhite"
+                        android:textSize="12sp"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -303,16 +334,30 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:background="@drawable/write_information_icon_background"
-                        android:alpha="0.24">
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <View
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/write_information_icon_background"
+                            android:alpha="0.24"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
 
                         <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
-                    </LinearLayout>
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_feeling : @drawable/ic_icon_feeling_b}"
+                            tools:background="@drawable/ic_icon_feeling"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"/>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -320,7 +365,8 @@
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
                         tools:text="감동이야"
-                        tools:textColor="@color/colorWhite"/>
+                        tools:textColor="@color/colorWhite"
+                        android:textSize="14sp"/>
                 </LinearLayout>
 
                 
@@ -364,9 +410,9 @@
                 tools:background="@drawable/ic_btn_camera" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_marginEnd="20dp"
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:layout_marginEnd="18dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_frame : @drawable/ic_btn_frame_b}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -375,14 +421,26 @@
 
             <ImageView
                 android:id="@+id/sticker_iv"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_marginEnd="18dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_sticker : @drawable/ic_btn_sticker_b}"
                 android:onClick="@{() -> viewModel.attachSticker()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/color_iv"
                 tools:background="@drawable/ic_btn_sticker" />
+
+            <ImageView
+                android:id="@+id/color_iv"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_oval_copy_10 : @drawable/ic_oval_copy_10_b}"
+                android:onClick="@{() -> viewModel.attachSticker()}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:background="@drawable/ic_oval_copy_10" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
