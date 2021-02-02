@@ -29,12 +29,12 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_back : @drawable/ic_btn_back_b}"
+                android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_back : @drawable/ic_icon_back_b}"
                 android:onClick="@{(v) -> viewModel.onClickBack()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                tools:background="@drawable/ic_btn_back"/>
+                tools:background="@drawable/ic_icon_back"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -51,12 +51,12 @@
                     android:textSize="16sp"
                     android:textColor="@{viewModel.backgroundColorTheme}"
                     app:localDateWithFormat="@{viewModel.date}"
-                    tools:text="Mon, 2021. 11. 02"
+                    tools:text="2021. 11. 02 Mon"
                     tools:textColor="@color/colorWhite"/>
 
                 <ImageView
-                    android:layout_width="8dp"
-                    android:layout_height="4dp"
+                    android:layout_width="10dp"
+                    android:layout_height="5dp"
                     android:layout_marginStart="8dp"
                     android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_datedropdown : @drawable/ic_btn_datedropdown_b}"
                     tools:background="@drawable/ic_btn_datedropdown"/>
