@@ -17,4 +17,11 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WriteColorMonoDatePicker" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <item name="colorControlNormal">@color/colorAlphaWhite</item>
+        <item name="colorControlActivated">@color/colorAlphaWhite</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textSize">23sp</item>
+    </style>
+
 </resources>

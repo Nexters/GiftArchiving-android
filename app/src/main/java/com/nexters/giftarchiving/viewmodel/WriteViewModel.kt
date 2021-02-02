@@ -23,6 +23,8 @@ internal class WriteViewModel : BaseViewModel() {
     val date = MutableLiveData(LocalDate.now())
     val name = MutableLiveData<String>()
     val content = MutableLiveData<String>()
+    val isShowDatePicker = MutableLiveData<Boolean>()
+    val changeDate = LiveEvent<Unit?>()
     val addSticker = LiveEvent<Unit?>()
     val loadGallery = LiveEvent<Unit?>()
     val isSaved = LiveEvent<Unit?>()
@@ -65,6 +67,19 @@ internal class WriteViewModel : BaseViewModel() {
 
     fun onClickBack() {
         navDirections.value = BackDirections()
+    }
+
+    fun showDatePicker() {
+        isShowDatePicker.value = true
+    }
+
+    fun hideDatePicker() {
+        isShowDatePicker.value = false
+    }
+
+    fun changeDate() {
+        changeDate.call()
+        hideDatePicker()
     }
 
     fun onClickNext(v: View) {

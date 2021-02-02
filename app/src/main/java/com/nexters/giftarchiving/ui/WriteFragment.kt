@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
+import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
@@ -22,6 +23,7 @@ import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.DrawableSticker
 import com.xiaopo.flying.sticker.Sticker
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.LocalDate
 
 
 internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding>() {
@@ -44,6 +46,15 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             configDefaultIcons()
         }
 
+        viewModel.date.value?.run {
+            binding.datePicker.updateDate(
+                year,
+                monthValue - 1,
+                dayOfMonth
+            )
+        }
+
+        observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
         observe(viewModel.isSaved) { binding.stickerView.removeStickerHandler() }
         observe(viewModel.addSticker) {
@@ -107,6 +118,12 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             } else {
                 doAccess()
             }
+        }
+    }
+
+    private fun changeDate() {
+        with(binding.datePicker) {
+            viewModel.date.value = LocalDate.of(year, month + 1, dayOfMonth)
         }
     }
 

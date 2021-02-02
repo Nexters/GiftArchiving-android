@@ -40,6 +40,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.showDatePicker()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -447,6 +448,51 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:background="@drawable/ic_oval_copy_10" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isShowDatePicker}"
+            app:popUpBackground="@{viewModel.backgroundColorTheme}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:visibility="gone"
+            tools:background="@color/colorPopupMono">
+
+            <TextView
+                android:id="@+id/date_fin_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="17dp"
+                android:text="@string/write_date_picker_finish"
+                android:textSize="16sp"
+                android:textColor="@{viewModel.backgroundColorTheme}"
+                android:onClick="@{()->viewModel.changeDate()}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:textColor="@color/white"/>
+
+            <View
+                android:id="@+id/divider_view"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/colorAlphaWhite"
+                app:layout_constraintTop_toBottomOf="@id/date_fin_tv"/>
+
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false"
+                android:theme="@style/WriteColorMonoDatePicker"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/divider_view"
+                app:layout_constraintBottom_toBottomOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
