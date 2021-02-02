@@ -46,6 +46,13 @@ internal class WriteViewModel : BaseViewModel() {
         loadGallery.call()
     }
 
+    fun loadCropEditor() {
+        baseImageUri?.let {
+            navDirections.value =
+                WriteFragmentDirections.actionWriteFragmentToCropFragment(it.toString())
+        }
+    }
+
     fun setBackgroundColor(colorTheme: BackgroundColorTheme) {
         backgroundColorTheme.value = colorTheme
     }
