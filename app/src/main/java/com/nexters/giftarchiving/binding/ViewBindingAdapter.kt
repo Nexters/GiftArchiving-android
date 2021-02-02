@@ -71,5 +71,5 @@ fun setVisibility(v: View, isVisible: Boolean) {
 
 @BindingAdapter("localDateWithFormat")
 fun setLocalDate(tv: TextView, localDate: LocalDate) {
-    tv.text = localDate.format(DateTimeFormatter.ofPattern("EEE, yyyy.MM.dd", Locale.ENGLISH))
+    tv.text = localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. EEE", Locale.ENGLISH))
 }
