@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.net.Uri
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -17,8 +18,7 @@ import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 internal class WriteViewModel : BaseViewModel() {
-    var stickerList = mutableListOf<Sticker>()
-    val image = MutableLiveData<Bitmap?>()
+    val editedImage = MutableLiveData<Bitmap?>()
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val date = MutableLiveData(LocalDate.now())
     val name = MutableLiveData<String>()
@@ -27,11 +27,19 @@ internal class WriteViewModel : BaseViewModel() {
     val loadGallery = LiveEvent<Unit?>()
     val isSaved = LiveEvent<Unit?>()
 
+    var stickerList = mutableListOf<Sticker>()
+    var baseImageUri: Uri? = null
+
     init {
         viewModelScope.launch {
             navArgs<WriteFragmentArgs>()
-                .collect { image.value = it.bitmap }
+                .collect { editedImage.value = it.bitmap }
         }
+    }
+
+    fun setNewImage(uri: Uri, img: Bitmap) {
+        baseImageUri = uri
+        editedImage.value = img
     }
 
     fun loadGallery() {
@@ -43,7 +51,7 @@ internal class WriteViewModel : BaseViewModel() {
     }
 
     fun attachSticker() {
-        if (image.value != null) {
+        if (editedImage.value != null) {
             addSticker.call()
         }
     }

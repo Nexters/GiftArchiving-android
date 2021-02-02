@@ -32,9 +32,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bitmap>("image")
-            ?.observe(viewLifecycleOwner, Observer {
-                viewModel.image.value = it
-            })
+            ?.observe(viewLifecycleOwner, Observer { viewModel.editedImage.value = it })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,8 +65,11 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
-            viewModel.navDirections.value =
-                WriteFragmentDirections.actionWriteFragmentToCropFragment(data?.data.toString())
+            data?.data?.let {
+                val source = ImageDecoder.createSource(requireActivity().contentResolver, it)
+                val bitmap = ImageDecoder.decodeBitmap(source)
+                viewModel.setNewImage(it, bitmap)
+            }
         }
     }
 

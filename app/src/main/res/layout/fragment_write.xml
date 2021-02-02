@@ -88,7 +88,7 @@
                 android:gravity="center"
                 android:alpha="0.3"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/write_empty_image_background_white : @drawable/write_empty_image_background_black}"
-                android:visibility="@{viewModel.image == null}"
+                android:visibility="@{viewModel.editedImage == null}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -104,7 +104,7 @@
                 android:textSize="13sp"
                 android:textColor="@{viewModel.backgroundColorTheme}"
                 android:text="@string/notice_select_image"
-                android:visibility="@{viewModel.image == null}"
+                android:visibility="@{viewModel.editedImage == null}"
                 tools:textColor="@color/colorWhite"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -129,7 +129,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:adjustViewBounds="true"
-                    android:background="@{viewModel.image}"/>
+                    android:background="@{viewModel.editedImage}"/>
 
             </com.xiaopo.flying.sticker.StickerView>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -222,7 +222,7 @@
                     android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
                     android:background="@null"
                     tools:textColorHint="@color/colorWhite"
-                    tools:hint="@string/hint_write_name"/>
+                    tools:hint="@string/write_name_hint"/>
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -384,7 +384,7 @@
                 android:textColorHint="@{viewModel.backgroundColorTheme}"
                 android:alpha="@{viewModel.content.length() == 0 ? 0.34f : 1f}"
                 android:background="@null"
-                android:hint="@string/hint_write_emotion"
+                android:hint="@string/write_emotion_hint"
                 app:layout_constraintTop_toBottomOf="@id/information_layout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:textColorHint="@color/colorWhite" />
