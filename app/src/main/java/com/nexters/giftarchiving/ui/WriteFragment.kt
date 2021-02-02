@@ -40,8 +40,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        binding.iv.layoutParams = binding.iv.layoutParams.apply { width = height }
         with(binding.stickerView) {
+            stickers = viewModel.stickerList
             isConstrained = true
             configDefaultIcons()
         }
@@ -52,6 +52,15 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             val drawable =
                 ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
             binding.stickerView.addSticker(DrawableSticker(drawable), Sticker.Position.CENTER)
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        with(viewModel.stickerList) {
+            clear()
+            addAll(binding.stickerView.stickers)
         }
     }
 

@@ -579,30 +579,30 @@ public class StickerView extends FrameLayout {
       return;
     }
 
-    sizeMatrix.reset();
-
-    float width = getWidth();
-    float height = getHeight();
-    float stickerWidth = sticker.getWidth();
-    float stickerHeight = sticker.getHeight();
-    //step 1
-    float offsetX = (width - stickerWidth) / 2;
-    float offsetY = (height - stickerHeight) / 2;
-
-    sizeMatrix.postTranslate(offsetX, offsetY);
-
-    //step 2
-    float scaleFactor;
-    if (width < height) {
-      scaleFactor = width / stickerWidth;
-    } else {
-      scaleFactor = height / stickerHeight;
-    }
-
-    sizeMatrix.postScale(scaleFactor / 2f, scaleFactor / 2f, width / 2f, height / 2f);
-
-    sticker.getMatrix().reset();
-    sticker.setMatrix(sizeMatrix);
+//    sizeMatrix.reset();
+//
+//    float width = getWidth();
+//    float height = getHeight();
+//    float stickerWidth = sticker.getWidth();
+//    float stickerHeight = sticker.getHeight();
+//    //step 1
+//    float offsetX = (width - stickerWidth) / 2;
+//    float offsetY = (height - stickerHeight) / 2;
+//
+//    sizeMatrix.postTranslate(offsetX, offsetY);
+//
+//    //step 2
+//    float scaleFactor;
+//    if (width < height) {
+//      scaleFactor = width / stickerWidth;
+//    } else {
+//      scaleFactor = height / stickerHeight;
+//    }
+//
+//    sizeMatrix.postScale(scaleFactor / 2f, scaleFactor / 2f, width / 2f, height / 2f);
+//
+//    sticker.getMatrix().reset();
+//    sticker.setMatrix(sizeMatrix);
 
     invalidate();
   }
@@ -770,6 +770,15 @@ public class StickerView extends FrameLayout {
     float[] points = new float[8];
     getStickerPoints(sticker, points);
     return points;
+  }
+
+  public void setStickers(List<Sticker> stickerList) {
+    stickers.clear();
+    stickers.addAll(stickerList);
+  }
+
+  public List<Sticker> getStickers() {
+    return stickers;
   }
 
   public void getStickerPoints(@Nullable Sticker sticker, @NonNull float[] dst) {

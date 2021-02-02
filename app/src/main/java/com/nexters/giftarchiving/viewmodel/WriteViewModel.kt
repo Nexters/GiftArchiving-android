@@ -11,11 +11,13 @@ import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.util.theme.BackgroundColorTheme
+import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 
 internal class WriteViewModel : BaseViewModel() {
+    var stickerList = mutableListOf<Sticker>()
     val image = MutableLiveData<Bitmap?>()
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val date = MutableLiveData(LocalDate.now())
