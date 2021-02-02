@@ -9,6 +9,10 @@
     <color name="colorBlue">#1067dd</color>
     <color name="colorOrange">#ff7244</color>
     <color name="colorYellow">#ffd073</color>
+    <color name="colorPopupMono">#393939</color>
+    <color name="colorPopupBlue">#1c59ac</color>
+    <color name="colorPopupOrange">#d55a32</color>
+    <color name="colorPopupYellow">#dda942</color>
     <color name="black">#080808</color>
     <color name="white">#ffffff</color>
     <color name="yellow">#ffd073</color>

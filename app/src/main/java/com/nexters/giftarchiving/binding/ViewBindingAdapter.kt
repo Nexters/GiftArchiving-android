@@ -54,6 +54,16 @@ fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     v.setBackgroundColor(colorByResource)
 }
 
+@BindingAdapter("popUpBackground")
+fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
+    val colorByResource =
+        getColorByResource(
+            v.context,
+            colorTheme?.popupBackgroundColor ?: BackgroundColorTheme.MONO.popupBackgroundColor
+        )
+    v.setBackgroundColor(colorByResource)
+}
+
 @BindingAdapter("android:background")
 fun setBackgroundWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     bitmap?.let {
