@@ -11,7 +11,7 @@ import com.nexters.giftarchiving.ui.WriteFragmentArgs
 import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
-import com.nexters.giftarchiving.util.theme.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

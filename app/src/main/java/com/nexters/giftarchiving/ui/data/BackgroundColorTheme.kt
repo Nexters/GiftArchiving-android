@@ -1,4 +1,4 @@
-package com.nexters.giftarchiving.util.theme
+package com.nexters.giftarchiving.ui.data
 
 import androidx.annotation.ColorRes
 import com.nexters.giftarchiving.R

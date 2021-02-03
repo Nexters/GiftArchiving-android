@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="com.nexters.giftarchiving.util.theme.BackgroundColorTheme" />
+        <import type="com.nexters.giftarchiving.ui.data.BackgroundColorTheme" />
 
         <variable
             name="viewModel"

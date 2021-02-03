@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
-import com.nexters.giftarchiving.util.theme.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
