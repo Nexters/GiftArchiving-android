@@ -19,6 +19,7 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listTypeViewPager = binding.listViewPager
+        val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
         listTypeViewPager.adapter = ListViewPagerAdapter(this)
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
@@ -45,8 +46,10 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         viewModel.listType.observe(this.viewLifecycleOwner, Observer {
             if (it){
                 listTypeViewPager.currentItem = 0
+                switchButton.setImageResource(R.drawable.ic_icon_2_grid)
             } else{
                 listTypeViewPager.currentItem = 1
+                switchButton.setImageResource(R.drawable.ic_icon_1_grid)
             }
         })
     }

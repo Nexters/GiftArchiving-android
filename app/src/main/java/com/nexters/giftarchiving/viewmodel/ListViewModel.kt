@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.viewmodel
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.ui.ListFragmentArgs
 import kotlinx.coroutines.flow.collect

@@ -2,20 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="180dp"
-    android:layout_height="240dp">
+    android:layout_width="match_parent"
+    android:layout_height="220dp">
 
     <ImageView
         android:id="@+id/grid_image"
         android:layout_width="160dp"
         android:layout_height="160dp"
+        android:src="@mipmap/ic_launcher_round"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/gird_person"
+        app:layout_constraintBottom_toTopOf="@id/grid_person"
         />
     <TextView
-        android:id="@+id/gird_person"
+        android:id="@+id/grid_person"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/grid_image"
@@ -30,7 +31,7 @@
         android:id="@+id/grid_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/gird_person"
+        app:layout_constraintTop_toBottomOf="@id/grid_person"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
