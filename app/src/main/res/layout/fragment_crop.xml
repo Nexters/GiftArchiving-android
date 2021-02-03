@@ -26,9 +26,9 @@
             app:layout_constraintEnd_toEndOf="parent">
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="20dp"
-                android:background="@drawable/ic_btn_back"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_icon_back"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -46,9 +46,9 @@
 
             <ImageView
                 android:id="@+id/finish_iv"
-                android:layout_width="20dp"
-                android:layout_height="16dp"
-                android:background="@drawable/ic_btn_fin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:background="@drawable/ic_icon_check"
                 android:onClick="@{(v) -> viewModel.onCrop(cropIv)}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
