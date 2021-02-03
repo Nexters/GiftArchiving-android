@@ -21,7 +21,13 @@ class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val peo
 
         fun bind(bgColor: Int, person: String, date: String, position: Int) {
             if(viewType==1){
-                constraintLayout.setBackgroundColor(ContextCompat.getColor(constraintLayout.context,bgColor))
+                constraintLayout.clipToOutline = true
+                when(bgColor){
+                    R.color.orange -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                    R.color.blue -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                    R.color.yellow -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                    else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
+                }
             }
             personTextView.text = person
             dateTextView.text = date

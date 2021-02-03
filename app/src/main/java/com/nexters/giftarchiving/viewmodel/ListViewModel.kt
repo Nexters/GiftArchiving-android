@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.viewmodel
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.ui.ListFragmentArgs
 import kotlinx.coroutines.flow.collect
@@ -11,6 +12,7 @@ import kotlinx.coroutines.launch
 internal class ListViewModel : BaseViewModel() {
     val listType = MutableLiveData<Boolean>()
     val title = MutableLiveData<String>()
+    var type = true
 
     init {
         viewModelScope.launch {
@@ -18,7 +20,7 @@ internal class ListViewModel : BaseViewModel() {
                 .collect {
                     title.value = it.title
                 }
-            listType.value=false
+            listType.value=type
         }
     }
 
@@ -27,6 +29,7 @@ internal class ListViewModel : BaseViewModel() {
     }
 
     private fun onClickListSwitchButton(){
-
+        type = !type
+        listType.value = type
     }
 }
