@@ -19,6 +19,7 @@ import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentWriteBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
+import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.DrawableSticker
 import com.xiaopo.flying.sticker.Sticker
@@ -46,14 +47,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             configDefaultIcons()
         }
 
-        viewModel.date.value?.run {
-            binding.datePicker.updateDate(
-                year,
-                monthValue - 1,
-                dayOfMonth
-            )
-        }
-
+        observe(viewModel.showMenuType) { showSelectedMenu(it) }
+        observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
         observe(viewModel.isSaved) { binding.stickerView.removeStickerHandler() }
@@ -118,6 +113,38 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             } else {
                 doAccess()
             }
+        }
+    }
+
+    private fun showSelectedMenu(menuType: WriteMenu) {
+        when (menuType) {
+            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.informationLayout
+            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.STICKER -> binding.informationLayout
+            WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
+            WriteMenu.DATE -> {
+                loadDate()
+                binding.menuDateLayout
+            }
+        }.visibility = View.VISIBLE
+    }
+
+    private fun hideSelectedMenu(menuType: WriteMenu) {
+        when (menuType) {
+            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.informationLayout
+            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.STICKER -> binding.informationLayout
+            WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
+            WriteMenu.DATE -> binding.menuDateLayout
+        }.visibility = View.GONE
+    }
+
+    private fun loadDate() {
+        viewModel.date.value?.run {
+            val y = year
+            val m = monthValue - 1
+            val d = dayOfMonth
+            binding.datePicker.updateDate(y, m, d)
         }
     }
 

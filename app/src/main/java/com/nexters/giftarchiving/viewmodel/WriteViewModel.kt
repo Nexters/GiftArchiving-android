@@ -12,6 +12,7 @@ import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -23,7 +24,8 @@ internal class WriteViewModel : BaseViewModel() {
     val date = MutableLiveData(LocalDate.now())
     val name = MutableLiveData<String>()
     val content = MutableLiveData<String>()
-    val isShowDatePicker = MutableLiveData<Boolean>()
+    val showMenuType = LiveEvent<WriteMenu>()
+    val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
     val addSticker = LiveEvent<Unit?>()
     val loadGallery = LiveEvent<Unit?>()
@@ -69,17 +71,17 @@ internal class WriteViewModel : BaseViewModel() {
         navDirections.value = BackDirections()
     }
 
-    fun showDatePicker() {
-        isShowDatePicker.value = true
+    fun setShowMenuType(menuType: WriteMenu) {
+        showMenuType.value = menuType
     }
 
-    fun hideDatePicker() {
-        isShowDatePicker.value = false
+    fun setHideMenuType(menuType: WriteMenu) {
+        hideMenuType.value = menuType
     }
 
     fun changeDate() {
         changeDate.call()
-        hideDatePicker()
+        setHideMenuType(WriteMenu.DATE)
     }
 
     fun onClickNext(v: View) {
