@@ -8,9 +8,11 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.ColorRes
+import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import java.time.LocalDate
@@ -56,6 +58,11 @@ fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     v.setBackgroundColor(colorByResource)
 }
 
+@BindingAdapter("android:background")
+fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
+    v.setBackgroundResource(drawableRes)
+}
+
 @BindingAdapter("popUpBackground")
 fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     val colorByResource =
@@ -64,6 +71,22 @@ fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
             colorTheme?.popupBackgroundColor ?: BackgroundColorTheme.MONO.popupBackgroundColor
         )
     v.setBackgroundColor(colorByResource)
+}
+
+@BindingAdapter("theme", "informationMenu")
+internal fun setInformationIconBackgroundColor(
+    iv: View,
+    theme: BackgroundColorTheme,
+    menu: WriteInformationMenu
+) {
+    menu.let {
+        val background = when (theme.isDarkMode) {
+            true -> it.lightIcon
+            false -> it.darkIcon
+        }
+        iv.setBackgroundResource(background)
+    }
+
 }
 
 @BindingAdapter("backgroundWithAnimation")

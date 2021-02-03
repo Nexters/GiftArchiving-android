@@ -228,7 +228,7 @@
             </LinearLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/information_layout"
+                android:id="@+id/information_button_layout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -241,6 +241,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center_horizontal"
+                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
                     app:layout_constraintHorizontal_bias="0.25"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -263,12 +264,13 @@
                         <ImageView
                             android:layout_width="22dp"
                             android:layout_height="22dp"
-                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_oval_copy_10 : @drawable/ic_oval_copy_10_b}"
-                            tools:background="@drawable/ic_oval_copy_10"
+                            app:theme="@{viewModel.backgroundColorTheme}"
+                            app:informationMenu="@{viewModel.category}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:background="@drawable/ic_oval_copy_10"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -276,6 +278,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@{viewModel.category.title}"
                         tools:text="화장품"
                         tools:textColor="@color/colorWhite"
                         android:textSize="14sp"/>
@@ -286,6 +289,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
+                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -308,12 +312,13 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_present : @drawable/ic_icon_present_b}"
-                            tools:background="@drawable/ic_icon_present"
+                            app:theme="@{viewModel.backgroundColorTheme}"
+                            app:informationMenu="@{viewModel.purpose}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:background="@drawable/ic_icon_present"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -321,6 +326,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@{viewModel.purpose.title}"
                         tools:text="생일 선물"
                         tools:textColor="@color/colorWhite"
                         android:textSize="14sp"/>
@@ -331,6 +337,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
+                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_EMOTION)}"
                     app:layout_constraintHorizontal_bias="0.75"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -353,12 +360,13 @@
                         <ImageView
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-                            android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_feeling : @drawable/ic_icon_feeling_b}"
-                            tools:background="@drawable/ic_icon_feeling"
+                            app:theme="@{viewModel.backgroundColorTheme}"
+                            app:informationMenu="@{viewModel.emotion}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            tools:background="@drawable/ic_icon_feeling"/>
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <TextView
@@ -366,6 +374,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@{viewModel.emotion.title}"
                         tools:text="감동이야"
                         tools:textColor="@color/colorWhite"
                         android:textSize="14sp"/>
@@ -390,7 +399,7 @@
                 android:alpha="@{viewModel.content.length() == 0 ? 0.34f : 1f}"
                 android:background="@null"
                 android:hint="@string/write_emotion_hint"
-                app:layout_constraintTop_toBottomOf="@id/information_layout"
+                app:layout_constraintTop_toBottomOf="@id/information_button_layout"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:textColorHint="@color/colorWhite" />
         </androidx.constraintlayout.widget.ConstraintLayout>

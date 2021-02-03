@@ -14,12 +14,14 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentWriteBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
+import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.DrawableSticker
 import com.xiaopo.flying.sticker.Sticker
@@ -118,7 +120,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun showSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
-            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.informationLayout
+            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
+                setInformationMenuViewPager(menuType)
+                binding.menuInformationLayout
+            }
             WriteMenu.FRAME -> binding.informationLayout
             WriteMenu.STICKER -> binding.informationLayout
             WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
@@ -131,7 +136,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun hideSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
-            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.informationLayout
+            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
             WriteMenu.FRAME -> binding.informationLayout
             WriteMenu.STICKER -> binding.informationLayout
             WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
@@ -151,6 +156,15 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun changeDate() {
         with(binding.datePicker) {
             viewModel.date.value = LocalDate.of(year, month + 1, dayOfMonth)
+        }
+    }
+
+    private fun setInformationMenuViewPager(menuType: WriteMenu) {
+        with(binding.informationMenuViewpager) {
+            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, 2)
+            TabLayoutMediator(binding.informationMenuTabLayout, this) { tab, pos ->
+
+            }.attach()
         }
     }
 
