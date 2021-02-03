@@ -15,7 +15,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@{viewModel.backgroundColorTheme}"
+        app:backgroundWithAnimation="@{viewModel.backgroundColorTheme}"
         tools:background="@color/colorMono">
 
         <androidx.constraintlayout.widget.ConstraintLayout

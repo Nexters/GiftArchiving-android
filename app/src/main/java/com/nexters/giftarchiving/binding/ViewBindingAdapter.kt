@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.binding
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.util.theme.BackgroundColorTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -62,6 +64,20 @@ fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
             colorTheme?.popupBackgroundColor ?: BackgroundColorTheme.MONO.popupBackgroundColor
         )
     v.setBackgroundColor(colorByResource)
+}
+
+@BindingAdapter("backgroundWithAnimation")
+fun setBackgroundColorWithAnimation(v: View, colorTheme: BackgroundColorTheme?) {
+    val themeBackgroundColorRes =
+        colorTheme?.backgroundColor ?: BackgroundColorTheme.MONO.backgroundColor
+    val themeBackgroundColor = getColorByResource(v.context, themeBackgroundColorRes)
+
+    if (v.background is ColorDrawable) {
+        val from = (v.background as ColorDrawable).color
+        ThemeBackgroundColorChangeAnimator(v, from, themeBackgroundColor).start()
+    } else {
+        v.setBackgroundColor(themeBackgroundColor)
+    }
 }
 
 @BindingAdapter("android:background")
