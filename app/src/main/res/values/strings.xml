@@ -9,5 +9,18 @@
     <string name="taken_main_string">새로운 선물을\n받았나요?</string>
     <string name="given_main_string">새로운 선물을\n보냈나요?</string>
     <string name="home_write_button_name">기록하기</string>
-    <string name="home_detail_button_name">선물함</string>
+    <string name="home_detail_button_name">선물함</string>공지사항
+    <string name="setting_title">설정 · 문의</string>
+    <string name="setting_service">서비스 설정</string>
+    <string name="setting_current_version">현재버젼 1.1.0</string>
+    <string name="setting_using_current_version">최신 버전 사용 중</string>
+    <string name="setting_using_old_version">업데이트 필요</string>
+    <string name="setting_user_support">사용자 지원</string>
+    <string name="setting_notice">공지사항</string>
+    <string name="setting_question">앱 문의 · 건의</string>
+    <string name="setting_app_info">앱 정보</string>
+    <string name="setting_terms_of_use">서비스 이용약관</string>
+    <string name="setting_opensource_license">오픈 소스 라이센스</string>
+    <string name="setting_privacy_policy">개인정보 이용방침</string>
+    <string name="setting_logout">로그아웃</string>
 </resources>
