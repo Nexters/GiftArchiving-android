@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_writeFragment"
             app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"/>
     </fragment>
 
     <fragment
@@ -82,5 +85,10 @@
         <argument
             android:name="image_uri"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.nexters.giftarchiving.ui.SettingsFragment"
+        android:label="SettingsFragment">
     </fragment>
 </navigation>

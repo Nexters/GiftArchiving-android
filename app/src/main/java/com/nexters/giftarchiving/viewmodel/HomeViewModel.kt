@@ -33,4 +33,10 @@ internal class HomeViewModel : BaseViewModel() {
             navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물")
         }
     }
+
+    fun onClickSetting(){
+        viewModelScope.launch {
+            navDirections.value=HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
+        }
+    }
 }
