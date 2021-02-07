@@ -90,5 +90,13 @@
         android:id="@+id/settingsFragment"
         android:name="com.nexters.giftarchiving.ui.SettingsFragment"
         android:label="SettingsFragment">
+        <action
+            android:id="@+id/action_settingFragment_to_noticeFragment"
+            app:destination="@id/noticeFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.nexters.giftarchiving.ui.NoticeFragment"
+        android:label="NoticeFragment">
     </fragment>
 </navigation>

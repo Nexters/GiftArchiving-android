@@ -38,7 +38,7 @@
             app:layout_constraintTop_toTopOf="@id/setting_title"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginStart="16dp"
-            android:onClick="@{() -> viewModel.onClickBack()"/>
+            android:onClick="@{() -> viewModel.onClickBack()}"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/setting_service_layout"
@@ -128,7 +128,8 @@
                 android:textSize="16sp"
                 android:paddingStart="20dp"
                 android:drawablePadding="16dp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickNotice()}"/>
 
             <Button
                 android:id="@+id/setting_question"
