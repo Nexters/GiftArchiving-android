@@ -29,6 +29,17 @@
             android:layout_marginTop="18dp"
             />
 
+        <ImageButton
+            android:id="@+id/setting_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_icon_back"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="@id/setting_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> viewModel.onClickBack()"/>
+
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/setting_service_layout"
             android:layout_width="match_parent"
