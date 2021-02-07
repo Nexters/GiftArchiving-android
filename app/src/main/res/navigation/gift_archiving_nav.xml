@@ -96,6 +96,9 @@
         <action
             android:id="@+id/action_settingFragment_to_termsFragment"
             app:destination="@id/termsFragment"/>
+        <action
+            android:id="@+id/action_settingFragment_to_opensourceFragment"
+            app:destination="@id/opensourceFragment"/>
     </fragment>
     <fragment
         android:id="@+id/noticeFragment"
@@ -106,5 +109,10 @@
         android:id="@+id/termsFragment"
         android:name="com.nexters.giftarchiving.ui.TermsFragment"
         android:label="TermsFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/opensourceFragment"
+        android:name="com.nexters.giftarchiving.ui.OpensourceFragment"
+        android:label="OpensourceFragment">
     </fragment>
 </navigation>
