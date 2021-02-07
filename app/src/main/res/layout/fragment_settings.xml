@@ -186,7 +186,8 @@
                 android:textSize="16sp"
                 android:paddingStart="20dp"
                 android:drawablePadding="16dp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickTerms()}"/>
 
             <Button
                 android:id="@+id/setting_opensource"

@@ -16,4 +16,10 @@ internal class SettingsViewModel : BaseViewModel() {
             navDirections.value= SettingsFragmentDirections.actionSettingFragmentToNoticeFragment()
         }
     }
+
+    fun onClickTerms(){
+        viewModelScope.launch {
+            navDirections.value= SettingsFragmentDirections.actionSettingFragmentToTermsFragment()
+        }
+    }
 }

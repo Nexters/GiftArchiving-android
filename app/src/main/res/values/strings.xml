@@ -25,4 +25,5 @@
     <string name="setting_logout">로그아웃</string>
     <string name="notice_none_data_text1">아직 공지 사항이 없습니다</string>
     <string name="notice_none_data_text2">추후에 확인해주세요</string>
+    <string name="terms_detail_title">기프트집 서비스 이용약관</string>
 </resources>
