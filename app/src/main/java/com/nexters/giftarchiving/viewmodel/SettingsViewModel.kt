@@ -29,4 +29,9 @@ internal class SettingsViewModel : BaseViewModel() {
             navDirections.value= SettingsFragmentDirections.actionSettingFragmentToOpensourceFragment()
         }
     }
+    fun onClickPrivacy(){
+        viewModelScope.launch {
+            navDirections.value= SettingsFragmentDirections.actionSettingFragmentToPrivacyFragment()
+        }
+    }
 }

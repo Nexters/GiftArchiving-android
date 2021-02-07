@@ -222,7 +222,8 @@
                 android:paddingStart="20dp"
                 android:drawablePadding="16dp"
                 app:layout_goneMarginTop="1dp"
-                tools:ignore="RtlSymmetry" />
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickPrivacy()}"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -27,4 +27,5 @@
     <string name="notice_none_data_text2">추후에 확인해주세요</string>
     <string name="terms_detail_title">기프트집 서비스 이용약관</string>
     <string name="opensource_detail_title">기프트집 사용 오픈소스</string>
+    <string name="privacy_detail_title">기프트집 이용자\n개인정보 처리방침</string>
 </resources>

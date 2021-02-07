@@ -99,6 +99,9 @@
         <action
             android:id="@+id/action_settingFragment_to_opensourceFragment"
             app:destination="@id/opensourceFragment"/>
+        <action
+            android:id="@+id/action_settingFragment_to_privacyFragment"
+            app:destination="@id/privacyFragment"/>
     </fragment>
     <fragment
         android:id="@+id/noticeFragment"
@@ -114,5 +117,10 @@
         android:id="@+id/opensourceFragment"
         android:name="com.nexters.giftarchiving.ui.OpensourceFragment"
         android:label="OpensourceFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.nexters.giftarchiving.ui.PrivacyFragment"
+        android:label="PrivacyFragment">
     </fragment>
 </navigation>
