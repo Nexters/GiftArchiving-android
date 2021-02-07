@@ -40,6 +40,9 @@
         <action
             android:id="@+id/action_homeFragment_to_writeFragment"
             app:destination="@id/writeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"/>
     </fragment>
 
     <fragment
@@ -82,5 +85,42 @@
         <argument
             android:name="image_uri"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.nexters.giftarchiving.ui.SettingsFragment"
+        android:label="SettingsFragment">
+        <action
+            android:id="@+id/action_settingFragment_to_noticeFragment"
+            app:destination="@id/noticeFragment"/>
+        <action
+            android:id="@+id/action_settingFragment_to_termsFragment"
+            app:destination="@id/termsFragment"/>
+        <action
+            android:id="@+id/action_settingFragment_to_opensourceFragment"
+            app:destination="@id/opensourceFragment"/>
+        <action
+            android:id="@+id/action_settingFragment_to_privacyFragment"
+            app:destination="@id/privacyFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/noticeFragment"
+        android:name="com.nexters.giftarchiving.ui.NoticeFragment"
+        android:label="NoticeFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/termsFragment"
+        android:name="com.nexters.giftarchiving.ui.TermsFragment"
+        android:label="TermsFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/opensourceFragment"
+        android:name="com.nexters.giftarchiving.ui.OpensourceFragment"
+        android:label="OpensourceFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/privacyFragment"
+        android:name="com.nexters.giftarchiving.ui.PrivacyFragment"
+        android:label="PrivacyFragment">
     </fragment>
 </navigation>
