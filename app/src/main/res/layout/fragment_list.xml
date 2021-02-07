@@ -30,6 +30,17 @@
             />
 
         <ImageButton
+            android:id="@+id/list_back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_icon_back"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="@id/list_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="16dp"
+            android:onClick="@{()->viewModel.onClickBack()}"/>
+
+        <ImageButton
             android:id="@+id/search_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
