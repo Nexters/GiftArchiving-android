@@ -126,7 +126,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             }
             WriteMenu.FRAME -> binding.informationLayout
             WriteMenu.STICKER -> binding.informationLayout
-            WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
+            WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> {
                 loadDate()
                 binding.menuDateLayout
@@ -139,7 +139,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
             WriteMenu.FRAME -> binding.informationLayout
             WriteMenu.STICKER -> binding.informationLayout
-            WriteMenu.BACKGROUND_COLOR -> binding.informationLayout
+            WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> binding.menuDateLayout
         }.visibility = View.GONE
     }
