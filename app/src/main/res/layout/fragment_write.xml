@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -12,7 +13,6 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:backgroundWithAnimation="@{viewModel.backgroundColorTheme}"
@@ -408,8 +408,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/bottom_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingVertical="12dp"
+            android:layout_height="48dp"
             android:paddingHorizontal="20dp"
             android:background="@{viewModel.backgroundColorTheme}"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -441,7 +440,7 @@
                 android:layout_height="25dp"
                 android:layout_marginEnd="18dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_sticker : @drawable/ic_btn_sticker_b}"
-                android:onClick="@{() -> viewModel.attachSticker()}"
+                android:onClick="@{() -> viewModel.setShowMenuType(WriteMenu.STICKER)}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/color_iv"
@@ -478,6 +477,7 @@
                 android:id="@+id/information_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.33"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}">
@@ -485,12 +485,14 @@
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/information_menu_tab_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="26dp"
                     app:tabBackground="@drawable/write_information_viewpager_tab_selector"
                     app:tabIndicatorHeight="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintVertical_bias="0.06" />
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/information_menu_viewpager"
