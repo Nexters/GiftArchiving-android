@@ -14,6 +14,7 @@ import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
+import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -22,6 +23,7 @@ import java.time.LocalDate
 internal class WriteViewModel : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
+    val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
     val date = MutableLiveData(LocalDate.now())
     val category = MutableLiveData(WriteInformationMenu.getEmptyCategory())
     val purpose = MutableLiveData(WriteInformationMenu.getEmptyPurpose())
@@ -74,12 +76,15 @@ internal class WriteViewModel : BaseViewModel() {
 
     fun setBackgroundColor(colorTheme: BackgroundColorTheme) {
         backgroundColorTheme.value = colorTheme
+        stickerViewPagerTheme.value = when (colorTheme.isDarkMode) {
+            true -> WriteStickerTabLayoutTheme.DARK_MODE
+            false -> WriteStickerTabLayoutTheme.LIGHT_MODE
+        }
     }
 
     fun attachSticker() {
-        if (editedImage.value != null) {
-            addSticker.call()
-        }
+        addSticker.call()
+        hideMenuType.value = WriteMenu.STICKER
     }
 
     fun onClickBack() {
@@ -110,5 +115,10 @@ internal class WriteViewModel : BaseViewModel() {
         val canvas = Canvas(bitmap)
         v.draw(canvas)
         return bitmap
+    }
+
+    companion object {
+        @JvmStatic
+        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
     }
 }

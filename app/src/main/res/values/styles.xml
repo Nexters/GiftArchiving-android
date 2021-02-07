@@ -24,4 +24,8 @@
         <item name="android:textSize">23sp</item>
     </style>
 
+    <style name="WriteStickerTabLayoutTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">12sp</item>
+    </style>
+
 </resources>

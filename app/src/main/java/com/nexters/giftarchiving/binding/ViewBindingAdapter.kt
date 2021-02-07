@@ -11,10 +11,12 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.google.android.material.tabs.TabLayout
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 import java.util.Locale
@@ -121,4 +123,22 @@ fun setVisibility(v: View, isVisible: Boolean) {
 @BindingAdapter("localDateWithFormat")
 fun setLocalDate(tv: TextView, localDate: LocalDate) {
     tv.text = localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. EEE", Locale.ENGLISH))
+}
+
+@BindingAdapter("tabTextColorsByTheme")
+fun setTabLayoutTextColors(tl: TabLayout, theme: WriteStickerTabLayoutTheme) {
+    val defaultColor = getColorByResource(tl.context, theme.tabTextColor)
+    val selectColor = getColorByResource(tl.context, theme.tabSelectedTextColor)
+    tl.setTabTextColors(defaultColor, selectColor)
+}
+
+@BindingAdapter("tabIndicatorBackgroundByTheme")
+fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorTheme) {
+//    val drawable = getDrawableByResource(tl.resources, colorTheme.tabBackground)
+    val selectColorRes = when(colorTheme.isDarkMode) {
+        true -> R.color.white
+        false -> R.color.colorDarkGray
+    }
+    val selectColor = getColorByResource(tl.context, selectColorRes)
+    tl.setSelectedTabIndicatorColor(selectColor)
 }

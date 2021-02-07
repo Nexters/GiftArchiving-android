@@ -631,5 +631,51 @@
                     tools:background="@drawable/ic_icon_color_ye_dark"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menu_sticker_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_layout">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="@{()->viewModel.setHideMenuType(WriteMenu.STICKER)}"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:popUpBackground="@{viewModel.backgroundColorTheme}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.38"
+                tools:background="@color/colorPopupMono">
+
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/menu_sticker_tab_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:tabTextAppearance="@style/WriteStickerTabLayoutTextAppearance"
+                    app:tabTextColorsByTheme="@{viewModel.stickerViewPagerTheme}"
+                    app:tabIndicatorHeight="1dp"
+                    app:tabIndicatorBackgroundByTheme="@{viewModel.backgroundColorTheme}"
+                    app:tabBackground="@drawable/write_sticker_viewpager_default_tab"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/menu_sticker_viewpager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/menu_sticker_tab_layout"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

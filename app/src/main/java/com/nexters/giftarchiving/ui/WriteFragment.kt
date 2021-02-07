@@ -21,7 +21,9 @@ import com.nexters.giftarchiving.databinding.FragmentWriteBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
+import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
+import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.DrawableSticker
 import com.xiaopo.flying.sticker.Sticker
@@ -48,6 +50,9 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             isConstrained = true
             configDefaultIcons()
         }
+
+        binding.menuStickerViewpager.isUserInputEnabled = false
+        setStickerMenuViewPager()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
@@ -125,20 +130,28 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 binding.menuInformationLayout
             }
             WriteMenu.FRAME -> binding.informationLayout
-            WriteMenu.STICKER -> binding.informationLayout
+            WriteMenu.STICKER -> {
+                if (viewModel.editedImage.value != null) {
+                    binding.menuStickerLayout
+                }
+                else {
+                    toast(WriteViewModel.NOTICE_SELECT_IMAGE)
+                    null
+                }
+            }
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> {
                 loadDate()
                 binding.menuDateLayout
             }
-        }.visibility = View.VISIBLE
+        }?.visibility = View.VISIBLE
     }
 
     private fun hideSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
             WriteMenu.FRAME -> binding.informationLayout
-            WriteMenu.STICKER -> binding.informationLayout
+            WriteMenu.STICKER -> binding.menuStickerLayout
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> binding.menuDateLayout
         }.visibility = View.GONE
@@ -164,6 +177,16 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, 2)
             TabLayoutMediator(binding.informationMenuTabLayout, this) { tab, pos ->
 
+            }.attach()
+        }
+    }
+
+    private fun setStickerMenuViewPager() {
+        with(binding.menuStickerViewpager) {
+            adapter = StickerSlidePagerAdapter(requireActivity(), viewModel)
+            val stickerType = WriteSticker.values()
+            TabLayoutMediator(binding.menuStickerTabLayout, this) { tab, pos ->
+                tab.text = WriteSticker.valueOf(stickerType[pos].name).menuTitle
             }.attach()
         }
     }
