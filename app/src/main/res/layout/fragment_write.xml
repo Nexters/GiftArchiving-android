@@ -74,335 +74,359 @@
                 tools:background="@drawable/ic_icon_check" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/editor_layout"
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="266dp"
-            app:layout_constraintTop_toBottomOf="@id/top_layout">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="24dp"
-                android:gravity="center"
-                android:alpha="0.3"
-                android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/write_empty_image_background_white : @drawable/write_empty_image_background_black}"
-                android:visibility="@{viewModel.editedImage == null}"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintDimensionRatio="1:1"
-                tools:background="@drawable/write_empty_image_background_white"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:alpha="0.6"
-                android:textSize="13sp"
-                android:textColor="@{viewModel.backgroundColorTheme}"
-                android:text="@string/notice_select_image"
-                android:visibility="@{viewModel.editedImage == null}"
-                tools:textColor="@color/colorWhite"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-            <com.xiaopo.flying.sticker.StickerView
-                android:id="@+id/sticker_view"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                app:showIcons="true"
-                android:paddingHorizontal="40dp"
-                android:paddingVertical="35dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" >
-
-                <ImageView
-                    android:id="@+id/iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:scaleType="centerCrop"
-                    android:adjustViewBounds="true"
-                    android:background="@{viewModel.editedImage}"/>
-
-            </com.xiaopo.flying.sticker.StickerView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:orientation="vertical"
-            android:visibility="gone"
-            app:layout_constraintTop_toBottomOf="@id/editor_layout">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@{viewModel.backgroundColorTheme}"
-                android:text="배경색상"/>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.ORANGE)}"
-                    android:text="빨강" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.YELLOW)}"
-                    android:text="초록"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.BLUE)}"
-                    android:text="파랑"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.MONO)}"
-                    android:text="하양"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/editor_layout"
+            android:fillViewport="true"
+            android:overScrollMode="never"
+            app:layout_constraintTop_toBottomOf="@id/top_layout"
             app:layout_constraintBottom_toTopOf="@id/bottom_layout">
-            <LinearLayout
-                android:id="@+id/name_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:paddingHorizontal="33dp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@{viewModel.backgroundColorTheme}"
-                    android:text="@string/write_name_from"
-                    android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
-                    tools:textColor="@color/colorWhite" />
-                <EditText
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:textColor="@{viewModel.backgroundColorTheme}"
-                    android:textColorHint="@{viewModel.backgroundColorTheme}"
-                    android:text="@={viewModel.name}"
-                    android:hint='@{viewModel.name.length() > 0 ? "" :@string/write_name_hint}'
-                    android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
-                    android:background="@null"
-                    tools:textColorHint="@color/colorWhite"
-                    tools:hint="@string/write_name_hint"/>
-            </LinearLayout>
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/information_button_layout"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/name_layout" >
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal"
-                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
-                    app:layout_constraintHorizontal_bias="0.25"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/write_information_icon_background"
-                            android:alpha="0.24"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <ImageView
-                            android:layout_width="22dp"
-                            android:layout_height="22dp"
-                            app:theme="@{viewModel.backgroundColorTheme}"
-                            app:informationMenu="@{viewModel.category}"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            tools:background="@drawable/ic_oval_copy_10"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@{viewModel.category.title}"
-                        tools:text="화장품"
-                        tools:textColor="@color/colorWhite"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
-                    app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/write_information_icon_background"
-                            android:alpha="0.24"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            app:theme="@{viewModel.backgroundColorTheme}"
-                            app:informationMenu="@{viewModel.purpose}"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            tools:background="@drawable/ic_icon_present"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@{viewModel.purpose.title}"
-                        tools:text="생일 선물"
-                        tools:textColor="@color/colorWhite"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_EMOTION)}"
-                    app:layout_constraintHorizontal_bias="0.75"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <View
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:background="@drawable/write_information_icon_background"
-                            android:alpha="0.24"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"/>
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            app:theme="@{viewModel.backgroundColorTheme}"
-                            app:informationMenu="@{viewModel.emotion}"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            tools:background="@drawable/ic_icon_feeling"/>
-                    </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@{viewModel.emotion.title}"
-                        tools:text="감동이야"
-                        tools:textColor="@color/colorWhite"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <EditText
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="top"
-                android:layout_marginTop="15dp"
-                android:layout_marginHorizontal="15dp"
-                android:padding="5dp"
-                android:text="@={viewModel.content}"
-                android:textSize="14sp"
-                android:textColor="@{viewModel.backgroundColorTheme}"
-                android:textColorHint="@{viewModel.backgroundColorTheme}"
-                android:lineHeight="22sp"
-                android:alpha="@{viewModel.content.length() == 0 ? 0.34f : 1f}"
-                android:background="@null"
-                android:hint="@string/write_emotion_hint"
-                app:layout_constraintTop_toBottomOf="@id/information_button_layout"
-                app:layout_constraintBottom_toBottomOf="parent"
-                tools:textColorHint="@color/colorWhite" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                android:layout_height="wrap_content">
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/editor_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="266dp"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="24dp"
+                        android:gravity="center"
+                        android:alpha="0.3"
+                        android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/write_empty_image_background_white : @drawable/write_empty_image_background_black}"
+                        android:visibility="@{viewModel.editedImage == null}"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintDimensionRatio="1:1"
+                        tools:background="@drawable/write_empty_image_background_white"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:alpha="0.6"
+                        android:textSize="13sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@string/notice_select_image"
+                        android:visibility="@{viewModel.editedImage == null}"
+                        tools:textColor="@color/colorWhite"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                    <com.xiaopo.flying.sticker.StickerView
+                        android:id="@+id/sticker_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        app:showIcons="true"
+                        android:paddingHorizontal="40dp"
+                        android:paddingVertical="35dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent" >
+
+                        <ImageView
+                            android:id="@+id/iv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:adjustViewBounds="true"
+                            android:background="@{viewModel.editedImage}"/>
+
+                    </com.xiaopo.flying.sticker.StickerView>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:orientation="vertical"
+                    android:visibility="gone"
+                    app:layout_constraintTop_toBottomOf="@id/editor_layout">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="배경색상"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" >
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.ORANGE)}"
+                            android:text="빨강" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.YELLOW)}"
+                            android:text="초록"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.BLUE)}"
+                            android:text="파랑"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <Button
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.MONO)}"
+                            android:text="하양"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/middle_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/editor_layout"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/editor_layout"
+                    app:layout_constraintBottom_toBottomOf="parent">
+                    <LinearLayout
+                        android:id="@+id/name_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:paddingHorizontal="33dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@{viewModel.backgroundColorTheme}"
+                            android:text="@string/write_name_from"
+                            android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
+                            tools:textColor="@color/colorWhite" />
+                        <EditText
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            android:textColor="@{viewModel.backgroundColorTheme}"
+                            android:textColorHint="@{viewModel.backgroundColorTheme}"
+                            android:text="@={viewModel.name}"
+                            android:hint='@{viewModel.name.length() > 0 ? "" :@string/write_name_hint}'
+                            android:alpha="@{viewModel.name.length() == 0 ? 0.34f : 1f}"
+                            android:background="@null"
+                            tools:textColorHint="@color/colorWhite"
+                            tools:hint="@string/write_name_hint"/>
+                    </LinearLayout>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/information_button_layout"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/name_layout" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="center_horizontal"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
+                            app:layout_constraintHorizontal_bias="0.25"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <View
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/write_information_icon_background"
+                                    android:alpha="0.24"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                                <ImageView
+                                    android:layout_width="22dp"
+                                    android:layout_height="22dp"
+                                    app:theme="@{viewModel.backgroundColorTheme}"
+                                    app:informationMenu="@{viewModel.category}"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    tools:background="@drawable/ic_oval_copy_10"/>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColor="@{viewModel.backgroundColorTheme}"
+                                android:text="@{viewModel.category.title}"
+                                tools:text="화장품"
+                                tools:textColor="@color/colorWhite"
+                                android:textSize="14sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <View
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/write_information_icon_background"
+                                    android:alpha="0.24"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    app:theme="@{viewModel.backgroundColorTheme}"
+                                    app:informationMenu="@{viewModel.purpose}"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    tools:background="@drawable/ic_icon_present"/>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColor="@{viewModel.backgroundColorTheme}"
+                                android:text="@{viewModel.purpose.title}"
+                                tools:text="생일 선물"
+                                tools:textColor="@color/colorWhite"
+                                android:textSize="14sp"/>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_EMOTION)}"
+                            app:layout_constraintHorizontal_bias="0.75"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content">
+
+                                <View
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:background="@drawable/write_information_icon_background"
+                                    android:alpha="0.24"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+                                <ImageView
+                                    android:layout_width="24dp"
+                                    android:layout_height="24dp"
+                                    app:theme="@{viewModel.backgroundColorTheme}"
+                                    app:informationMenu="@{viewModel.emotion}"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    tools:background="@drawable/ic_icon_feeling"/>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="8dp"
+                                android:textColor="@{viewModel.backgroundColorTheme}"
+                                android:text="@{viewModel.emotion.title}"
+                                tools:text="감동이야"
+                                tools:textColor="@color/colorWhite"
+                                android:textSize="14sp"/>
+                        </LinearLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/middle_layout"
+                    android:layout_alignParentBottom="true">
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="top"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginHorizontal="15dp"
+                        android:padding="5dp"
+                        android:text="@={viewModel.content}"
+                        android:textSize="14sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:textColorHint="@{viewModel.backgroundColorTheme}"
+                        android:lineHeight="22sp"
+                        android:alpha="@{viewModel.content.length() == 0 ? 0.34f : 1f}"
+                        android:background="@null"
+                        android:hint="@string/write_emotion_hint"
+                        app:layout_constraintTop_toBottomOf="@id/information_button_layout"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        tools:textColorHint="@color/colorWhite" />
+                </LinearLayout>
+
+            </RelativeLayout>
+        </ScrollView>
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
