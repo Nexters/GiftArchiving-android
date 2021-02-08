@@ -11,6 +11,7 @@ buildscript {
         coroutine_version = '1.4.2'
         koin_version = '2.2.2'
         kakao_version = '2.3.0'
+        room_version = '2.2.6'
 
         PUBLISH_GROUP_ID = 'com.theartofdev.edmodo'
         PUBLISH_ARTIFACT_ID = 'android-image-cropper'
