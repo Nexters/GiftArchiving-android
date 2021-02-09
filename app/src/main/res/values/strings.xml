@@ -16,7 +16,6 @@
     <string name="frame_square">정사각형</string>
     <string name="frame_oval">원</string>
     <string name="frame_window">창문</string>
-    <string name="home_detail_button_name">선물함</string>공지사항
     <string name="setting_title">설정 · 문의</string>
     <string name="setting_service">서비스 설정</string>
     <string name="setting_current_version">현재버젼 1.1.0</string>
@@ -40,4 +39,28 @@
     <string name="search_category">지금 찾는 선물의 종류는</string>
     <string name="search_situation">선물을 주고 받았던 상황은</string>
     <string name="search_person">그동안 주고 받은 사람들은</string>
+    <string name="category_mobile_coupon">모바일교환권</string>
+    <string name="category_fashion">패션</string>
+    <string name="category_cosmetic">화장품</string>
+    <string name="category_food">식품</string>
+    <string name="category_voucher">상품권</string>
+    <string name="category_digital">디지털</string>
+    <string name="category_sports">스포츠</string>
+    <string name="category_baby">육아용품</string>
+    <string name="category_pet">애견</string>
+    <string name="category_living">리빙</string>
+    <string name="category_culture">문화</string>
+    <string name="search_etc">기타</string>
+    <string name="situation_birthday">생일</string>
+    <string name="situation_celebration">기념일</string>
+    <string name="situation_getJob">취업</string>
+    <string name="situation_housewarming">집들이</string>
+    <string name="situation_wedding">결혼</string>
+    <string name="situation_study">학업</string>
+    <string name="situation_holiday">명절</string>
+    <string name="situation_cheer">응원</string>
+    <string name="situation_apology">사과</string>
+    <string name="situation_thanks">감사</string>
+    <string name="situation_noReason">그냥</string>
+    <string name="search_auto_textView_hint">이름, 내용 검색</string>
 </resources>
