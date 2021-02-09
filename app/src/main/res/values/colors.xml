@@ -24,4 +24,7 @@
     <color name="orange">#fd7244</color>
     <color name="gray">#292929</color>
     <color name="blue">#0063e1</color>
+    <color name="settingsBlack">#141416</color>
+    <color name="settingsGray">#8e8e9b</color>
+    <color name="settingsBtnUnderline">#1d1d21</color>
 </resources>

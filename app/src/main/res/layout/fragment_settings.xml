@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nexters.giftarchiving.viewmodel.SettingsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".ui.SettingsFragment">
+
+        <TextView
+            android:id="@+id/setting_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_title"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="18dp"
+            />
+
+        <ImageButton
+            android:id="@+id/setting_back"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/ic_icon_back"
+            android:background="@android:color/transparent"
+            app:layout_constraintTop_toTopOf="@id/setting_title"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginStart="16dp"
+            android:onClick="@{() -> viewModel.onClickBack()}"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setting_service_layout"
+            android:layout_width="match_parent"
+            android:layout_height="115dp"
+            android:background="@color/settingsBlack"
+            app:layout_constraintTop_toBottomOf="@id/setting_title"
+            android:layout_marginTop="18dp">
+
+            <TextView
+                android:id="@+id/setting_service"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/setting_service"
+                android:textSize="16sp"
+                android:textColor="@color/settingsGray"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/setting_current_version"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_service"
+                android:layout_marginTop="1dp"
+                android:text="@string/setting_current_version"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                app:drawableStartCompat="@drawable/ic_icn_appversion"
+                tools:ignore="RtlSymmetry" />
+
+            <TextView
+                android:id="@+id/is_current_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="@id/setting_current_version"
+                app:layout_constraintBottom_toBottomOf="@id/setting_current_version"
+                app:layout_constraintRight_toRightOf="@id/setting_current_version"
+                android:text="@string/setting_using_current_version"
+                android:textSize="14sp"
+                android:textColor="@color/settingsGray"
+                android:layout_marginEnd="20dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setting_support_layout"
+            android:layout_width="match_parent"
+            android:layout_height="171dp"
+            android:background="@color/settingsBlack"
+            app:layout_constraintTop_toBottomOf="@id/setting_service_layout"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/setting_user_support"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/setting_user_support"
+                android:textSize="16sp"
+                android:textColor="@color/settingsGray"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/setting_notice"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_user_support"
+                android:layout_marginTop="1dp"
+                android:drawableStart="@drawable/ic_icon_announcement"
+                android:text="@string/setting_notice"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickNotice()}"/>
+
+            <Button
+                android:id="@+id/setting_question"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_notice"
+                android:layout_marginTop="1dp"
+                android:drawableStart="@drawable/ic_icon_qn_amail"
+                android:text="@string/setting_question"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                app:layout_goneMarginTop="1dp"
+                tools:ignore="RtlSymmetry" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/setting_app_info_layout"
+            android:layout_width="match_parent"
+            android:layout_height="228dp"
+            android:background="@color/settingsBlack"
+            app:layout_constraintTop_toBottomOf="@id/setting_support_layout"
+            android:layout_marginTop="15dp">
+
+            <TextView
+                android:id="@+id/setting_app_info"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/setting_app_info"
+                android:textSize="16sp"
+                android:textColor="@color/settingsGray"
+                app:layout_constraintTop_toTopOf="parent"
+                android:paddingRight="20dp"
+                android:paddingLeft="20dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textStyle="bold"/>
+
+            <Button
+                android:id="@+id/setting_terms"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_app_info"
+                android:layout_marginTop="1dp"
+                android:drawableStart="@drawable/ic_icon_terms"
+                android:text="@string/setting_terms_of_use"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickTerms()}"/>
+
+            <Button
+                android:id="@+id/setting_opensource"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_terms"
+                android:layout_marginTop="1dp"
+                android:drawableStart="@drawable/ic_icon_opensource"
+                android:text="@string/setting_opensource_license"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                app:layout_goneMarginTop="1dp"
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickOpensource()}"/>
+
+            <Button
+                android:id="@+id/setting_privacy"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                app:layout_constraintTop_toBottomOf="@id/setting_opensource"
+                android:layout_marginTop="1dp"
+                android:drawableStart="@drawable/ic_icon_privacyinfo"
+                android:text="@string/setting_privacy_policy"
+                android:gravity="center_vertical"
+                android:background="@drawable/settings_underline"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:paddingStart="20dp"
+                android:drawablePadding="16dp"
+                app:layout_goneMarginTop="1dp"
+                tools:ignore="RtlSymmetry"
+                android:onClick="@{() -> viewModel.onClickPrivacy()}"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <TextView
+            android:id="@+id/logout_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/setting_logout"
+            android:textColor="@color/settingsGray"
+            android:textSize="12sp"
+            android:background="@android:color/transparent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="16dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
