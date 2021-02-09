@@ -105,7 +105,7 @@
             
             <Button
                 android:id="@+id/category_mobile_coupon"
-                android:layout_width="102dp"
+                android:layout_width="107dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_mobile_coupon"
@@ -130,7 +130,7 @@
 
             <Button
                 android:id="@+id/category_cosmetic"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_cosmetic"
@@ -156,7 +156,7 @@
 
             <Button
                 android:id="@+id/category_voucher"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_voucher"
@@ -169,7 +169,7 @@
 
             <Button
                 android:id="@+id/category_digital"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_digital"
@@ -182,7 +182,7 @@
 
             <Button
                 android:id="@+id/category_sports"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_sports"
@@ -195,7 +195,7 @@
 
             <Button
                 android:id="@+id/category_baby"
-                android:layout_width="76dp"
+                android:layout_width="81dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/category_baby"
@@ -285,7 +285,7 @@
 
             <Button
                 android:id="@+id/situation_celebration"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/situation_celebration"
@@ -311,7 +311,7 @@
 
             <Button
                 android:id="@+id/situation_housewarming"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/situation_housewarming"
@@ -324,7 +324,7 @@
 
             <Button
                 android:id="@+id/situation_wedding"
-                android:layout_width="63dp"
+                android:layout_width="68dp"
                 android:layout_height="32dp"
                 android:background="@drawable/tag_button"
                 android:text="@string/situation_wedding"
