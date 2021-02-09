@@ -20,6 +20,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>() {
     override val layoutId = R.layout.fragment_taken
     override val viewModel: HomeViewModel by viewModel()
+    var current = 0
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -36,7 +37,6 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
             setPageTransformer(pageTransformer)
             adapter = ItemViewPagerAdapter(bgColors, people, dates,0)
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
-                var current = 0
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     val valueAnimator = ValueAnimator.ofObject(ArgbEvaluator(),ContextCompat.getColor(context,bgColors[current]),ContextCompat.getColor(context,bgColors[position]))

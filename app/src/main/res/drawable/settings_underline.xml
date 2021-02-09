@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+
+
+
+    <item android:right="20dp" android:left="20dp">
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/settingsBtnUnderline" />
+            <solid android:color="@color/settingsBtnUnderline" />
+        </shape>
+    </item>
+    <item android:bottom="1dp">
+        <shape android:shape="rectangle">
+            <stroke android:width="1dp" android:color="@color/settingsBlack" />
+            <solid android:color="@color/settingsBlack"/>
+        </shape>
+    </item>
+</layer-list>
