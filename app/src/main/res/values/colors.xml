@@ -16,6 +16,7 @@
     <color name="colorPopupBlue">#1c59ac</color>
     <color name="colorPopupOrange">#d55a32</color>
     <color name="colorPopupYellow">#dda942</color>
+    <color name="colorWriteStickerDarkModeDefaultTextColor">#4d3e3e3e</color>
     <color name="colorKakao">#ffe600</color>
     <color name="black">#080808</color>
     <color name="white">#ffffff</color>
