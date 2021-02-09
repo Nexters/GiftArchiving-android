@@ -28,4 +28,9 @@
     <string name="terms_detail_title">기프트집 서비스 이용약관</string>
     <string name="opensource_detail_title">기프트집 사용 오픈소스</string>
     <string name="privacy_detail_title">기프트집 이용자\n개인정보 처리방침</string>
+    <string name="search_latest_searched">내가 찾아 봤던</string>
+    <string name="search_latest_delete">지우기</string>
+    <string name="search_category">지금 찾는 선물의 종류는</string>
+    <string name="search_situation">선물을 주고 받았던 상황은</string>
+    <string name="search_person">그동안 주고 받은 사람들은</string>
 </resources>

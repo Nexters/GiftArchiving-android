@@ -22,6 +22,12 @@ internal class HomeViewModel : BaseViewModel() {
         }
     }
 
+    fun onClickSearch(){
+        viewModelScope.launch {
+            navDirections.value=HomeFragmentDirections.actionHomeFragmentToSearchFramgent()
+        }
+    }
+
     private fun onClickTakenListButton(){
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")
