@@ -4,6 +4,7 @@
     <color name="colorPrimaryDark">#3700B3</color>
     <color name="colorAccent">#03DAC5</color>
     <color name="colorWhite">#FFFFFF</color>
+    <color name="colorBlack">#000000</color>
     <color name="colorAlphaWhite">#1AFFFFFF</color>
     <color name="colorLightBlack">#151515</color>
     <color name="colorDarkGray">#3e3e3e</color>
@@ -15,6 +16,7 @@
     <color name="colorPopupBlue">#1c59ac</color>
     <color name="colorPopupOrange">#d55a32</color>
     <color name="colorPopupYellow">#dda942</color>
+    <color name="colorKakao">#ffe600</color>
     <color name="black">#080808</color>
     <color name="white">#ffffff</color>
     <color name="yellow">#ffd073</color>
