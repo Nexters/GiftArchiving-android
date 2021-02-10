@@ -67,7 +67,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_check : @drawable/ic_icon_check_bk}"
-                android:onClick="@{(v) -> viewModel.onClickNext(stickerView)}"
+                android:onClick="@{() -> viewModel.onClickNext()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -276,8 +276,8 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="22dp"
-                                    android:layout_height="22dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.category}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -324,8 +324,8 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.purpose}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -372,8 +372,8 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="24dp"
-                                    android:layout_height="24dp"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.emotion}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -703,5 +703,15 @@
                     app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:visibility="@{viewModel.isLoading()}"
+            android:indeterminateTint="@color/settingsGray"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

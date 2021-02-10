@@ -36,9 +36,9 @@
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
             <ImageView
-                android:layout_width="22dp"
-                android:layout_height="22dp"
-                android:background="@{item.theme.darkMode ? item.menu.lightIcon : item.menu.darkIcon}"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@{viewModel.backgroundColorTheme.darkMode ? item.menu.lightIconRes : item.menu.darkIconRes}"
                 tools:background="@drawable/ic_icon_present"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -50,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:textColor="@{item.theme}"
+            android:textColor="@{viewModel.backgroundColorTheme}"
             android:text="@{item.menu.title}"
             tools:text="화장품"
             tools:textColor="@color/colorWhite"
