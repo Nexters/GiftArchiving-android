@@ -75,9 +75,11 @@ internal class WriteViewModel : BaseViewModel() {
     }
 
     fun loadCropEditor() {
-        baseImageUri?.let {
+        if (baseImageUri != null) {
             navDirections.value =
-                WriteFragmentDirections.actionWriteFragmentToCropFragment(it.toString())
+                WriteFragmentDirections.actionWriteFragmentToCropFragment(baseImageUri.toString())
+        } else {
+            toast.value = NOTICE_SELECT_IMAGE
         }
     }
 
@@ -111,10 +113,8 @@ internal class WriteViewModel : BaseViewModel() {
         setHideMenuType(WriteMenu.DATE)
     }
 
-    fun onClickNext(v: View) {
+    fun onClickNext() {
         isSaved.call()
-        val bitmap = convertLayoutToBitmap(v)
-        navDirections.value = WriteFragmentDirections.actionWriteFragmentToShareFragment(bitmap)
     }
 
     private fun convertLayoutToBitmap(v: View): Bitmap {
@@ -127,5 +127,8 @@ internal class WriteViewModel : BaseViewModel() {
     companion object {
         @JvmStatic
         val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
+
+        @JvmStatic
+        val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
     }
 }
