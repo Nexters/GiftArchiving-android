@@ -52,7 +52,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
-        observe(viewModel.isSaved) { binding.stickerView.removeStickerHandler() }
+        observe(viewModel.isSaved) { saveGift() }
         observe(viewModel.addSticker) { addSticker() }
     }
 
@@ -210,6 +210,16 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         val drawable =
             ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
         binding.stickerView.addSticker(DrawableSticker(drawable), Sticker.Position.CENTER)
+    }
+
+    private fun saveGift() {
+        binding.stickerView.removeStickerHandler()
+        val noBgBitmap = viewModel.convertLayoutToBitmap(binding.stickerView)
+        binding.shareIv.setImageBitmap(noBgBitmap)
+        viewModel.delayAndCallback{
+            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
+            viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+        }
     }
 
     companion object {

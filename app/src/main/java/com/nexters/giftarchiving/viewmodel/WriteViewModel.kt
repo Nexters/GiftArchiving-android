@@ -11,6 +11,8 @@ import com.nexters.giftarchiving.data.write.WriteCategoryMenu
 import com.nexters.giftarchiving.data.write.WriteEmotionMenu
 import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.data.write.WritePurposeMenu
+import com.nexters.giftarchiving.repository.PreferenceRepository
+import com.nexters.giftarchiving.repository.WriteRepository
 import com.nexters.giftarchiving.ui.WriteFragmentArgs
 import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
@@ -18,12 +20,20 @@ import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
+import com.nexters.giftarchiving.util.ImageConverter
 import com.xiaopo.flying.sticker.Sticker
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import java.io.File
 import java.time.LocalDate
 
-internal class WriteViewModel : BaseViewModel() {
+internal class WriteViewModel(
+    private val writeRepository: WriteRepository,
+    private val preferenceRepository: PreferenceRepository
+) : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
@@ -117,11 +127,58 @@ internal class WriteViewModel : BaseViewModel() {
         isSaved.call()
     }
 
-    private fun convertLayoutToBitmap(v: View): Bitmap {
+    fun goNext(parentDir: File, noBgBitmap: Bitmap, bgBitmap: Bitmap) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val noBgImg = bitmapToMultipartBody(parentDir, noBgBitmap, "noBgImg")
+            val bgImg = bitmapToMultipartBody(parentDir, bgBitmap, "bgImg")
+            if (bgImg != null && noBgImg != null) {
+                val response = writeRepository.createGift(
+                    createdBy = preferenceRepository.getUserId().toString(),
+                    isReceiveGift = isReceiveGift,
+                    name = name.value ?: "",
+                    content = content.value ?: "",
+                    receiveDate = date.value ?: LocalDate.now(),
+//                    category = category.value?.title ?: "",
+//                    reason = purpose.value?.title ?: "",
+//                    emotion = emotion.value?.title ?: "",
+                    category = "LIVING",
+                    reason = "BIRTHDAY",
+                    emotion = "GOOD",
+                    bgColor = backgroundColorTheme.value?.toString() ?: "",
+                    noBgImg = noBgImg,
+                    bgImg = bgImg
+                )
+
+                val directions =
+                    WriteFragmentDirections.actionWriteFragmentToShareFragment(name.value, response)
+                navDirections.postValue(directions)
+            } else {
+                toast.postValue(NOTICE_FAIL_CONVERT_IMG)
+            }
+        }
+    }
+
+    fun convertLayoutToBitmap(v: View): Bitmap {
+        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         v.draw(canvas)
         return bitmap
+    }
+
+    fun delayAndCallback(callback: () -> Unit) {
+        viewModelScope.launch(Dispatchers.IO) {
+            delay(100L)
+            callback()
+        }
+    }
+
+    private fun bitmapToMultipartBody(
+        parentDir: File,
+        bitmap: Bitmap,
+        multipartName: String
+    ): MultipartBody.Part? {
+        return ImageConverter.bitmapToMultipartBody(bitmap, parentDir, null, multipartName)
     }
 
     companion object {
