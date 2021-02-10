@@ -43,6 +43,7 @@ internal class WriteViewModel(
     val emotion = MutableLiveData(WriteEmotionMenu())
     val name = MutableLiveData<String>()
     val content = MutableLiveData<String>()
+    val isLoading = MutableLiveData(false)
     val showMenuType = LiveEvent<WriteMenu>()
     val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
@@ -127,6 +128,7 @@ internal class WriteViewModel(
     }
 
     fun onClickNext() {
+        isLoading.value = true
         isSaved.call()
     }
 
@@ -152,6 +154,7 @@ internal class WriteViewModel(
                     bgImg = bgImg
                 )
 
+                isLoading.postValue(false)
                 val directions =
                     WriteFragmentDirections.actionWriteFragmentToShareFragment(name.value, response)
                 navDirections.postValue(directions)
