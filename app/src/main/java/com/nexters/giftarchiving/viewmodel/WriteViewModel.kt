@@ -42,11 +42,15 @@ internal class WriteViewModel : BaseViewModel() {
 
     var stickerList = mutableListOf<Sticker>()
     var baseImageUri: Uri? = null
+    private var isReceiveGift = true
 
     init {
         viewModelScope.launch {
             navArgs<WriteFragmentArgs>()
-                .collect { editedImage.value = it.bitmap }
+                .collect {
+                    editedImage.value = it.bitmap
+                    isReceiveGift = it.isReceiveGift
+                }
         }
     }
 
