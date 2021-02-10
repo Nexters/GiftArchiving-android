@@ -111,6 +111,9 @@ internal class WriteViewModel(
     }
 
     fun setShowMenuType(menuType: WriteMenu) {
+        if (menuType != showMenuType.value) {
+            showMenuType.value?.let { setHideMenuType(it) }
+        }
         showMenuType.value = menuType
     }
 
