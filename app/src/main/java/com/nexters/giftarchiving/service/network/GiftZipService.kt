@@ -34,4 +34,23 @@ internal interface GiftZipService {
         @Part img: MultipartBody.Part
     ): String
 
+    @GET("/api/gift/user/{createdBy}")
+    suspend fun getGiftListAll(
+        @Path("createdBy") createdBy: String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("isReceiveGift") isReceiveGift: Boolean
+    )
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByTag(
+        @Path("createdBy") createdBy: String,
+        @Query("category") category: String?,
+        @Query("emotion") emotion: String?,
+        @Query("reason") reason: String?,
+        @Query("name") name: String?,
+        @Query("content") content: String?,
+        @Query("page") page : Int,
+        @Query("size") size : Int
+    )
 }

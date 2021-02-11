@@ -23,8 +23,7 @@
             app:layout_constraintTop_toTopOf="parent">
             <ImageView
                 android:layout_width="300dp"
-                android:layout_height="300dp"
-                android:background="@{viewModel.giftImg}"/>
+                android:layout_height="300dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
