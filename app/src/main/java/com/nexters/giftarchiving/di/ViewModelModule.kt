@@ -14,7 +14,7 @@ import org.koin.dsl.module
 
 val viewModelModule = module {
     factory { MainViewModel() }
-    factory { WriteViewModel() }
+    factory { WriteViewModel(get(), get()) }
     factory { CropViewModel() }
     factory { ShareViewModel() }
     factory { SplashViewModel() }

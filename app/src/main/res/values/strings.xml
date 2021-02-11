@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GiftArchiving</string>
+    <string name="app_name">Gift.zip</string>
     <string name="login_kakao">카카오톡으로 로그인</string>
     <string name="notice_select_image">하단의 버튼을 눌러,\n선물의 사진을 등록해보세요.</string>
     <string name="write_emotion_hint">지금 이 감정을 기록해 보세요.</string>
@@ -11,11 +11,11 @@
     <string name="taken_main_string">새로운 선물을\n받았나요?</string>
     <string name="given_main_string">새로운 선물을\n보냈나요?</string>
     <string name="home_write_button_name">기록하기</string>
-    <string name="home_detail_button_name">선물함</string>
     <string name="write_frame">프레임</string>
     <string name="frame_square">정사각형</string>
     <string name="frame_oval">원</string>
     <string name="frame_window">창문</string>
+    <string name="home_detail_button_name">선물함</string>
     <string name="setting_title">설정 · 문의</string>
     <string name="setting_service">서비스 설정</string>
     <string name="setting_current_version">현재버젼 1.1.0</string>

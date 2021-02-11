@@ -16,9 +16,9 @@ internal class HomeViewModel : BaseViewModel() {
         onClickTakenListButton()
     }
 
-    fun onClickWrite(){
+    fun onClickWrite(isReceiveGift: Boolean){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionHomeFragmentToWriteFragment()
+            navDirections.value=HomeFragmentDirections.actionHomeFragmentToWriteFragment(isReceiveGift = isReceiveGift)
         }
     }
 

@@ -45,25 +45,15 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        with(binding.stickerView) {
-            stickers = viewModel.stickerList
-            isConstrained = true
-            configDefaultIcons()
-        }
-
-        binding.menuStickerViewpager.isUserInputEnabled = false
+        setStickerView()
         setStickerMenuViewPager()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
-        observe(viewModel.isSaved) { binding.stickerView.removeStickerHandler() }
-        observe(viewModel.addSticker) {
-            val drawable =
-                ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
-            binding.stickerView.addSticker(DrawableSticker(drawable), Sticker.Position.CENTER)
-        }
+        observe(viewModel.isSaved) { saveGift() }
+        observe(viewModel.addSticker) { addSticker() }
     }
 
     override fun onDestroyView() {
@@ -123,6 +113,14 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         }
     }
 
+    private fun setStickerView() {
+        with(binding.stickerView) {
+            stickers = viewModel.stickerList
+            isConstrained = true
+            configDefaultIcons()
+        }
+    }
+
     private fun showSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
@@ -133,8 +131,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             WriteMenu.STICKER -> {
                 if (viewModel.editedImage.value != null) {
                     binding.menuStickerLayout
-                }
-                else {
+                } else {
                     toast(WriteViewModel.NOTICE_SELECT_IMAGE)
                     null
                 }
@@ -168,7 +165,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun changeDate() {
         with(binding.datePicker) {
-            viewModel.date.value = LocalDate.of(year, month + 1, dayOfMonth)
+            val y = year
+            val m = month + 1
+            val d = dayOfMonth
+            viewModel.date.value = LocalDate.of(y, m, d)
         }
     }
 
@@ -204,6 +204,22 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         )
         intent.type = "image/*"
         startActivityForResult(intent, 0)
+    }
+
+    private fun addSticker() {
+        val drawable =
+            ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
+        binding.stickerView.addSticker(DrawableSticker(drawable), Sticker.Position.CENTER)
+    }
+
+    private fun saveGift() {
+        binding.stickerView.removeStickerHandler()
+        val noBgBitmap = viewModel.convertLayoutToBitmap(binding.stickerView)
+        binding.shareIv.setImageBitmap(noBgBitmap)
+        viewModel.delayAndCallback{
+            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
+            viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+        }
     }
 
     companion object {

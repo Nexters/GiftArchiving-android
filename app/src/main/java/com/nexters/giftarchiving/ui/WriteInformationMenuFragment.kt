@@ -10,12 +10,12 @@ import com.nexters.giftarchiving.viewmodel.WriteViewModel
 
 internal class WriteInformationMenuFragment(
     override val viewModel: WriteViewModel,
-    val menuType: WriteMenu
+    private val menuType: WriteMenu
 ) : BaseViewPagerFragment<WriteViewModel, FragmentWriteInformationMenuBinding>() {
     override val layoutId = R.layout.fragment_write_information_menu
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        binding.menuRv.adapter = WriteInformationMenuAdapter(viewModel)
+        binding.menuRv.adapter = WriteInformationMenuAdapter(viewModel, menuType)
     }
 }

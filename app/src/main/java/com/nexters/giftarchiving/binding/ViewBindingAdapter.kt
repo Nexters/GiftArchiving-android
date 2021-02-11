@@ -65,6 +65,11 @@ fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
     v.setBackgroundResource(drawableRes)
 }
 
+@BindingAdapter("android:backgroundTint")
+fun setBackgroundTintColor(v: View, colorTheme: BackgroundColorTheme) {
+    v.backgroundTintList = ContextCompat.getColorStateList(v.context, colorTheme.backgroundColor)
+}
+
 @BindingAdapter("popUpBackground")
 fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     val colorByResource =
@@ -83,8 +88,8 @@ internal fun setInformationIconBackgroundColor(
 ) {
     menu.let {
         val background = when (theme.isDarkMode) {
-            true -> it.lightIcon
-            false -> it.darkIcon
+            true -> it.lightIconRes
+            false -> it.darkIconRes
         }
         iv.setBackgroundResource(background)
     }
@@ -134,8 +139,7 @@ fun setTabLayoutTextColors(tl: TabLayout, theme: WriteStickerTabLayoutTheme) {
 
 @BindingAdapter("tabIndicatorBackgroundByTheme")
 fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorTheme) {
-//    val drawable = getDrawableByResource(tl.resources, colorTheme.tabBackground)
-    val selectColorRes = when(colorTheme.isDarkMode) {
+    val selectColorRes = when (colorTheme.isDarkMode) {
         true -> R.color.white
         false -> R.color.colorDarkGray
     }
