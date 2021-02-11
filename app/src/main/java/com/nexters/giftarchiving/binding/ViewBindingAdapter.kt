@@ -65,6 +65,11 @@ fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
     v.setBackgroundResource(drawableRes)
 }
 
+@BindingAdapter("android:backgroundTint")
+fun setBackgroundTintColor(v: View, colorTheme: BackgroundColorTheme) {
+    v.backgroundTintList = ContextCompat.getColorStateList(v.context, colorTheme.backgroundColor)
+}
+
 @BindingAdapter("popUpBackground")
 fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     val colorByResource =
