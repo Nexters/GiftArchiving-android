@@ -18,7 +18,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        buildConfigField "String", "KAKAO_NATIVE_APP_KEY", "\"${getProperty("local.properties", "KAKAO_NATIVE_APP_KEY")}\""
+        def addConstant = {constantName, constantValue ->
+            manifestPlaceholders += [ (constantName):constantValue]
+            buildConfigField "String", "${constantName}", "\"${constantValue}\""
+        }
+        addConstant("KAKAO_NATIVE_APP_KEY", "${getProperty("local.properties", "KAKAO_NATIVE_APP_KEY")}")
+        addConstant("BASE_URL", "${getProperty("local.properties", "BASE_URL")}")
     }
 
     buildTypes {
@@ -90,6 +95,13 @@ dependencies {
     // Kakao
     implementation "com.kakao.sdk:v2-user:$kakao_version"
     implementation "com.kakao.sdk:v2-talk:$kakao_version"
+
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+    // Gson
+    implementation "com.google.code.gson:gson:$gson_version"
 
     // Test
     testImplementation 'junit:junit:4.13'

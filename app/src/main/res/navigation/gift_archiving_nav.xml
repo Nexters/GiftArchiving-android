@@ -23,9 +23,9 @@
         android:id="@+id/loginFragment"
         android:name="com.nexters.giftarchiving.ui.LoginFragment"
         android:label="LoginFragment">
-        <argument
-            android:name="testArgument"
-            app:argType="string" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_searchFramgent"
+            app:destination="@id/searchFragment"/>
     </fragment>
 
     <fragment
@@ -52,6 +55,9 @@
         <argument
             android:name="title"
             app:argType="string"/>
+        <action
+            android:id="@+id/action_listFragment_to_searchFragment"
+            app:destination="@id/searchFragment"/>
     </fragment>
     <fragment
         android:id="@+id/writeFragment"
@@ -122,5 +128,10 @@
         android:id="@+id/privacyFragment"
         android:name="com.nexters.giftarchiving.ui.PrivacyFragment"
         android:label="PrivacyFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:label="SearchFragment"
+        android:name="com.nexters.giftarchiving.ui.SearchFragment">
     </fragment>
 </navigation>
