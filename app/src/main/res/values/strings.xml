@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GiftArchiving</string>
+    <string name="app_name">Gift.zip</string>
     <string name="login_kakao">카카오톡으로 로그인</string>
     <string name="notice_select_image">하단의 버튼을 눌러,\n선물의 사진을 등록해보세요.</string>
     <string name="write_emotion_hint">지금 이 감정을 기록해 보세요.</string>
