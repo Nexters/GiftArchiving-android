@@ -7,6 +7,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentHomeBinding
+import com.nexters.giftarchiving.ui.viewpager.adapter.HomeViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 

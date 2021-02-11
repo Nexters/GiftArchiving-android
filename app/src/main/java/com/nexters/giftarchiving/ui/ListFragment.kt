@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentListBinding
+import com.nexters.giftarchiving.ui.viewpager.adapter.ListViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 

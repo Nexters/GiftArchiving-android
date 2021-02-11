@@ -1,4 +1,4 @@
-package com.nexters.giftarchiving.ui
+package com.nexters.giftarchiving.ui.viewpager.adapter
 
 import android.view.LayoutInflater
 import android.view.View

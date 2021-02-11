@@ -1,7 +1,9 @@
-package com.nexters.giftarchiving.ui
+package com.nexters.giftarchiving.ui.viewpager.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.nexters.giftarchiving.ui.ListType1Fragment
+import com.nexters.giftarchiving.ui.ListType2Fragment
 
 class ListViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
 

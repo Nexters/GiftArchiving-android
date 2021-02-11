@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_list_type1.view.*
 
 class ListType1Fragment : Fragment() {
