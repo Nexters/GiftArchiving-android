@@ -23,7 +23,7 @@ internal class SearchResultRecyclerFragment : BaseFragment<SearchViewModel, Frag
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = binding.searchResultRecyclerView
-        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),viewModel.getAllNotReceivedGiftListResponse)
+        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),viewModel.getAllNotReceivedGiftListResponse.value!!)
         recyclerView.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
         recyclerView.layoutManager = gridLayoutManager

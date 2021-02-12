@@ -11,9 +11,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseFragment
+import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.ui.recyclerview.adapter.ListType2RecyclerviewAdapter
+import com.nexters.giftarchiving.viewmodel.ListViewModel
 
-class ListType2Fragment : Fragment() {
+class ListType2Fragment(val giftListResponse: GiftListResponse) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -22,12 +25,8 @@ class ListType2Fragment : Fragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         val view: View = inflater.inflate(R.layout.fragment_list_type2, container, false)
 
-        val bgColors = arrayListOf<Int>(R.color.orange, R.color.blue, R.color.yellow)
-        val people = arrayListOf<String>("test1", "test2", "test3")
-        val dates = arrayListOf<String>("2021-01-29", "2021-01-29", "2021-01-29")
-
         val list_recyclerview = view.findViewById<RecyclerView>(R.id.list2_recyclerView)
-        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),bgColors, people, dates)
+        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftListResponse)
         list_recyclerview.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
         list_recyclerview.layoutManager = gridLayoutManager

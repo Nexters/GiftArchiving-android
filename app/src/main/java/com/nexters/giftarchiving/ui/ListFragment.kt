@@ -8,6 +8,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentListBinding
+import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.ui.viewpager.adapter.ListViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -22,7 +23,17 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
-        listTypeViewPager.adapter = ListViewPagerAdapter(this)
+        if(viewModel.isReceived){
+            observe(viewModel.getAllReceivedGiftListResponse) {
+                val listViewPagerAdapter = ListViewPagerAdapter(this,it)
+                listTypeViewPager.adapter = listViewPagerAdapter
+            }
+        } else{
+            observe(viewModel.getAllNotReceivedGiftListResponse) {
+                val listViewPagerAdapter = ListViewPagerAdapter(this,it)
+                listTypeViewPager.adapter = listViewPagerAdapter
+            }
+        }
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
             page.apply {
                 val pageWidth = width

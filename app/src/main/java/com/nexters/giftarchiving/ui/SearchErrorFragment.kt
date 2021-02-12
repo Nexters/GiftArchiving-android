@@ -9,7 +9,7 @@ import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class SearchErrorFragment : BaseFragment<SearchViewModel, FragmentSearchErrorBinding>() {
-    override val layoutId = R.layout.fragment_search
+    override val layoutId = R.layout.fragment_search_error
     override val viewModel: SearchViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

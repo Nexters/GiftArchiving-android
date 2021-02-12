@@ -62,6 +62,22 @@
             app:destination="@id/searchFragment"/>
     </fragment>
     <fragment
+        android:id="@+id/listType1Fragment"
+        android:name="com.nexters.giftarchiving.ui.ListType1Fragment"
+        android:label="ListFragment">
+        <argument
+            android:name="title"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listType2Fragment"
+        android:name="com.nexters.giftarchiving.ui.ListType2Fragment"
+        android:label="ListFragment">
+        <argument
+            android:name="title"
+            app:argType="string"/>
+    </fragment>
+    <fragment
         android:id="@+id/writeFragment"
         android:name="com.nexters.giftarchiving.ui.WriteFragment"
         android:label="WriteFragment" >

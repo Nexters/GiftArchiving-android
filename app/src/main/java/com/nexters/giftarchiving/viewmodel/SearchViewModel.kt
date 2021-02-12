@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.GiftListResponse
@@ -13,16 +14,16 @@ internal class SearchViewModel(
     private val giftRepository: GiftRepository,
     private val preferenceRepository: PreferenceRepository
 ): BaseViewModel(){
-    lateinit var getAllReceivedGiftListResponse : GiftListResponse
-    lateinit var getAllNotReceivedGiftListResponse : GiftListResponse
+    val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     val userId = preferenceRepository.getUserId()
     fun onClickBack() {
         navDirections.value = BackDirections()
     }
     init {
         viewModelScope.launch {
-            getAllReceivedGiftListResponse = giftRepository.getGiftListAll(userId.toString(),0,50, true)
-            getAllNotReceivedGiftListResponse = giftRepository.getGiftListAll(userId.toString(),0,50,true)
+            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50, true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50,true)
         }
     }
 }
