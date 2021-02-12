@@ -93,6 +93,12 @@
                 android:layout_height="48dp"
                 android:background="@drawable/icon_share_kakao"
                 android:onClick="@{() -> viewModel.onClickSharedKakaoMessage()}"/>
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:background="@drawable/icon_share_insta"
+                android:onClick="@{() -> viewModel.onClickSharedInstagram()}"/>
         </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,6 +7,7 @@ import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.WriteResponse
 import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
+import com.nexters.giftarchiving.ui.ShareFragmentDirections
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
@@ -38,5 +39,13 @@ internal class ShareViewModel : BaseViewModel() {
 
     fun onClickSharedKakaoMessage() {
         shareKakaoMessage.call()
+    }
+
+    fun onClickSharedInstagram() {
+        navDirections.value = ShareFragmentDirections.actionShareFragmentToShareInstagramFragment(
+            response.value?.noBgImgUrl,
+            name.value,
+            backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+        )
     }
 }

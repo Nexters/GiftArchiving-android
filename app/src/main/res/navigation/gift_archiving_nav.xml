@@ -86,6 +86,9 @@
         <argument
             android:name="response"
             app:argType="com.nexters.giftarchiving.model.WriteResponse" />
+        <action
+            android:id="@+id/action_shareFragment_to_shareInstagramFragment"
+            app:destination="@id/shareInstagramFragment" />
         <argument
             android:name="background_theme"
             app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
@@ -135,5 +138,22 @@
         android:id="@+id/privacyFragment"
         android:name="com.nexters.giftarchiving.ui.PrivacyFragment"
         android:label="PrivacyFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/shareInstagramFragment"
+        android:name="com.nexters.giftarchiving.ui.ShareInstagramFragment"
+        android:label="ShareInstagramFragment" >
+        <argument
+            android:name="no_bg_url"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="background_theme"
+            app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
+            android:defaultValue="MONO" />
     </fragment>
 </navigation>
