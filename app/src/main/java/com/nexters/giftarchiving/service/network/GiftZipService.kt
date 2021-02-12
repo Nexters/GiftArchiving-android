@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.service.network
 
+import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.LoginResponse
 import com.nexters.giftarchiving.model.User
 import com.nexters.giftarchiving.model.WriteResponse
@@ -40,7 +41,7 @@ internal interface GiftZipService {
         @Query("page") page : Int,
         @Query("size") size : Int,
         @Query("isReceiveGift") isReceiveGift: Boolean
-    )
+    ) : GiftListResponse
 
     @GET("/api/gift/{createdBy}/tag")
     suspend fun getGiftListByTag(
@@ -52,5 +53,5 @@ internal interface GiftZipService {
         @Query("content") content: String?,
         @Query("page") page : Int,
         @Query("size") size : Int
-    )
+    ) :GiftListResponse
 }
