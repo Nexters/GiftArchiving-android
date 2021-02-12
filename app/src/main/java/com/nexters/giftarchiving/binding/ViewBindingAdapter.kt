@@ -11,6 +11,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.data.write.WriteInformationMenu
@@ -63,6 +64,13 @@ fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
 @BindingAdapter("android:background")
 fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
     v.setBackgroundResource(drawableRes)
+}
+
+@BindingAdapter("android:src")
+fun setSrcWithUrl(iv: ImageView, url: String) {
+    Glide.with(iv.context)
+        .load(url)
+        .into(iv)
 }
 
 @BindingAdapter("android:backgroundTint")

@@ -15,6 +15,9 @@
     <string name="frame_square">정사각형</string>
     <string name="frame_oval">원</string>
     <string name="frame_window">창문</string>
+    <string name="share_insta_title">instagram에 게시</string>
+    <string name="share_insta_story">스토리</string>
+    <string name="share_insta_feed">피드</string>
     <string name="home_detail_button_name">선물함</string>
     <string name="setting_title">설정 · 문의</string>
     <string name="setting_service">서비스 설정</string>
