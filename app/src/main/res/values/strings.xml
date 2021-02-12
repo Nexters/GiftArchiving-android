@@ -63,4 +63,10 @@
     <string name="situation_thanks">감사</string>
     <string name="situation_noReason">그냥</string>
     <string name="search_auto_textView_hint">이름, 내용 검색</string>
+    <string name="search_none_text1">검색 결과가 없습니다</string>
+    <string name="search_none_text2">다른 키워드로 검색해보세요.</string>
+    <string name="search_error_text1">문제가 생겼어요</string>
+    <string name="search_error_text2">잠시 후 다시 시도해보세요.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
