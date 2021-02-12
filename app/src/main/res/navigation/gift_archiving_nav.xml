@@ -86,6 +86,10 @@
         <argument
             android:name="response"
             app:argType="com.nexters.giftarchiving.model.WriteResponse" />
+        <argument
+            android:name="background_theme"
+            app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
+            android:defaultValue="MONO" />
     </fragment>
     <fragment
         android:id="@+id/cropFragment"

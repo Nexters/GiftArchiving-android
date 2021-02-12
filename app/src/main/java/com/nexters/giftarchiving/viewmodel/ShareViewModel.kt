@@ -7,6 +7,7 @@ import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.WriteResponse
 import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
+import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -15,6 +16,7 @@ import kotlinx.coroutines.launch
 internal class ShareViewModel : BaseViewModel() {
     val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
+    val backgroundColorTheme = MutableLiveData<BackgroundColorTheme>()
     val shareKakaoMessage = LiveEvent<Unit?>()
 
     init {
@@ -23,6 +25,7 @@ internal class ShareViewModel : BaseViewModel() {
                 .collect {
                     response.value = it.response
                     name.value = it.name
+                    backgroundColorTheme.value = it.backgroundTheme
                 }
         }
     }

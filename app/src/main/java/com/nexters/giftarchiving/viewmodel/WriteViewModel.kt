@@ -156,7 +156,11 @@ internal class WriteViewModel(
 
                 isLoading.postValue(false)
                 val directions =
-                    WriteFragmentDirections.actionWriteFragmentToShareFragment(name.value, response)
+                    WriteFragmentDirections.actionWriteFragmentToShareFragment(
+                        name.value,
+                        response,
+                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+                    )
                 navDirections.postValue(directions)
             } else {
                 toast.postValue(NOTICE_FAIL_CONVERT_IMG)
