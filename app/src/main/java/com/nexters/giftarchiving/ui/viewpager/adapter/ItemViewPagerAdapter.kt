@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.ui.viewpager.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +9,13 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.model.GiftListResponse
+import com.nexters.giftarchiving.model.GiftResponse
+import java.time.format.DateTimeFormatter
 
-class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val people: ArrayList<String>, private val dates:ArrayList<String>, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
+class ItemViewPagerAdapter(val context : Context, private val giftListResponse: GiftListResponse, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -19,18 +24,20 @@ class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val peo
         private val personTextView: TextView = itemView.findViewById(R.id.item_person)
         private val dateTextView: TextView = itemView.findViewById(R.id.item_date)
 
-        fun bind(bgColor: Int, person: String, date: String, position: Int) {
+        fun bind(gift : GiftResponse, position: Int) {
+            Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             if(viewType==1){
                 constraintLayout.clipToOutline = true
-                when(bgColor){
-                    R.color.orange -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
-                    R.color.blue -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                    R.color.yellow -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                when(gift.bgColor){
+                    "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                    "R.color.blue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                    "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
                     else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                 }
             }
-            personTextView.text = person
-            dateTextView.text = date
+            personTextView.text = gift.giftName
+            val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
+            dateTextView.text = gift.giftReceiveDate.format(formatter)
         }
     }
 
@@ -39,8 +46,8 @@ class ItemViewPagerAdapter(private val bgColors: ArrayList<Int>, private val peo
         return PagerViewHolder(view)
     }
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(bgColors[position], people[position], dates[position], position)
+        holder.bind(giftListResponse.giftListGifts[position], position)
     }
 
-    override fun getItemCount(): Int = bgColors.size
+    override fun getItemCount(): Int = giftListResponse.giftListTotalCount
 }

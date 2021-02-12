@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentGivenBinding
+import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -36,7 +37,9 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
             offscreenPageLimit = 1
             clipToPadding = false
             setPageTransformer(pageTransformer)
-            adapter = ItemViewPagerAdapter(bgColors, people, dates,0)
+            observe(viewModel.getAllNotReceivedGiftListResponse){
+                adapter = ItemViewPagerAdapter(requireContext(),it,0)
+            }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)

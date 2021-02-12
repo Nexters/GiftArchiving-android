@@ -25,16 +25,13 @@ class ListType1Fragment(val giftListResponse: GiftListResponse) : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_list_type1, container, false)
         val viewPager = view.list1_viewPager
 
-        val bgColors = arrayListOf<Int>(R.color.orange, R.color.blue, R.color.yellow)
-        val people = arrayListOf<String>("test1", "test2", "test3")
-        val dates = arrayListOf<String>("2021-01-29", "2021-01-29", "2021-01-29")
 
         val pageTransformer = CardSwipePageTransformer()
 
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
-            adapter = ItemViewPagerAdapter(bgColors, people, dates,1)
+            adapter = ItemViewPagerAdapter(requireContext(),giftListResponse,1)
             setPadding( resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0,resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0)
             setPageTransformer(pageTransformer)
             val itemDecoration = VerticalMarginItemDecoration(
