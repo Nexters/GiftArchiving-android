@@ -95,6 +95,7 @@ dependencies {
     // Kakao
     implementation "com.kakao.sdk:v2-user:$kakao_version"
     implementation "com.kakao.sdk:v2-talk:$kakao_version"
+    implementation "com.kakao.sdk:v2-link:$kakao_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"

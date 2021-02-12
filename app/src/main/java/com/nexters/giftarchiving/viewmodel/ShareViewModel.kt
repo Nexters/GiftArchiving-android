@@ -2,8 +2,10 @@ package com.nexters.giftarchiving.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.kakao.sdk.template.model.FeedTemplate
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.WriteResponse
+import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
@@ -14,7 +16,6 @@ internal class ShareViewModel : BaseViewModel() {
     val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
     val shareKakaoMessage = LiveEvent<Unit?>()
-    val shareInstagram = LiveEvent<Unit?>()
 
     init {
         viewModelScope.launch {
@@ -26,5 +27,13 @@ internal class ShareViewModel : BaseViewModel() {
         }
     }
 
-    fun onClickSharedInstagramStory() {}
+    fun getKakaoMessageFeed(): FeedTemplate? {
+        return response.value?.let {
+            KakaoFeedMessage.getFeed(it.bgImgUrl, name.value)
+        }
+    }
+
+    fun onClickSharedKakaoMessage() {
+        shareKakaoMessage.call()
+    }
 }
