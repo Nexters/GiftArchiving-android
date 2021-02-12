@@ -1,15 +1,16 @@
 package com.nexters.giftarchiving.model
 
 import com.google.gson.annotations.SerializedName
+import retrofit2.http.Url
 import java.time.LocalDate
 
-internal data class GiftResponse(
+data class GiftResponse(
     @SerializedName("id")
     val giftId : String,
     @SerializedName("name")
     val giftName : String,
     @SerializedName("imgUrl")
-    val giftImgUrl : String,
+    val giftImgUrl : Url,
     @SerializedName("content")
     val giftContent : String,
     @SerializedName("categoty")

@@ -8,9 +8,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.model.GiftListResponse
+import com.nexters.giftarchiving.model.GiftResponse
+import java.time.format.DateTimeFormatter
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val bgColors: ArrayList<Int>, private val people: ArrayList<String>, private val dates:ArrayList<String>) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
+class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : GiftListResponse) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
 
     var mPosition = 0
 
@@ -22,29 +26,18 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val bgC
         mPosition = position
     }
 
-    fun addItem(bgColor: Int, person: String, date : String){
-        bgColors.add(bgColor)
-        people.add(person)
-        dates.add(date)
-        notifyDataSetChanged()
-    }
-
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         private val itemImageView: ImageView = itemView.findViewById(R.id.grid_image)
         private val personTextView: TextView = itemView.findViewById(R.id.grid_person)
         private val dateTextView: TextView = itemView.findViewById(R.id.grid_date)
 
-        fun bind(bgColor: Int, person: String, date: String, position: Int) {
-            when(bgColor){
-                R.color.orange -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_orange_background)
-                R.color.blue -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_blue_background)
-                R.color.yellow -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_yellow_background)
-                else -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_gray_background)
-            }
+        fun bind(gift : GiftResponse, position: Int) {
+            Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             itemImageView.clipToOutline = true
-            personTextView.text = person
-            dateTextView.text = date
+            personTextView.text = gift.giftName
+            val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
+            dateTextView.text = gift.giftReceiveDate.format(formatter)
         }
     }
 
@@ -53,8 +46,8 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val bgC
         return ItemViewHolder(view)
     }
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(bgColors[position], people[position], dates[position], position)
+        holder.bind(gifts.giftListGifts[position], position)
     }
 
-    override fun getItemCount(): Int = bgColors.size
+    override fun getItemCount(): Int = gifts.giftListTotalCount
 }

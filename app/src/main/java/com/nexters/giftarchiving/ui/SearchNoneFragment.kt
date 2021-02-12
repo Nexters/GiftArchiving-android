@@ -6,15 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseFragment
+import com.nexters.giftarchiving.databinding.FragmentGivenBinding
+import com.nexters.giftarchiving.databinding.FragmentSearchNoneBinding
+import com.nexters.giftarchiving.viewmodel.SearchViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
-class SearchNoneFragment : Fragment(){
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        super.onCreateView(inflater, container, savedInstanceState)
-        val view: View = inflater.inflate(R.layout.fragment_search_none, container, false)
-        return view
+internal class SearchNoneFragment : BaseFragment<SearchViewModel, FragmentSearchNoneBinding>() {
+    override val layoutId = R.layout.fragment_search_none
+    override val viewModel: SearchViewModel by viewModel()
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

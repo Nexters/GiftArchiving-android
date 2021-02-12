@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/black"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.SearchErrorFragment">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.nexters.giftarchiving.viewmodel.SearchViewModel" />
+    </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".ui.SearchErrorFragment">
         <ImageView
             android:id="@+id/search_error_image"
             android:layout_width="220dp"
@@ -45,4 +52,4 @@
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginTop="3dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-</FrameLayout>
+</layout>

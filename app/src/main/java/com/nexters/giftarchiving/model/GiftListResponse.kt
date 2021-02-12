@@ -2,7 +2,7 @@ package com.nexters.giftarchiving.model
 
 import com.google.gson.annotations.SerializedName
 
-internal data class GiftListResponse(
+data class GiftListResponse(
     @SerializedName("gifts")
     val giftListGifts : List<GiftResponse>,
     @SerializedName("page")
