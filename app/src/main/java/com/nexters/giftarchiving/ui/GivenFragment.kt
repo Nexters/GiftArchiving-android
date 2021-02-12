@@ -28,8 +28,6 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.homeGivenViewpager
         val bgColors = arrayListOf<Int>(R.color.orange,R.color.blue,R.color.yellow)
-        val people = arrayListOf<String>("test1","test2","test3")
-        val dates = arrayListOf<String>("2021-01-29","2021-01-29","2021-01-29")
 
         val pageTransformer = PreviewSidePageTransformer()
 

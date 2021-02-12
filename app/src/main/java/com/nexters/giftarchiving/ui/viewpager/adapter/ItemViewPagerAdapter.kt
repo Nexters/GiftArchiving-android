@@ -24,7 +24,7 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
         private val personTextView: TextView = itemView.findViewById(R.id.item_person)
         private val dateTextView: TextView = itemView.findViewById(R.id.item_date)
 
-        fun bind(gift : GiftResponse, position: Int) {
+        fun bind(gift : GiftResponse) {
             Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             if(viewType==1){
                 constraintLayout.clipToOutline = true
@@ -46,7 +46,7 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
         return PagerViewHolder(view)
     }
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(giftListResponse.giftListGifts[position], position)
+        holder.bind(giftListResponse.giftListGifts[position])
     }
 
     override fun getItemCount(): Int = giftListResponse.giftListTotalCount
