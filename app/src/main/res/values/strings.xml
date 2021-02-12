@@ -34,4 +34,6 @@
     <string name="terms_detail_title">기프트집 서비스 이용약관</string>
     <string name="opensource_detail_title">기프트집 사용 오픈소스</string>
     <string name="privacy_detail_title">기프트집 이용자\n개인정보 처리방침</string>
+    <string name="share_notice_title">선물.zip이 보관됐어요\n저장하거나 공유해보세요</string>
+    <string name="share_notice_sub_title">받은 마음은 널리널리 자랑하기</string>
 </resources>
