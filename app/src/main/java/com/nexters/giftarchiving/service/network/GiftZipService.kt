@@ -44,14 +44,30 @@ internal interface GiftZipService {
     ) : GiftListResponse
 
     @GET("/api/gift/{createdBy}/tag")
-    suspend fun getGiftListByTag(
+    suspend fun getGiftListByCategory(
         @Path("createdBy") createdBy: String,
         @Query("category") category: String?,
-        @Query("emotion") emotion: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByReason(
+        @Path("createdBy") createdBy: String,
         @Query("reason") reason: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByName(
+        @Path("createdBy") createdBy: String,
         @Query("name") name: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByContent(
+        @Path("createdBy") createdBy: String,
         @Query("content") content: String?,
-        @Query("page") page : Int,
-        @Query("size") size : Int
+        @Query("size") size : Int?
     ) :GiftListResponse
 }
