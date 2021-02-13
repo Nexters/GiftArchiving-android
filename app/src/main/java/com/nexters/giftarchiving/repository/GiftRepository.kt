@@ -19,10 +19,10 @@ internal class GiftRepository(private val giftZipService: GiftZipService) {
         giftZipService.getGiftListByReason(createdBy, reason, size)
 
     @WorkerThread
-    suspend fun getGiftListByName(createdBy: String, name: String?, size : Int?) =
-        giftZipService.getGiftListByName(createdBy, name, size)
+    suspend fun getGiftListByName(createdBy: String, name: String?, category: String?, reason: String?, size : Int?) =
+        giftZipService.getGiftListByName(createdBy, name, category, reason, size)
 
     @WorkerThread
-    suspend fun getGiftListByContent(createdBy: String, content: String?, size : Int?) =
-        giftZipService.getGiftListByContent(createdBy, content, size)
+    suspend fun getGiftListByContent(createdBy: String, content: String?, category: String?, reason: String?, size : Int?) =
+        giftZipService.getGiftListByContent(createdBy, content, category, reason, size)
 }

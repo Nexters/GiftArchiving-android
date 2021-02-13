@@ -61,6 +61,8 @@ internal interface GiftZipService {
     suspend fun getGiftListByName(
         @Path("createdBy") createdBy: String,
         @Query("name") name: String?,
+        @Query("category") category: String?,
+        @Query("reason") reason: String?,
         @Query("size") size : Int?
     ) :GiftListResponse
 
@@ -68,6 +70,8 @@ internal interface GiftZipService {
     suspend fun getGiftListByContent(
         @Path("createdBy") createdBy: String,
         @Query("content") content: String?,
+        @Query("category") category: String?,
+        @Query("reason") reason: String?,
         @Query("size") size : Int?
     ) :GiftListResponse
 }

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class GiftListResponse(
     @SerializedName("gifts")
-    val giftListGifts : List<GiftResponse>,
+    val giftListGifts : ArrayList<GiftResponse>,
     @SerializedName("page")
     val giftListPage : Int,
     @SerializedName("size")
