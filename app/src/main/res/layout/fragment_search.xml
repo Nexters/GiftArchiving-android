@@ -32,6 +32,8 @@
             android:drawableStart="@drawable/ic_icon_search_hint"
             android:drawablePadding="8dp"
             android:background="@drawable/search_text_background"
+            android:singleLine="true"
+            android:imeOptions="actionDone"
             />
 
         <ImageButton
