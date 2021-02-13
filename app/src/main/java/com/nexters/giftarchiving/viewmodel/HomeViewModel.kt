@@ -21,7 +21,7 @@ internal class HomeViewModel(
     init {
         viewModelScope.launch {
             getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50,true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50,false)
         }
     }
     val onClickGivenListButtonListener = View.OnClickListener(){

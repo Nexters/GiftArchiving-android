@@ -10,10 +10,10 @@ data class GiftResponse(
     @SerializedName("name")
     val giftName : String,
     @SerializedName("imgUrl")
-    val giftImgUrl : Url,
+    val giftImgUrl : String,
     @SerializedName("content")
     val giftContent : String,
-    @SerializedName("categoty")
+    @SerializedName("category")
     val giftCategory : String,
     @SerializedName("emotion")
     val giftEmotion : String,
@@ -22,5 +22,7 @@ data class GiftResponse(
     @SerializedName("receiveDate")
     val giftReceiveDate : LocalDate,
     @SerializedName("bgColor")
-    val bgColor : String
+    val bgColor : String,
+    @SerializedName("isReceiveGift")
+    val isReceiveGift : Boolean
 )

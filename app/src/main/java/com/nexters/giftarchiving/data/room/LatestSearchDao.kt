@@ -9,8 +9,8 @@ interface LatestSearchDao {
     @Query("SELECT * FROM latestSearch")
     fun getAll() : LiveData<List<LatestSearch>>
 
-    @Query("DELETE FROM latestSearch WHERE keyword=:keyword")
-    fun deleteSearch(keyword: String)
+    @Query("DELETE FROM latestSearch")
+    fun deleteSearch()
 
     @Query("INSERT INTO latestSearch VALUES (:keyword)")
     fun insert(keyword: String)

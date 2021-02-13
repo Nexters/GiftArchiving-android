@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.viewmodel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -21,10 +22,12 @@ internal class SearchViewModel(
     private val giftRepository: GiftRepository,
     private val preferenceRepository: PreferenceRepository
 ): BaseViewModel(){
-    val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(arrayListOf(),0,0,0))
-    val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(arrayListOf(),0,0,0))
+    val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val getAllName = MutableLiveData(arrayListOf<String>())
     val userId = preferenceRepository.getUserId()
     val totalCount = MutableLiveData(0)
+    val searchResult = MutableLiveData(listOf<GiftResponse>())
 
     var fragmentType = MutableLiveData(0)
 
@@ -33,9 +36,13 @@ internal class SearchViewModel(
     val currentSearchText = MutableLiveData<String?>(null)
 
     fun onClickBack() {
-        navDirections.value = BackDirections()
+        if(fragmentType.value==0){
+            navDirections.value = BackDirections()
+        }
         currentCategory.value = null
         currentReason.value = null
+        currentSearchText.value = null
+        fragmentType.value=0
     }
 
     val onClickCategoryListener = View.OnClickListener(){
@@ -52,6 +59,16 @@ internal class SearchViewModel(
             R.id.category_living->onClickCategory("LIVING")
             R.id.category_culture->onClickCategory("CULTURE")
             else->onClickCategory("ETC")
+        }
+        Log.e("test1",currentCategory.value.toString())
+        viewModelScope.launch {
+            searchResult.value = searchByCategory()
+            if(searchResult.value!!.isEmpty()){
+                fragmentType.value=2
+            } else{
+                fragmentType.value=1
+            }
+            Log.e("test2",fragmentType.value.toString())
         }
     }
 
@@ -70,6 +87,14 @@ internal class SearchViewModel(
             R.id.situation_noReason->onClickReason("JUST")
             else->onClickReason("ETC")
         }
+        viewModelScope.launch {
+            searchResult.value = searchByReason()
+            if(searchResult.value!!.isEmpty()){
+                fragmentType.value=2
+            } else{
+                fragmentType.value=1
+            }
+        }
     }
 
     private fun onClickCategory(tag : String){
@@ -82,17 +107,25 @@ internal class SearchViewModel(
 
     fun setCurrentSearchText(tag : String){
         currentSearchText.value = tag
+        viewModelScope.launch {
+            searchResult.value = searchByText()
+            if(searchResult.value!!.isEmpty()){
+                fragmentType.value=2
+            } else{
+                fragmentType.value=1
+            }
+        }
     }
 
-    suspend fun searchByCategory() : ArrayList<GiftResponse>{
+    suspend fun searchByCategory() : List<GiftResponse>{
         return giftRepository.getGiftListByCategory(userId.toString(),currentCategory.value,totalCount.value).giftListGifts
     }
 
-    suspend fun searchByReason() : ArrayList<GiftResponse>{
+    suspend fun searchByReason() : List<GiftResponse>{
         return giftRepository.getGiftListByReason(userId.toString(),currentReason.value,totalCount.value).giftListGifts
     }
 
-    suspend fun searchByText() : ArrayList<GiftResponse>{
+    suspend fun searchByText() : List<GiftResponse>{
         val temp = mutableSetOf<GiftResponse>()
         temp.addAll(giftRepository.getGiftListByName(userId.toString(),currentSearchText.value,currentCategory.value,currentReason.value,totalCount.value).giftListGifts)
         temp.addAll(giftRepository.getGiftListByContent(userId.toString(),currentSearchText.value,currentCategory.value,currentReason.value,totalCount.value).giftListGifts)
@@ -104,8 +137,19 @@ internal class SearchViewModel(
     init {
         viewModelScope.launch {
             totalCount.value = giftRepository.getGiftListAll(userId.toString(),0,50, true).giftListTotalCount
+            val tempSet = mutableSetOf<String>()
+            if(totalCount.value==0){
+                totalCount.value=1
+            }
             getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0, totalCount.value!!, true)
             getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalCount.value!!,false)
+            for (item in getAllReceivedGiftListResponse.value!!.giftListGifts){
+                tempSet.add(item.giftName)
+            }
+            for (item in getAllNotReceivedGiftListResponse.value!!.giftListGifts){
+                tempSet.add(item.giftName)
+            }
+            getAllName.value!!.addAll(tempSet)
         }
     }
 }

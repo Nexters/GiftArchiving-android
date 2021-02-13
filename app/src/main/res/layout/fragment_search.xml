@@ -16,7 +16,7 @@
         android:background="@color/black"
         tools:context=".ui.SearchFragment">
 
-        <AutoCompleteTextView
+        <EditText
             android:id="@+id/search_autoCompleteTextView"
             android:layout_width="0dp"
             android:layout_height="36dp"
