@@ -153,13 +153,19 @@ internal class SearchViewModel(
 
     init {
         viewModelScope.launch {
-            totalCount.value = giftRepository.getGiftListAll(userId.toString(),0,50, true).giftListTotalCount
-            val tempSet = mutableSetOf<String>()
+            var totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
+            var totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
+            totalCount.value = totalReceive+totalNotReceive
+            if (totalReceive==0)
+                totalReceive=1
+            if(totalNotReceive==0)
+                totalNotReceive=1
             if(totalCount.value==0){
                 totalCount.value=1
             }
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0, totalCount.value!!, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalCount.value!!,false)
+            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0, totalReceive, true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalNotReceive,false)
+            val tempSet = mutableSetOf<String>()
             for (item in getAllReceivedGiftListResponse.value!!.giftListGifts){
                 tempSet.add(item.giftName)
             }
