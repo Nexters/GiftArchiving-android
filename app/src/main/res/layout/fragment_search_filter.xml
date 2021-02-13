@@ -252,11 +252,11 @@
             />
 
         <Button
-            android:id="@+id/situation_celebration"
+            android:id="@+id/situation_anniversary"
             android:layout_width="68dp"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
-            android:text="@string/situation_celebration"
+            android:text="@string/situation_anniversary"
             android:textSize="14sp"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
@@ -273,7 +273,7 @@
             android:textSize="14sp"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
-            app:layout_constraintLeft_toRightOf="@id/situation_celebration"
+            app:layout_constraintLeft_toRightOf="@id/situation_anniversary"
             android:layout_marginStart="6dp"
             />
 

@@ -52,7 +52,7 @@
     <string name="category_culture">문화</string>
     <string name="search_etc">기타</string>
     <string name="situation_birthday">생일</string>
-    <string name="situation_celebration">기념일</string>
+    <string name="situation_anniversary">기념일</string>
     <string name="situation_getJob">취업</string>
     <string name="situation_housewarming">집들이</string>
     <string name="situation_wedding">결혼</string>
@@ -67,6 +67,4 @@
     <string name="search_none_text2">다른 키워드로 검색해보세요.</string>
     <string name="search_error_text1">문제가 생겼어요</string>
     <string name="search_error_text2">잠시 후 다시 시도해보세요.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
