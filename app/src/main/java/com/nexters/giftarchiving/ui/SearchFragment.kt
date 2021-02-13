@@ -21,8 +21,14 @@ internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val cFM = childFragmentManager.beginTransaction()
-        cFM.replace(R.id.search_fragment, SearchFilterFragment()).commit()
-
+        observe(viewModel.fragmentType){
+            when(it){
+                0->cFM.replace(R.id.search_fragment, SearchFilterFragment()).commit()
+                1->cFM.replace(R.id.search_fragment, SearchResultFragment()).commit()
+                2->cFM.replace(R.id.search_fragment, SearchNoneFragment()).commit()
+                3->cFM.replace(R.id.search_fragment, SearchErrorFragment()).commit()
+            }
+        }
     }
 
 

@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 internal class SearchFilterFragment : BaseFragment<SearchViewModel, FragmentSearchFilterBinding>() {
     override val layoutId = R.layout.fragment_search_filter
     override val viewModel: SearchViewModel by viewModel()
-    val latestSearchDao : LatestSearchDao by lazy { LatestSearchDB.getInstance(requireContext()).latestSearchDao() }
+    private val latestSearchDao : LatestSearchDao by lazy { LatestSearchDB.getInstance(requireContext()).latestSearchDao() }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -31,7 +31,7 @@ internal class SearchFilterFragment : BaseFragment<SearchViewModel, FragmentSear
         }
     }
 
-    fun getAllLatestSearch() : LiveData<List<LatestSearch>> {
+    private fun getAllLatestSearch() : LiveData<List<LatestSearch>> {
         return latestSearchDao.getAll()
     }
 }

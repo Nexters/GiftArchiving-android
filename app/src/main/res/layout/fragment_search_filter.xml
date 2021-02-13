@@ -81,7 +81,8 @@
             android:textColor="@color/white"
             app:layout_constraintTop_toBottomOf="@id/search_category_textView"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="16dp"/>
+            android:layout_marginTop="16dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"/>
 
         <Button
             android:id="@+id/category_fashion"
@@ -94,6 +95,7 @@
             app:layout_constraintTop_toTopOf="@id/category_mobile_coupon"
             app:layout_constraintLeft_toRightOf="@id/category_mobile_coupon"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -107,6 +109,7 @@
             app:layout_constraintTop_toTopOf="@id/category_mobile_coupon"
             app:layout_constraintLeft_toRightOf="@id/category_fashion"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -120,6 +123,7 @@
             app:layout_constraintTop_toTopOf="@id/category_mobile_coupon"
             app:layout_constraintLeft_toRightOf="@id/category_cosmetic"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -133,6 +137,7 @@
             app:layout_constraintTop_toBottomOf="@id/category_mobile_coupon"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -146,6 +151,7 @@
             app:layout_constraintTop_toTopOf="@id/category_voucher"
             app:layout_constraintLeft_toRightOf="@id/category_voucher"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -159,6 +165,7 @@
             app:layout_constraintTop_toTopOf="@id/category_voucher"
             app:layout_constraintLeft_toRightOf="@id/category_digital"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -172,6 +179,7 @@
             app:layout_constraintTop_toTopOf="@id/category_voucher"
             app:layout_constraintLeft_toRightOf="@id/category_sports"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -185,6 +193,7 @@
             app:layout_constraintTop_toBottomOf="@id/category_voucher"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -198,6 +207,7 @@
             app:layout_constraintTop_toTopOf="@id/category_pet"
             app:layout_constraintLeft_toRightOf="@id/category_pet"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -211,6 +221,7 @@
             app:layout_constraintTop_toTopOf="@id/category_pet"
             app:layout_constraintLeft_toRightOf="@id/category_living"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <Button
@@ -224,6 +235,7 @@
             app:layout_constraintTop_toTopOf="@id/category_pet"
             app:layout_constraintLeft_toRightOf="@id/category_culture"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickCategoryListener}"
             />
 
         <TextView
@@ -236,7 +248,8 @@
             android:textSize="14sp"
             android:textColor="@color/settingsGray"
             android:textStyle="bold"
-            android:layout_marginTop="32dp"/>
+            android:layout_marginTop="32dp"
+            android:onClick="@{viewModel.onClickReasonListener}"/>
 
         <Button
             android:id="@+id/situation_birthday"
@@ -249,6 +262,7 @@
             app:layout_constraintTop_toBottomOf="@id/search_situation_textView"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -262,6 +276,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
             app:layout_constraintLeft_toRightOf="@id/situation_birthday"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -275,6 +290,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
             app:layout_constraintLeft_toRightOf="@id/situation_anniversary"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -288,6 +304,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
             app:layout_constraintLeft_toRightOf="@id/situation_getJob"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -301,6 +318,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_birthday"
             app:layout_constraintLeft_toRightOf="@id/situation_housewarming"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -314,6 +332,7 @@
             app:layout_constraintTop_toBottomOf="@id/situation_birthday"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -327,6 +346,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_study"
             app:layout_constraintLeft_toRightOf="@id/situation_study"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -340,6 +360,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_study"
             app:layout_constraintLeft_toRightOf="@id/situation_holiday"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -353,6 +374,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_study"
             app:layout_constraintLeft_toRightOf="@id/situation_cheer"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -366,6 +388,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_study"
             app:layout_constraintLeft_toRightOf="@id/situation_apology"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -379,6 +402,7 @@
             app:layout_constraintTop_toBottomOf="@id/situation_study"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <Button
@@ -392,6 +416,7 @@
             app:layout_constraintTop_toTopOf="@id/situation_noReason"
             app:layout_constraintLeft_toRightOf="@id/situation_noReason"
             android:layout_marginStart="6dp"
+            android:onClick="@{viewModel.onClickReasonListener}"
             />
 
         <TextView
