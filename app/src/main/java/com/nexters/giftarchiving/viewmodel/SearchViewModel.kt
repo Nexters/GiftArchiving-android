@@ -28,6 +28,8 @@ internal class SearchViewModel(
     val userId = preferenceRepository.getUserId()
     val totalCount = MutableLiveData(0)
     val searchResult = MutableLiveData(listOf<GiftResponse>())
+    val searchResultGiven = MutableLiveData(arrayListOf<GiftResponse>())
+    val searchResultTaken = MutableLiveData(arrayListOf<GiftResponse>())
 
     var fragmentType = MutableLiveData(0)
 
@@ -118,11 +120,27 @@ internal class SearchViewModel(
     }
 
     suspend fun searchByCategory() : List<GiftResponse>{
-        return giftRepository.getGiftListByCategory(userId.toString(),currentCategory.value,totalCount.value).giftListGifts
+        val all = giftRepository.getGiftListByCategory(userId.toString(),currentCategory.value,totalCount.value).giftListGifts
+        for(item in all){
+            if (item.isReceiveGift){
+                searchResultTaken.value!!.add(item)
+            } else{
+                searchResultGiven.value!!.add(item)
+            }
+        }
+        return all
     }
 
     suspend fun searchByReason() : List<GiftResponse>{
-        return giftRepository.getGiftListByReason(userId.toString(),currentReason.value,totalCount.value).giftListGifts
+        val all = giftRepository.getGiftListByReason(userId.toString(),currentReason.value,totalCount.value).giftListGifts
+        for(item in all){
+            if (item.isReceiveGift){
+                searchResultTaken.value!!.add(item)
+            } else{
+                searchResultGiven.value!!.add(item)
+            }
+        }
+        return all
     }
 
     suspend fun searchByText() : List<GiftResponse>{
@@ -131,6 +149,13 @@ internal class SearchViewModel(
         temp.addAll(giftRepository.getGiftListByContent(userId.toString(),currentSearchText.value,currentCategory.value,currentReason.value,totalCount.value).giftListGifts)
         val result = arrayListOf<GiftResponse>()
         result.addAll(temp)
+        for(item in result){
+            if (item.isReceiveGift){
+                searchResultTaken.value!!.add(item)
+            } else{
+                searchResultGiven.value!!.add(item)
+            }
+        }
         return result
     }
 

@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import com.nexters.giftarchiving.databinding.FragmentSearchResultBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.viewpager.adapter.HomeViewPagerAdapter
+import com.nexters.giftarchiving.ui.viewpager.adapter.SearchResultViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -22,51 +24,75 @@ internal class SearchResultFragment : BaseFragment<SearchViewModel, FragmentSear
     override val layoutId = R.layout.fragment_search_result
     override val viewModel: SearchViewModel by viewModels({requireParentFragment()})
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val tabLayout = binding.searchResultTabLayout
         val viewPager = binding.searchResultViewPager
         val givenList = arrayListOf<GiftResponse>()
         val takenList = arrayListOf<GiftResponse>()
-        seperateGift(givenList, takenList)
-        val tabTextList = arrayListOf(String.format("%s %d",getString(R.string.search_result_taken), takenList.size), String.format("%s %d",getString(R.string.search_result_given), givenList.size))
-        viewPager.isUserInputEnabled = false
-        viewPager.adapter = HomeViewPagerAdapter(this)
-        viewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
-            page.apply {
-                val pageWidth = width
-                when {
-                    position < -0.5f -> {
-                        alpha = 0f
-                        translationX = pageWidth * -position
-                        translationZ = -1f
-                    }
-                    position <= 0.5f -> {
-                        translationX = pageWidth*-position
-                        alpha = 1f
-                        translationZ = 0f
-                    }
-                    else -> {
-                        translationX = pageWidth*position
-                        alpha = 0f
+        var tabTextList : ArrayList<String>
+        observe(viewModel.searchResultTaken){
+            takenList.addAll(it)
+            tabTextList = arrayListOf(String.format("%s %d",getString(R.string.search_result_taken), takenList.size), String.format("%s %d",getString(R.string.search_result_given), givenList.size))
+            viewPager.isUserInputEnabled = false
+            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList)
+            viewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
+                page.apply {
+                    val pageWidth = width
+                    when {
+                        position < -0.5f -> {
+                            alpha = 0f
+                            translationX = pageWidth * -position
+                            translationZ = -1f
+                        }
+                        position <= 0.5f -> {
+                            translationX = pageWidth*-position
+                            alpha = 1f
+                            translationZ = 0f
+                        }
+                        else -> {
+                            translationX = pageWidth*position
+                            alpha = 0f
+                        }
                     }
                 }
-            }
-        })
-        TabLayoutMediator(tabLayout, viewPager) { tab, position ->
-            tab.text = String.format(tabTextList[position])
-        }.attach()
+            })
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = String.format(tabTextList[position])
+            }.attach()
+        }
+        observe(viewModel.searchResultGiven){
+            givenList.addAll(it)
+            tabTextList = arrayListOf(String.format("%s %d",getString(R.string.search_result_taken), takenList.size), String.format("%s %d",getString(R.string.search_result_given), givenList.size))
+            viewPager.isUserInputEnabled = false
+            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList)
+            viewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
+                page.apply {
+                    val pageWidth = width
+                    when {
+                        position < -0.5f -> {
+                            alpha = 0f
+                            translationX = pageWidth * -position
+                            translationZ = -1f
+                        }
+                        position <= 0.5f -> {
+                            translationX = pageWidth*-position
+                            alpha = 1f
+                            translationZ = 0f
+                        }
+                        else -> {
+                            translationX = pageWidth*position
+                            alpha = 0f
+                        }
+                    }
+                }
+            })
+            TabLayoutMediator(tabLayout, viewPager) { tab, position ->
+                tab.text = String.format(tabTextList[position])
+            }.attach()
+        }
+
     }
 
-    fun seperateGift(givenList : ArrayList<GiftResponse>, takenList : ArrayList<GiftResponse>){
-        observe(viewModel.searchResult){
-            for (item in it){
-                if (item.isReceiveGift){
-                    takenList.add(item)
-                } else {
-                    givenList.add(item)
-                }
-            }
-        }
-    }
 }
