@@ -14,7 +14,7 @@ import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import java.time.format.DateTimeFormatter
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : GiftListResponse) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
+class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
 
     var mPosition = 0
 
@@ -46,8 +46,8 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
         return ItemViewHolder(view)
     }
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        holder.bind(gifts.giftListGifts[position], position)
+        holder.bind(gifts[position], position)
     }
 
-    override fun getItemCount(): Int = gifts.giftListTotalCount
+    override fun getItemCount(): Int = gifts.size
 }

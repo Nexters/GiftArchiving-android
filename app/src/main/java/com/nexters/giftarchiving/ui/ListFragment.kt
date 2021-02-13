@@ -25,12 +25,12 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         listTypeViewPager.isUserInputEnabled = false
         if(viewModel.isReceived){
             observe(viewModel.getAllReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it)
+                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts)
                 listTypeViewPager.adapter = listViewPagerAdapter
             }
         } else{
             observe(viewModel.getAllNotReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it)
+                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts)
                 listTypeViewPager.adapter = listViewPagerAdapter
             }
         }

@@ -15,7 +15,7 @@ import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import java.time.format.DateTimeFormatter
 
-class ItemViewPagerAdapter(val context : Context, private val giftListResponse: GiftListResponse, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
+class ItemViewPagerAdapter(val context : Context, private val giftListResponse: List<GiftResponse>, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -46,8 +46,8 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
         return PagerViewHolder(view)
     }
     override fun onBindViewHolder(holder: PagerViewHolder, position: Int) {
-        holder.bind(giftListResponse.giftListGifts[position])
+        holder.bind(giftListResponse[position])
     }
 
-    override fun getItemCount(): Int = giftListResponse.giftListTotalCount
+    override fun getItemCount(): Int = giftListResponse.size
 }

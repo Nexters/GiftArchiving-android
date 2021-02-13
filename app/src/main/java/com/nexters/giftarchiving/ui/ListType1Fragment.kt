@@ -12,10 +12,11 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftListResponse
+import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_list_type1.view.*
 
-class ListType1Fragment(val giftListResponse: GiftListResponse) : Fragment() {
+class ListType1Fragment(val giftList: List<GiftResponse>) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -31,7 +32,7 @@ class ListType1Fragment(val giftListResponse: GiftListResponse) : Fragment() {
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
-            adapter = ItemViewPagerAdapter(requireContext(),giftListResponse,1)
+            adapter = ItemViewPagerAdapter(requireContext(),giftList,1)
             setPadding( resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0,resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0)
             setPageTransformer(pageTransformer)
             val itemDecoration = VerticalMarginItemDecoration(

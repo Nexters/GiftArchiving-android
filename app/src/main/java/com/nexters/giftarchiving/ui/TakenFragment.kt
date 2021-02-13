@@ -36,7 +36,7 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
             clipToPadding = false
             setPageTransformer(pageTransformer)
             observe(viewModel.getAllReceivedGiftListResponse) {
-                adapter = ItemViewPagerAdapter(requireContext(),it,0)
+                adapter = ItemViewPagerAdapter(requireContext(),it.giftListGifts,0)
             }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {

@@ -67,4 +67,6 @@
     <string name="search_none_text2">다른 키워드로 검색해보세요.</string>
     <string name="search_error_text1">문제가 생겼어요</string>
     <string name="search_error_text2">잠시 후 다시 시도해보세요.</string>
+    <string name="search_result_taken">받은 선물</string>
+    <string name="search_result_given">보낸 선물</string>
 </resources>
