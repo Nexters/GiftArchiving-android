@@ -1,22 +1,16 @@
 package com.nexters.giftarchiving.viewmodel
 
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
-import com.nexters.giftarchiving.data.room.LatestSearchDB
-import com.nexters.giftarchiving.data.room.LatestSearchDao
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.repository.GiftRepository
 import com.nexters.giftarchiving.repository.PreferenceRepository
-import com.nexters.giftarchiving.repository.WriteRepository
 import com.nexters.giftarchiving.util.BackDirections
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 internal class SearchViewModel(
     private val giftRepository: GiftRepository,
@@ -62,7 +56,6 @@ internal class SearchViewModel(
             R.id.category_culture->onClickCategory("CULTURE")
             else->onClickCategory("ETC")
         }
-        Log.e("test1",currentCategory.value.toString())
         viewModelScope.launch {
             searchResult.value = searchByCategory()
             if(searchResult.value!!.isEmpty()){
@@ -70,7 +63,6 @@ internal class SearchViewModel(
             } else{
                 fragmentType.value=1
             }
-            Log.e("test2",fragmentType.value.toString())
         }
     }
 

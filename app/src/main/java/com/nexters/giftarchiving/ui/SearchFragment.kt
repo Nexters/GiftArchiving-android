@@ -1,8 +1,6 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
-import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.nexters.giftarchiving.R
@@ -14,7 +12,6 @@ import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {

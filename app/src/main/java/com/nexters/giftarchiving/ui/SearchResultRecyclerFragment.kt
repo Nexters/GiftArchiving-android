@@ -11,10 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.giftarchiving.R
-import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.recyclerview.adapter.ListType2RecyclerviewAdapter
-import org.koin.android.viewmodel.ext.android.viewModel
 
 class SearchResultRecyclerFragment(val giftList: ArrayList<GiftResponse>) : Fragment() {
 

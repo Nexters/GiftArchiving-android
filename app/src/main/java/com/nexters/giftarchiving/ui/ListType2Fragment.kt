@@ -11,11 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.nexters.giftarchiving.R
-import com.nexters.giftarchiving.base.BaseFragment
-import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.recyclerview.adapter.ListType2RecyclerviewAdapter
-import com.nexters.giftarchiving.viewmodel.ListViewModel
 
 class ListType2Fragment(val giftList: List<GiftResponse>) : Fragment() {
     override fun onCreateView(

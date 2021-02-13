@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.GiftListResponse
-import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.repository.GiftRepository
 import com.nexters.giftarchiving.repository.PreferenceRepository
 import com.nexters.giftarchiving.ui.HomeFragmentDirections
