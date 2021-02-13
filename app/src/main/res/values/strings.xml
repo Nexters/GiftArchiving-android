@@ -69,4 +69,6 @@
     <string name="search_error_text2">잠시 후 다시 시도해보세요.</string>
     <string name="search_result_taken">받은 선물</string>
     <string name="search_result_given">보낸 선물</string>
+    <string name="home_default_taken">아직 받은 선물이 없어요\n상단 버튼을 통해\n선물집을 만들어봐요</string>
+    <string name="home_default_given">아직 보낸 선물이 없어요\n상단 버튼을 통해\n선물집을 만들어봐요</string>
 </resources>

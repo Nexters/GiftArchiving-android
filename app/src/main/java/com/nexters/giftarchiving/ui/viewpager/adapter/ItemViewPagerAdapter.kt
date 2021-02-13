@@ -25,19 +25,25 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
         private val dateTextView: TextView = itemView.findViewById(R.id.item_date)
 
         fun bind(gift : GiftResponse) {
-            Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
-            if(viewType==1){
-                constraintLayout.clipToOutline = true
-                when(gift.bgColor){
-                    "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
-                    "R.color.blue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                    "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
-                    else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
+            if(gift.giftId=="empty"){
+                val defaultText : TextView = itemView.findViewById(R.id.item_default_text)
+                defaultText.text = gift.giftContent
+                personTextView.text = gift.giftName
+            } else{
+                Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
+                if(viewType==1){
+                    constraintLayout.clipToOutline = true
+                    when(gift.bgColor){
+                        "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                        "R.color.blue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                        "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                        else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
+                    }
                 }
+                personTextView.text = gift.giftName
+                val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
+                dateTextView.text = gift.giftReceiveDate.format(formatter)
             }
-            personTextView.text = gift.giftName
-            val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
-            dateTextView.text = gift.giftReceiveDate.format(formatter)
         }
     }
 

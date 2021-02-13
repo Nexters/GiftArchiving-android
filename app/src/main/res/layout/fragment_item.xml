@@ -8,17 +8,30 @@
         android:id="@+id/item_constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <ImageView
             android:id="@+id/item_image"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="271dp"
+            android:layout_height="271dp"
             android:scaleType="fitXY"
-            android:src="@mipmap/ic_launcher_round"
-            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/default_circle"
+            app:layout_constraintBottom_toTopOf="@id/item_person"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/item_person"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/item_default_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/item_image"
+            app:layout_constraintLeft_toLeftOf="@id/item_image"
+            app:layout_constraintRight_toRightOf="@id/item_image"
+            app:layout_constraintBottom_toBottomOf="@id/item_image"
+            android:textColor="#80ffffff"
+            android:textSize="14sp"
+            android:gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/item_person"

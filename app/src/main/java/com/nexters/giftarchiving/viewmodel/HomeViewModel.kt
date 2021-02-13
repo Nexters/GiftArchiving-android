@@ -19,8 +19,14 @@ internal class HomeViewModel(
     val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     init {
         viewModelScope.launch {
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50,false)
+            var totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
+            var totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
+            if (totalReceive==0)
+                totalReceive=1
+            if(totalNotReceive==0)
+                totalNotReceive=1
+            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalReceive, true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalNotReceive,false)
         }
     }
     val onClickGivenListButtonListener = View.OnClickListener(){
