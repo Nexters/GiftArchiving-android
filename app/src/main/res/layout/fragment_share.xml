@@ -10,6 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@android:color/black">
@@ -42,6 +43,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/share_title_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -67,20 +69,118 @@
                 android:text="@string/share_notice_sub_title"/>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@id/share_title_layout"
+            app:layout_constraintBottom_toTopOf="@id/share_btn_layout">
 
             <ImageView
-                android:layout_width="300dp"
-                android:layout_height="300dp"/>
-        </LinearLayout>
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_share_illust_lettertop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="@id/letter_front_iv"
+                app:layout_constraintWidth_percent="0.62"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/share_letter_paper_layout"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:backgroundTint="@{viewModel.backgroundColorTheme}"
+                android:background="@drawable/share_round_background"
+                app:layout_constraintBottom_toBottomOf="@id/letter_front_iv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintWidth_percent="0.58"
+                app:layout_constraintDimensionRatio="0.7:1"
+                tools:backgroundTint="@color/colorOrange">
+
+                <ImageView
+                    android:id="@+id/share_iv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="15dp"
+                    android:scaleType="fitXY"
+                    android:adjustViewBounds="true"
+                    android:src="@{viewModel.response.noBgImgUrl}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.20"
+                    tools:src="@drawable/icon_share_kakao"/>
+
+                <LinearLayout
+                    android:id="@+id/share_name_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_bias="0.8">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@string/write_name_from"
+                        tools:textColor="@color/colorWhite"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:textSize="14sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@{viewModel.name}"
+                        tools:text="먹방위"
+                        tools:textColor="@color/colorWhite"/>
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            
+            <ImageView
+                android:id="@+id/letter_front_iv"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/ic_illust_share_letter"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintWidth_percent="0.62"
+                app:layout_constraintVertical_bias="0.75"/>
+            
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="16dp"
+                app:layout_constraintEnd_toEndOf="@id/letter_front_iv"
+                app:layout_constraintBottom_toBottomOf="@id/letter_front_iv">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/frame_background_oval"
+                    android:backgroundTint="@{viewModel.backgroundColorTheme}"
+                    tools:backgroundTint="@color/colorOrange"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_logo_bgcolor_none_white:@drawable/ic_logo_bgcolor_none_black}"
+                    tools:background="@drawable/ic_logo_bgcolor_none_white"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <LinearLayout
+            android:id="@+id/share_btn_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="40dp"
@@ -89,13 +189,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:background="@drawable/icon_share_kakao"
                 android:onClick="@{() -> viewModel.onClickSharedKakaoMessage()}"/>
             <ImageView
-                android:layout_width="48dp"
-                android:layout_height="48dp"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/icon_share_insta"
                 android:onClick="@{() -> viewModel.onClickSharedInstagram()}"/>
