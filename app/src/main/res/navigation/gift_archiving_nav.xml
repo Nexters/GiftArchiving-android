@@ -177,6 +177,7 @@
             android:name="background_theme"
             app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
             android:defaultValue="MONO" />
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:label="SearchFragment"
