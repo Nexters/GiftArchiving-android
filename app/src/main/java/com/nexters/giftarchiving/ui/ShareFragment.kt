@@ -1,6 +1,9 @@
 package com.nexters.giftarchiving.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.view.View
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
 import androidx.navigation.fragment.navArgs
@@ -37,6 +40,24 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
             interpolator = BounceInterpolator()
         }
         binding.shareLetterPaperLayout.startAnimation(transAnim)
+    }
+
+    private fun showSaveImageNotice() {
+        binding.noticeSaveImageLayout.apply {
+            visibility = View.VISIBLE
+            alpha = 1.0f
+
+            animate()
+                .setStartDelay(1000L)
+                .alpha(0f)
+                .setDuration(500L)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        super.onAnimationEnd(animation)
+                        visibility = View.GONE
+                    }
+                }).start()
+        }
     }
 
     private fun shareKakaoMessage() {

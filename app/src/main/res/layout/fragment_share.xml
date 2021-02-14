@@ -200,5 +200,28 @@
                 android:background="@drawable/icon_share_insta"
                 android:onClick="@{() -> viewModel.onClickSharedInstagram()}"/>
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/notice_save_image_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:paddingVertical="16dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:backgroundTint="@color/colorBlueGrey"
+            android:background="@drawable/share_round_background"
+            android:animateLayoutChanges="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/share_notice_save_image"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
