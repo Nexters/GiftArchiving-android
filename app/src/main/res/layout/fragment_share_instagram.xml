@@ -44,6 +44,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/share_image_layout"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:paddingHorizontal="15dp"
@@ -109,6 +110,7 @@
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:orientation="vertical"
+            android:onClick="@{()->viewModel.onClickShareInstagramStory()}"
             app:layout_constraintHorizontal_bias="0.33"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -134,6 +136,7 @@
             android:layout_marginBottom="40dp"
             android:gravity="center"
             android:orientation="vertical"
+            android:onClick="@{()->viewModel.onClickShareInstagramFeed()}"
             app:layout_constraintHorizontal_bias="0.66"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
