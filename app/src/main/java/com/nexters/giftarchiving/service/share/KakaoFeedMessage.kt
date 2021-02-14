@@ -9,7 +9,7 @@ internal object KakaoFeedMessage {
     private const val description = "님이 나에게 보낸 선물이 도착했어요!";
 
 
-    fun getFeed(url: String, name: String? = "") =
+    fun getFeed(url: String, name: String) =
         FeedTemplate(
             content = Content(
                 title = title,

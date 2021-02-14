@@ -34,7 +34,7 @@ internal class ShareViewModel : BaseViewModel() {
 
     fun getKakaoMessageFeed(): FeedTemplate? {
         return response.value?.let {
-            KakaoFeedMessage.getFeed(it.bgImgUrl, name.value)
+            KakaoFeedMessage.getFeed(it.bgImgUrl, name.value ?: "")
         }
     }
 
