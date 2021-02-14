@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.service.network
 
+import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.LoginResponse
 import com.nexters.giftarchiving.model.User
 import com.nexters.giftarchiving.model.WriteResponse
@@ -34,4 +35,43 @@ internal interface GiftZipService {
         @Part img: MultipartBody.Part
     ): String
 
+    @GET("/api/gift/user/{createdBy}")
+    suspend fun getGiftListAll(
+        @Path("createdBy") createdBy: String,
+        @Query("page") page : Int,
+        @Query("size") size : Int,
+        @Query("isReceiveGift") isReceiveGift: Boolean
+    ) : GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByCategory(
+        @Path("createdBy") createdBy: String,
+        @Query("category") category: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByReason(
+        @Path("createdBy") createdBy: String,
+        @Query("reason") reason: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByName(
+        @Path("createdBy") createdBy: String,
+        @Query("name") name: String?,
+        @Query("category") category: String?,
+        @Query("reason") reason: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
+
+    @GET("/api/gift/{createdBy}/tag")
+    suspend fun getGiftListByContent(
+        @Path("createdBy") createdBy: String,
+        @Query("content") content: String?,
+        @Query("category") category: String?,
+        @Query("reason") reason: String?,
+        @Query("size") size : Int?
+    ) :GiftListResponse
 }

@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.ui
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
+import android.content.ClipData
 import android.content.Context
 import android.graphics.Rect
 import android.os.Bundle
@@ -14,8 +15,12 @@ import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentTakenBinding
+import com.nexters.giftarchiving.extension.observe
+import com.nexters.giftarchiving.model.GiftResponse
+import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.time.LocalDate
 
 internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>() {
     override val layoutId = R.layout.fragment_taken
@@ -25,17 +30,35 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.homeTakenViewpager
-        val bgColors = arrayListOf<Int>(R.color.blue,R.color.orange,R.color.yellow)
-        val people = arrayListOf<String>("test1","test2","test3")
-        val dates = arrayListOf<String>("2021-01-29","2021-01-29","2021-01-29")
-
+        val bgColors = arrayListOf<Int>(R.color.gray)
+        observe(viewModel.getAllReceivedGiftListResponse){
+            if(it.giftListGifts.isNotEmpty()){
+                bgColors.clear()
+                for(item in it.giftListGifts){
+                    when(item.bgColor){
+                        "ORANGE"->bgColors.add(R.color.orange)
+                        "YELLOW"->bgColors.add(R.color.yellow)
+                        "BLUE"->bgColors.add(R.color.blue)
+                        else->bgColors.add(R.color.gray)
+                    }
+                }
+            }
+        }
         val pageTransformer = PreviewSidePageTransformer()
 
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
             setPageTransformer(pageTransformer)
-            adapter = ItemViewPagerAdapter(bgColors, people, dates,0)
+            observe(viewModel.getAllReceivedGiftListResponse) {
+                adapter = if(it.giftListGifts.isEmpty()){
+                    val emptyGift = GiftResponse("empty","From. 보낸이","empty",getString(R.string.home_default_taken),"empty","empty","empty",
+                        LocalDate.now(),"empty",true)
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0)
+                } else{
+                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,0)
+                }
+            }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)

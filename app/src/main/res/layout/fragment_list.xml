@@ -48,7 +48,8 @@
             android:background="@android:color/transparent"
             app:layout_constraintTop_toTopOf="@id/list_title"
             app:layout_constraintRight_toRightOf="parent"
-            android:layout_marginEnd="20dp"/>
+            android:layout_marginEnd="20dp"
+            android:onClick="@{()->viewModel.onClickSearch()}"/>
 
         <ImageButton
             android:id="@+id/list_style_button"

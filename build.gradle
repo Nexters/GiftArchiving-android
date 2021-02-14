@@ -14,6 +14,7 @@ buildscript {
         retrofit_version = '2.9.0'
         gson_version = '2.8.6'
         glide_version = '4.12.0'
+        room_version = '2.2.6'
 
         PUBLISH_GROUP_ID = 'com.theartofdev.edmodo'
         PUBLISH_ARTIFACT_ID = 'android-image-cropper'
