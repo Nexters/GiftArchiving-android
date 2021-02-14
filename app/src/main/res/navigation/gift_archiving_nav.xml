@@ -45,11 +45,33 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_searchFramgent"
+            app:destination="@id/searchFragment"/>
     </fragment>
 
     <fragment
         android:id="@+id/listFragment"
         android:name="com.nexters.giftarchiving.ui.ListFragment"
+        android:label="ListFragment">
+        <argument
+            android:name="title"
+            app:argType="string"/>
+        <action
+            android:id="@+id/action_listFragment_to_searchFragment"
+            app:destination="@id/searchFragment"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listType1Fragment"
+        android:name="com.nexters.giftarchiving.ui.ListType1Fragment"
+        android:label="ListFragment">
+        <argument
+            android:name="title"
+            app:argType="string"/>
+    </fragment>
+    <fragment
+        android:id="@+id/listType2Fragment"
+        android:name="com.nexters.giftarchiving.ui.ListType2Fragment"
         android:label="ListFragment">
         <argument
             android:name="title"
@@ -131,5 +153,10 @@
         android:id="@+id/privacyFragment"
         android:name="com.nexters.giftarchiving.ui.PrivacyFragment"
         android:label="PrivacyFragment">
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:label="SearchFragment"
+        android:name="com.nexters.giftarchiving.ui.SearchFragment">
     </fragment>
 </navigation>

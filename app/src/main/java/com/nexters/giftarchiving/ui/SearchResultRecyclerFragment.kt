@@ -14,23 +14,24 @@ import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.recyclerview.adapter.ListType2RecyclerviewAdapter
 
-class ListType2Fragment(val giftList: List<GiftResponse>) : Fragment() {
+class SearchResultRecyclerFragment(val giftList: ArrayList<GiftResponse>) : Fragment() {
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        val view: View = inflater.inflate(R.layout.fragment_list_type2, container, false)
-
-        val list_recyclerview = view.findViewById<RecyclerView>(R.id.list2_recyclerView)
+        val view: View = inflater.inflate(R.layout.fragment_search_result_recycler, container, false)
+        val recyclerView = view.findViewById<RecyclerView>(R.id.search_result_recyclerView)
         val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList)
-        list_recyclerview.adapter = recyclerViewAdapter
+        recyclerView.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
-        list_recyclerview.layoutManager = gridLayoutManager
-        val dividerItemDecoration = DividerItemDecoration(context,LinearLayoutManager(requireContext()).orientation)
-        list_recyclerview.addItemDecoration(dividerItemDecoration)
-        list_recyclerview.addItemDecoration(RecyclerDecoration())
+        recyclerView.layoutManager = gridLayoutManager
+        val dividerItemDecoration = DividerItemDecoration(context,
+            LinearLayoutManager(requireContext()).orientation)
+        recyclerView.addItemDecoration(dividerItemDecoration)
+        recyclerView.addItemDecoration(RecyclerDecoration())
         return view
     }
 
