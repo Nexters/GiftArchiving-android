@@ -95,6 +95,7 @@ dependencies {
     // Kakao
     implementation "com.kakao.sdk:v2-user:$kakao_version"
     implementation "com.kakao.sdk:v2-talk:$kakao_version"
+    implementation "com.kakao.sdk:v2-link:$kakao_version"
 
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
@@ -103,6 +104,10 @@ dependencies {
 
     // Gson
     implementation "com.google.code.gson:gson:$gson_version"
+
+    // Glide
+    implementation "com.github.bumptech.glide:glide:$glide_version"
+    annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
     // Test
     testImplementation 'junit:junit:4.13'

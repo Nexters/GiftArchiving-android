@@ -17,6 +17,7 @@ val viewModelModule = module {
     factory { WriteViewModel(get(), get()) }
     factory { CropViewModel() }
     factory { ShareViewModel() }
+    factory { ShareInstagramViewModel() }
     factory { SplashViewModel() }
     factory { LoginViewModel(get(), get()) }
     factory { HomeViewModel(get(), get()) }

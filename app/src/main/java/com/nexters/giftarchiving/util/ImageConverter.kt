@@ -1,16 +1,21 @@
 package com.nexters.giftarchiving.util
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
+import android.view.View
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
-import java.io.ByteArrayOutputStream
-import java.io.FileNotFoundException
-import java.io.FileOutputStream
-import java.io.IOException
-import java.io.File
+import java.io.*
 
 object ImageConverter {
+    fun layoutToBitmap(v: View): Bitmap {
+        val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bitmap)
+        v.draw(canvas)
+        return bitmap
+    }
+
     fun bitmapToFileConvert(
         bitmap: Bitmap,
         parentDir: File,

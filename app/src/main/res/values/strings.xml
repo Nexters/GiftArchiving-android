@@ -15,6 +15,9 @@
     <string name="frame_square">정사각형</string>
     <string name="frame_oval">원</string>
     <string name="frame_window">창문</string>
+    <string name="share_insta_title">instagram에 게시</string>
+    <string name="share_insta_story">스토리</string>
+    <string name="share_insta_feed">피드</string>
     <string name="home_detail_button_name">선물함</string>
     <string name="setting_title">설정 · 문의</string>
     <string name="setting_service">서비스 설정</string>
@@ -34,6 +37,9 @@
     <string name="terms_detail_title">기프트집 서비스 이용약관</string>
     <string name="opensource_detail_title">기프트집 사용 오픈소스</string>
     <string name="privacy_detail_title">기프트집 이용자\n개인정보 처리방침</string>
+    <string name="share_notice_title">선물.zip이 보관됐어요\n저장하거나 공유해보세요</string>
+    <string name="share_notice_sub_title">받은 마음은 널리널리 자랑하기</string>
+    <string name="share_notice_save_image">저장이 완료되었습니다.</string>
     <string name="search_latest_searched">내가 찾아 봤던</string>
     <string name="search_latest_delete">지우기</string>
     <string name="search_category">지금 찾는 선물의 종류는</string>
