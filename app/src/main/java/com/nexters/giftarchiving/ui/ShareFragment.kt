@@ -1,6 +1,8 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
+import android.view.animation.BounceInterpolator
+import android.view.animation.TranslateAnimation
 import androidx.navigation.fragment.navArgs
 import com.kakao.sdk.link.LinkClient
 import com.nexters.giftarchiving.R
@@ -19,7 +21,22 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setLetterAnimation()
         observe(viewModel.shareKakaoMessage) { shareKakaoMessage() }
+    }
+
+    private fun setLetterAnimation() {
+        val transAnim = TranslateAnimation(
+            ANIMATION_DEFAULT_DELTA,
+            ANIMATION_DEFAULT_DELTA,
+            ANIMATION_FROM_Y_DELTA,
+            ANIMATION_DEFAULT_DELTA
+        ).apply {
+            startOffset = ANIMATION_START_OFFSET
+            duration = ANIMATION_DURATION
+            interpolator = BounceInterpolator()
+        }
+        binding.shareLetterPaperLayout.startAnimation(transAnim)
     }
 
     private fun shareKakaoMessage() {
@@ -38,6 +55,11 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
     }
 
     companion object {
+        private const val ANIMATION_DEFAULT_DELTA = 0f
+        private const val ANIMATION_FROM_Y_DELTA = -150f
+        private const val ANIMATION_START_OFFSET = 200L
+        private const val ANIMATION_DURATION = 2500L
+
         private const val FAIL_SHARE_KAKAO_MESSAGE = "카카오 메세지 공유가 불가능합니다"
     }
 }
