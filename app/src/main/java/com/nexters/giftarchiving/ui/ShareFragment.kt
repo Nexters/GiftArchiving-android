@@ -13,6 +13,8 @@ import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentShareBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
+import com.nexters.giftarchiving.util.ImageConverter
+import com.nexters.giftarchiving.util.ImageManager
 import com.nexters.giftarchiving.viewmodel.ShareViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -26,6 +28,7 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
 
         setLetterAnimation()
         observe(viewModel.shareKakaoMessage) { shareKakaoMessage() }
+        observe(viewModel.saveImage) { saveImage() }
     }
 
     private fun setLetterAnimation() {
@@ -40,6 +43,16 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
             interpolator = BounceInterpolator()
         }
         binding.shareLetterPaperLayout.startAnimation(transAnim)
+    }
+
+    private fun saveImage() {
+        if (viewModel.response.value?.noBgImgUrl != null) {
+            val bitmap = ImageConverter.layoutToBitmap(binding.saveImageLayout)
+            ImageManager.saveImage(requireContext().contentResolver, bitmap)
+            showSaveImageNotice()
+        } else {
+            toast(FAIL_SAVE_IAMGE)
+        }
     }
 
     private fun showSaveImageNotice() {
@@ -81,6 +94,7 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
         private const val ANIMATION_START_OFFSET = 200L
         private const val ANIMATION_DURATION = 2500L
 
+        private const val FAIL_SAVE_IAMGE = "이미지 저장에 실패하였습니다"
         private const val FAIL_SHARE_KAKAO_MESSAGE = "카카오 메세지 공유가 불가능합니다"
     }
 }

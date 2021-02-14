@@ -18,6 +18,7 @@ internal class ShareViewModel : BaseViewModel() {
     val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
     val backgroundColorTheme = MutableLiveData<BackgroundColorTheme>()
+    val saveImage = LiveEvent<Unit?>()
     val shareKakaoMessage = LiveEvent<Unit?>()
 
     init {
@@ -35,6 +36,10 @@ internal class ShareViewModel : BaseViewModel() {
         return response.value?.let {
             KakaoFeedMessage.getFeed(it.bgImgUrl, name.value)
         }
+    }
+
+    fun onClickSaveImage() {
+        saveImage.call()
     }
 
     fun onClickSharedKakaoMessage() {
