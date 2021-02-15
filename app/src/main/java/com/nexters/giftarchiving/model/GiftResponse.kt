@@ -20,7 +20,7 @@ data class GiftResponse(
     @SerializedName("reason")
     val giftReason : String,
     @SerializedName("receiveDate")
-    val giftReceiveDate : LocalDate,
+    val giftReceiveDate : String,
     @SerializedName("bgColor")
     val bgColor : String,
     @SerializedName("isReceiveGift")

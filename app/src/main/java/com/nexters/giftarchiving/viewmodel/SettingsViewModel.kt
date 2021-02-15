@@ -1,14 +1,20 @@
 package com.nexters.giftarchiving.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
+import com.nexters.giftarchiving.model.NoticeResponse
+import com.nexters.giftarchiving.repository.NoticeRepository
 import com.nexters.giftarchiving.ui.SettingsFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import kotlinx.coroutines.launch
 
-internal class SettingsViewModel : BaseViewModel() {
+internal class SettingsViewModel(
+    private val noticeRepository: NoticeRepository
+) : BaseViewModel() {
     val opensourceNames = arrayListOf<String>("Kakao","Koin")
     val opensourceDetails = arrayListOf<String>("Kakao detail","Koin detail")
+    val notices = MutableLiveData(mutableListOf<NoticeResponse>())
     fun onClickBack() {
         navDirections.value = BackDirections()
     }
@@ -32,6 +38,13 @@ internal class SettingsViewModel : BaseViewModel() {
     fun onClickPrivacy(){
         viewModelScope.launch {
             navDirections.value= SettingsFragmentDirections.actionSettingFragmentToPrivacyFragment()
+        }
+    }
+    init {
+        viewModelScope.launch {
+            val temp = mutableListOf<NoticeResponse>()
+            temp.addAll(noticeRepository.getNoticeList().noticeList)
+            notices.value = temp
         }
     }
 }

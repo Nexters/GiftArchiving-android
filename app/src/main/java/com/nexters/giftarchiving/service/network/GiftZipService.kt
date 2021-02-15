@@ -1,9 +1,8 @@
 package com.nexters.giftarchiving.service.network
 
-import com.nexters.giftarchiving.model.GiftListResponse
+import com.nexters.giftarchiving.model.*
 import com.nexters.giftarchiving.model.LoginResponse
 import com.nexters.giftarchiving.model.User
-import com.nexters.giftarchiving.model.WriteResponse
 import okhttp3.MultipartBody
 import retrofit2.http.*
 
@@ -74,4 +73,7 @@ internal interface GiftZipService {
         @Query("reason") reason: String?,
         @Query("size") size : Int?
     ) :GiftListResponse
+
+    @GET("/api/admin")
+    suspend fun getNoticeList() :NoticeListResponse
 }
