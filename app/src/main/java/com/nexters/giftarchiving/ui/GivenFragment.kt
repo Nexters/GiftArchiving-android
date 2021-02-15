@@ -19,7 +19,6 @@ import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.time.LocalDate
 
 internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>() {
     override val layoutId = R.layout.fragment_given
@@ -52,7 +51,7 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
             observe(viewModel.getAllNotReceivedGiftListResponse){
                 adapter = if(it.giftListGifts.isEmpty()){
                     val emptyGift = GiftResponse("empty","To. 받은이","empty",getString(R.string.home_default_given),"empty","empty","empty",
-                        LocalDate.now(),"empty",true)
+                        "","empty",true)
                     ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0)
                 } else{
                     ItemViewPagerAdapter(requireContext(),it.giftListGifts,0)
