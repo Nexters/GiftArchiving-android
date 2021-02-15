@@ -71,9 +71,9 @@
             android:textColor="@color/settingsGray"
             android:textStyle="bold"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_mobile_coupon"
-            android:layout_width="107dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_mobile_coupon"
@@ -82,11 +82,12 @@
             app:layout_constraintTop_toBottomOf="@id/search_category_textView"
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16dp"
-            android:onClick="@{viewModel.onClickCategoryListener}"/>
+            android:onClick="@{viewModel.onClickCategoryListener}"
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_fashion"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_fashion"
@@ -96,11 +97,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_mobile_coupon"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_cosmetic"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_cosmetic"
@@ -110,11 +111,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_fashion"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_food"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_food"
@@ -124,11 +125,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_cosmetic"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_voucher"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_voucher"
@@ -138,11 +139,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_digital"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_digital"
@@ -152,11 +153,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_voucher"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_sports"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_sports"
@@ -166,11 +167,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_digital"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_baby"
-            android:layout_width="81dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_baby"
@@ -180,11 +181,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_sports"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_pet"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_pet"
@@ -194,11 +195,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_living"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_living"
@@ -208,11 +209,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_pet"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_culture"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/category_culture"
@@ -222,11 +223,11 @@
             app:layout_constraintLeft_toRightOf="@id/category_living"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/category_etc"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/search_etc"
@@ -236,7 +237,7 @@
             app:layout_constraintLeft_toRightOf="@id/category_culture"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickCategoryListener}"
-            />
+            android:gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/search_situation_textView"
@@ -251,9 +252,9 @@
             android:layout_marginTop="32dp"
             android:onClick="@{viewModel.onClickReasonListener}"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_birthday"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_birthday"
@@ -263,11 +264,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="16dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_anniversary"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_anniversary"
@@ -277,11 +278,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_birthday"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_getJob"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_getJob"
@@ -291,11 +292,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_anniversary"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_housewarming"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_housewarming"
@@ -305,11 +306,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_getJob"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical" />
 
-        <Button
+        <TextView
             android:id="@+id/situation_wedding"
-            android:layout_width="68dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_wedding"
@@ -319,11 +320,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_housewarming"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_study"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_study"
@@ -333,11 +334,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_holiday"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_holiday"
@@ -347,11 +348,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_study"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical" />
 
-        <Button
+        <TextView
             android:id="@+id/situation_cheer"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_cheer"
@@ -361,11 +362,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_holiday"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_apology"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_apology"
@@ -375,11 +376,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_cheer"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_thanks"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_thanks"
@@ -389,11 +390,11 @@
             app:layout_constraintLeft_toRightOf="@id/situation_apology"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical" />
 
-        <Button
+        <TextView
             android:id="@+id/situation_noReason"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/situation_noReason"
@@ -403,11 +404,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
-        <Button
+        <TextView
             android:id="@+id/situation_etc"
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
             android:layout_height="32dp"
             android:background="@drawable/tag_button"
             android:text="@string/search_etc"
@@ -417,7 +418,7 @@
             app:layout_constraintLeft_toRightOf="@id/situation_noReason"
             android:layout_marginStart="6dp"
             android:onClick="@{viewModel.onClickReasonListener}"
-            />
+            android:gravity="center_vertical"/>
 
         <TextView
             android:id="@+id/search_person_textView"

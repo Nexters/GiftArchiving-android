@@ -29,7 +29,7 @@ internal class SearchViewModel(
 
     val currentCategory = MutableLiveData<String?>(null)
     val currentReason = MutableLiveData<String?>(null)
-    val currentSearchText = MutableLiveData<String?>(null)
+    val currentSearchText = MutableLiveData<String>("")
 
     fun onClickBack() {
         if(fragmentType.value==0){
@@ -37,7 +37,7 @@ internal class SearchViewModel(
         }
         currentCategory.value = null
         currentReason.value = null
-        currentSearchText.value = null
+        currentSearchText.value = ""
         fragmentType.value=0
     }
 
