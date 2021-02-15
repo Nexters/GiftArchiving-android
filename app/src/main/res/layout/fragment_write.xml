@@ -37,9 +37,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <ImageView
-                    android:layout_width="224dp"
-                    android:layout_height="190dp"
-                    android:layout_marginBottom="33dp"
+                    android:layout_width="223dp"
+                    android:layout_height="228dp"
                     android:background="@drawable/ic_share_illust_lettertop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
@@ -99,6 +98,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
+                    android:id="@+id/letter_front_iv"
                     android:layout_width="224dp"
                     android:layout_height="124dp"
                     android:background="@drawable/ic_illust_share_letter"
@@ -231,7 +231,7 @@
                             android:layout_gravity="center"
                             android:scaleType="centerCrop"
                             android:adjustViewBounds="true"
-                            android:background="@{viewModel.editedImage}"/>
+                            android:src="@{viewModel.editedImage}"/>
 
                     </com.xiaopo.flying.sticker.StickerView>
                 </androidx.constraintlayout.widget.ConstraintLayout>

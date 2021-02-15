@@ -216,7 +216,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         binding.stickerView.removeStickerHandler()
         val noBgBitmap = viewModel.convertLayoutToBitmap(binding.stickerView)
         binding.shareIv.setImageBitmap(noBgBitmap)
-        viewModel.delayAndCallback{
+        viewModel.delayAndCallback {
             val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
             viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
         }
