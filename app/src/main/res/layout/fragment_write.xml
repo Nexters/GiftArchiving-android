@@ -346,19 +346,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
                             app:layout_constraintHorizontal_bias="0.25"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -367,15 +367,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
-                                    app:informationMenu="@{viewModel.category}"
+                                    app:informationMenu="@{viewModel.purpose}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_oval_copy_10"/>
+                                    tools:background="@drawable/ic_icon_purpose_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -383,8 +384,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
-                                android:text="@{viewModel.category.title}"
-                                tools:text="화장품"
+                                android:text="@{viewModel.purpose.title}"
+                                tools:text="목적"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -394,19 +395,19 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:orientation="vertical"
-                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -415,15 +416,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
-                                    app:informationMenu="@{viewModel.purpose}"
+                                    app:informationMenu="@{viewModel.category}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_icon_present"/>
+                                    tools:background="@drawable/ic_icon_category_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -431,8 +433,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
-                                android:text="@{viewModel.purpose.title}"
-                                tools:text="생일 선물"
+                                android:text="@{viewModel.category.title}"
+                                tools:text="카테고리"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -449,12 +451,12 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -463,15 +465,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.emotion}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_icon_feeling"/>
+                                    tools:background="@drawable/ic_icon_feeling_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -480,7 +483,7 @@
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
                                 android:text="@{viewModel.emotion.title}"
-                                tools:text="감동이야"
+                                tools:text="감정"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -761,9 +764,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:onClick="@{()->viewModel.setHideMenuType(WriteMenu.STICKER)}"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/sticker_layout"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sticker_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}"
