@@ -89,6 +89,7 @@ internal class WriteViewModel(
 
     fun setFrameShape(shape: WriteFrameShape) {
         frameShape.value = shape
+        convertImageShape()
     }
 
     fun setBackgroundColor(colorTheme: BackgroundColorTheme) {
@@ -178,6 +179,18 @@ internal class WriteViewModel(
             delay(100L)
             callback()
         }
+    }
+
+    private fun convertImageShape() {
+        val shape = frameShape.value ?: WriteFrameShape.RECTANGLE
+        originBitmap?.let { bm ->
+            editedImage.value = when (shape) {
+                WriteFrameShape.RECTANGLE -> bm
+                WriteFrameShape.OVAL -> CropImage.toOvalBitmap(bm)
+                WriteFrameShape.WINDOW -> CropImage.toWindowBitmap(bm)
+            }
+        }
+        hideMenuType.value = WriteMenu.FRAME
     }
 
     private fun bitmapToMultipartBody(
