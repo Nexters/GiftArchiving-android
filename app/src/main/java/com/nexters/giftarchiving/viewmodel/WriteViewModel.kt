@@ -55,14 +55,16 @@ internal class WriteViewModel(
     val isSaved = LiveEvent<Unit?>()
 
     var stickerList = mutableListOf<Sticker>()
-    var baseImageUri: Uri? = null
+    var originBitmap: Bitmap? = null
     private var isReceiveGift = true
 
     init {
         viewModelScope.launch {
             navArgs<WriteFragmentArgs>()
                 .collect {
-                    editedImage.value = it.bitmap
+                    if (originBitmap == null) {
+                        editedImage.value = it.bitmap
+                    }
                     isReceiveGift = it.isReceiveGift
                 }
         }
@@ -79,9 +81,9 @@ internal class WriteViewModel(
         hideMenuType.value = showMenuType.value
     }
 
-    fun setNewImage(uri: Uri, img: Bitmap) {
-        baseImageUri = uri
-        editedImage.value = img
+    fun setNewImage(img: Bitmap) {
+        originBitmap = img
+        convertImageShape()
     }
 
     fun loadGallery() {

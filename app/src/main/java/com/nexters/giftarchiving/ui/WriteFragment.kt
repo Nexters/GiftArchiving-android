@@ -25,8 +25,7 @@ import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
-import com.xiaopo.flying.sticker.DrawableSticker
-import com.xiaopo.flying.sticker.Sticker
+import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 
@@ -38,8 +37,11 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bitmap>("image")
-            ?.observe(viewLifecycleOwner, Observer { viewModel.editedImage.value = it })
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Bitmap>("image")
+            ?.observe(viewLifecycleOwner, Observer { viewModel.setNewImage(it) })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,7 +73,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             data?.data?.let {
                 val source = ImageDecoder.createSource(requireActivity().contentResolver, it)
                 val bitmap = ImageDecoder.decodeBitmap(source)
-                viewModel.setNewImage(it, bitmap)
+                viewModel.navDirections.value =
+                    WriteFragmentDirections.actionWriteFragmentToCropFragment(bitmap)
             }
         }
     }
