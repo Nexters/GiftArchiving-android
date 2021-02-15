@@ -18,6 +18,7 @@ import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import com.nexters.giftarchiving.util.ImageConverter
@@ -35,6 +36,7 @@ internal class WriteViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
+    val frameShape = MutableLiveData(WriteFrameShape.RECTANGLE)
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
     val date = MutableLiveData(LocalDate.now())
@@ -85,13 +87,8 @@ internal class WriteViewModel(
         loadGallery.call()
     }
 
-    fun loadCropEditor() {
-        if (baseImageUri != null) {
-            navDirections.value =
-                WriteFragmentDirections.actionWriteFragmentToCropFragment(baseImageUri.toString())
-        } else {
-            toast.value = NOTICE_SELECT_IMAGE
-        }
+    fun setFrameShape(shape: WriteFrameShape) {
+        frameShape.value = shape
     }
 
     fun setBackgroundColor(colorTheme: BackgroundColorTheme) {

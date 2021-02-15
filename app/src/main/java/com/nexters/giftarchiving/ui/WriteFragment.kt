@@ -127,7 +127,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 setInformationMenuViewPager(menuType)
                 binding.menuInformationLayout
             }
-            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.FRAME -> binding.menuFrameLayout
             WriteMenu.STICKER -> {
                 if (viewModel.editedImage.value != null) {
                     binding.menuStickerLayout
@@ -147,7 +147,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun hideSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
-            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.FRAME -> binding.menuFrameLayout
             WriteMenu.STICKER -> binding.menuStickerLayout
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> binding.menuDateLayout
