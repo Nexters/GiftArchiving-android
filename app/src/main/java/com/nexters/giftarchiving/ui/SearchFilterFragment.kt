@@ -52,6 +52,7 @@ internal class SearchFilterFragment : BaseFragment<SearchViewModel, FragmentSear
                     viewModel.setCurrentSearchText(name)
                 }
             }
+            layoutManager = LinearLayoutManager(requireContext()).also { it.orientation = LinearLayoutManager.VERTICAL }
         }
 
         binding.searchLatestDeleteButton.setOnClickListener {
