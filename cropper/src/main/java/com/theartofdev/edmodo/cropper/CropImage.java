@@ -102,8 +102,9 @@ public final class CropImage {
    * recycled.
    */
   public static Bitmap toOvalBitmap(@NonNull Bitmap bitmap) {
-    int width = bitmap.getWidth();
-    int height = bitmap.getHeight();
+    Bitmap bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+    int width = bmp.getWidth();
+    int height = bmp.getHeight();
     Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
     Canvas canvas = new Canvas(output);
@@ -118,9 +119,11 @@ public final class CropImage {
     RectF rect = new RectF(0, 0, width, height);
     canvas.drawOval(rect, paint);
     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-    canvas.drawBitmap(bitmap, 0, 0, paint);
+    canvas.drawBitmap(bmp, 0, 0, paint);
 
-    bitmap.recycle();
+    bmp.recycle();
+
+    return output;
   }
 
   /**

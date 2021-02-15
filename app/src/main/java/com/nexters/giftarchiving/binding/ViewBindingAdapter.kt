@@ -131,6 +131,13 @@ fun setBackgroundWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     }
 }
 
+@BindingAdapter("android:src")
+fun setSrcWithBitmap(iv: ImageView, bitmap: Bitmap?) {
+    bitmap?.let {
+        iv.setImageBitmap(it)
+    }
+}
+
 @BindingAdapter("android:visibility")
 fun setVisibility(v: View, isVisible: Boolean) {
     v.visibility = when (isVisible) {

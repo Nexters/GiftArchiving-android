@@ -117,7 +117,18 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         with(binding.stickerView) {
             stickers = viewModel.stickerList
             isConstrained = true
-            configDefaultIcons()
+
+            val deleteIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_cancel_sticker),
+                BitmapStickerIcon.RIGHT_TOP
+            ).apply { iconEvent = DeleteIconEvent() }
+
+            val zoomIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_scale),
+                BitmapStickerIcon.RIGHT_BOTOM
+            ).apply { iconEvent = ZoomIconEvent() }
+
+            binding.stickerView.icons = listOf(deleteIcon, zoomIcon)
         }
     }
 

@@ -22,6 +22,7 @@ import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import com.nexters.giftarchiving.util.ImageConverter
+import com.theartofdev.edmodo.cropper.CropImage
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -169,9 +170,10 @@ internal class WriteViewModel(
     fun convertLayoutToBitmap(v: View): Bitmap {
         v.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
+        val bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(bmp)
         v.draw(canvas)
-        return bitmap
+        return bmp
     }
 
     fun delayAndCallback(callback: () -> Unit) {

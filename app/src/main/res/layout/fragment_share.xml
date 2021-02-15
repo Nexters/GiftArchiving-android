@@ -19,8 +19,7 @@
             android:layout_width="280dp"
             android:layout_height="280dp"
             android:visibility="invisible"
-            android:backgroundTint="@{viewModel.backgroundColorTheme}"
-            android:background="@drawable/share_round_background"
+            android:background="@{viewModel.backgroundColorTheme}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:backgroundTint="@color/colorMono">
