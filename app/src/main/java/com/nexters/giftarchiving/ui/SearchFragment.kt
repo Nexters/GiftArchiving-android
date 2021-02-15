@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
+import android.text.Editable
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import com.nexters.giftarchiving.R
@@ -9,6 +10,7 @@ import com.nexters.giftarchiving.data.room.LatestSearchDB
 import com.nexters.giftarchiving.data.room.LatestSearchDao
 import com.nexters.giftarchiving.databinding.FragmentSearchBinding
 import com.nexters.giftarchiving.extension.observe
+import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
@@ -26,12 +28,19 @@ internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBind
         }
         binding.searchAutoCompleteTextView.setOnEditorActionListener { v, actionId, event ->
             if(actionId==EditorInfo.IME_ACTION_DONE){
-                viewModel.setCurrentSearchText(binding.searchAutoCompleteTextView.text.toString())
-                insertKeyword(binding.searchAutoCompleteTextView.text.toString())
+                if(binding.searchAutoCompleteTextView.text.toString()==""){
+                    toast("검색어를 입력해주세요")
+                } else{
+                    viewModel.setCurrentSearchText(binding.searchAutoCompleteTextView.text.toString())
+                    insertKeyword(binding.searchAutoCompleteTextView.text.toString())
+                }
             } else{
                 return@setOnEditorActionListener false
             }
             return@setOnEditorActionListener true
+        }
+        observe(viewModel.currentSearchText){
+            binding.searchAutoCompleteTextView.text = Editable.Factory.getInstance().newEditable(it)
         }
     }
 
