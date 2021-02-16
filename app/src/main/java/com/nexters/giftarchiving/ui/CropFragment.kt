@@ -1,13 +1,13 @@
 package com.nexters.giftarchiving.ui
 
 import android.graphics.Bitmap
-import android.net.Uri
 import android.os.Bundle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentCropBinding
+import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.viewmodel.CropViewModel
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -21,10 +21,9 @@ internal class CropFragment : BaseFragment<CropViewModel, FragmentCropBinding>()
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        with(binding.cropIv) {
-            setImageBitmap(navArgs.bitmap)
-            setOnCropImageCompleteListener(this@CropFragment)
-        }
+        setCropImageView()
+
+        observe(viewModel.crop) { cropImage() }
     }
 
     override fun onCropImageComplete(view: CropImageView?, result: CropImageView.CropResult?) {
@@ -32,11 +31,24 @@ internal class CropFragment : BaseFragment<CropViewModel, FragmentCropBinding>()
     }
 
     private fun handleCropResult(result: CropImageView.CropResult?) {
-        var bitmap: Bitmap? = null
-        result?.let { bitmap = it.bitmap }
-        with(findNavController()) {
-            previousBackStackEntry?.savedStateHandle?.getLiveData<Bitmap>("image")?.value = bitmap
+        result?.let {
+            findNavController()
+                .previousBackStackEntry
+                ?.savedStateHandle
+                ?.getLiveData<Bitmap>("image")
+                ?.value = it.bitmap
             viewModel.navDirections.value = BackDirections(R.id.writeFragment)
         }
+    }
+
+    private fun setCropImageView() {
+        with(binding.cropIv) {
+            setImageBitmap(navArgs.bitmap)
+            setOnCropImageCompleteListener(this@CropFragment)
+        }
+    }
+
+    private fun cropImage() {
+        binding.cropIv.getCroppedImageAsync()
     }
 }

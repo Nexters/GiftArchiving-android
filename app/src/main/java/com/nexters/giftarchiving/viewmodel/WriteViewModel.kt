@@ -2,7 +2,6 @@ package com.nexters.giftarchiving.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -37,7 +36,7 @@ internal class WriteViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
-    val frameShape = MutableLiveData(WriteFrameShape.RECTANGLE)
+    val frameShape = MutableLiveData(WriteFrameShape.SQUARE)
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
     val date = MutableLiveData(LocalDate.now())
@@ -47,6 +46,7 @@ internal class WriteViewModel(
     val name = MutableLiveData<String>()
     val content = MutableLiveData<String>()
     val isLoading = MutableLiveData(false)
+    val currentMenuType = MutableLiveData<WriteMenu>()
     val showMenuType = LiveEvent<WriteMenu>()
     val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
@@ -71,14 +71,13 @@ internal class WriteViewModel(
     }
 
     fun setInformationMenu(item: WriteInformationMenu) {
-        when (showMenuType.value) {
+        when (currentMenuType.value) {
             WriteMenu.INFORMATION_CATEGORY -> category.value = item as WriteCategoryMenu
             WriteMenu.INFORMATION_PURPOSE -> purpose.value = item as WritePurposeMenu
             WriteMenu.INFORMATION_EMOTION -> emotion.value = item as WriteEmotionMenu
             else -> return
         }
-
-        hideMenuType.value = showMenuType.value
+        hideCurrentMenu()
     }
 
     fun setNewImage(img: Bitmap) {
@@ -105,22 +104,36 @@ internal class WriteViewModel(
 
     fun attachSticker() {
         addSticker.call()
-        hideMenuType.value = WriteMenu.STICKER
+        hideMenu(WriteMenu.STICKER)
     }
 
     fun onClickBack() {
         navDirections.value = BackDirections()
     }
 
-    fun setShowMenuType(menuType: WriteMenu) {
-        if (menuType != showMenuType.value) {
-            showMenuType.value?.let { setHideMenuType(it) }
-        }
+    private fun showMenu(menuType: WriteMenu) {
+        currentMenuType.value = menuType
         showMenuType.value = menuType
     }
 
-    fun setHideMenuType(menuType: WriteMenu) {
+    private fun hideMenu(menuType: WriteMenu) {
+        currentMenuType.value = null
         hideMenuType.value = menuType
+    }
+
+    fun hideCurrentMenu() {
+        currentMenuType.value?.let { hideMenu(it) }
+    }
+
+    fun setShowMenuType(menuType: WriteMenu) {
+        if (currentMenuType.value!= null && menuType != currentMenuType.value) {
+            hideCurrentMenu()
+        }
+        showMenu(menuType)
+    }
+
+    fun setHideMenuType(menuType: WriteMenu) {
+        hideMenu(menuType)
     }
 
     fun changeDate() {
@@ -147,6 +160,7 @@ internal class WriteViewModel(
                     category = category.value?.titleEng ?: "",
                     reason = purpose.value?.titleEng ?: "",
                     emotion = emotion.value?.titleEng ?: "",
+                    frameType = (frameShape.value ?: WriteFrameShape.SQUARE).toString(),
                     bgColor = backgroundColorTheme.value?.toString() ?: "",
                     noBgImg = noBgImg,
                     bgImg = bgImg
@@ -157,7 +171,9 @@ internal class WriteViewModel(
                     WriteFragmentDirections.actionWriteFragmentToShareFragment(
                         name.value,
                         response,
-                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
+                        frameShape.value ?: WriteFrameShape.SQUARE,
+                        isReceiveGift
                     )
                 navDirections.postValue(directions)
             } else {
@@ -167,7 +183,6 @@ internal class WriteViewModel(
     }
 
     fun convertLayoutToBitmap(v: View): Bitmap {
-        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
         val bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true)
         val canvas = Canvas(bmp)
@@ -183,15 +198,15 @@ internal class WriteViewModel(
     }
 
     private fun convertImageShape() {
-        val shape = frameShape.value ?: WriteFrameShape.RECTANGLE
+        val shape = frameShape.value ?: WriteFrameShape.SQUARE
         originBitmap?.let { bm ->
             editedImage.value = when (shape) {
-                WriteFrameShape.RECTANGLE -> bm
-                WriteFrameShape.OVAL -> CropImage.toOvalBitmap(bm)
-                WriteFrameShape.WINDOW -> CropImage.toWindowBitmap(bm)
+                WriteFrameShape.SQUARE -> bm
+                WriteFrameShape.CIRCLE -> CropImage.toOvalBitmap(bm)
+                WriteFrameShape.ARCH -> CropImage.toWindowBitmap(bm)
             }
         }
-        hideMenuType.value = WriteMenu.FRAME
+        hideMenu(WriteMenu.FRAME)
     }
 
     private fun bitmapToMultipartBody(
@@ -204,10 +219,11 @@ internal class WriteViewModel(
 
     companion object {
         @JvmStatic
-        val INFORMATION_NUMBER_OF_PAGE= 8
+        val INFORMATION_NUMBER_OF_PAGE = 8
 
         @JvmStatic
         val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
+
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
     }
