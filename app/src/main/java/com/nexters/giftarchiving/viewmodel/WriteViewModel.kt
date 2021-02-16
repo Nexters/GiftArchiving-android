@@ -37,7 +37,7 @@ internal class WriteViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
-    val frameShape = MutableLiveData(WriteFrameShape.RECTANGLE)
+    val frameShape = MutableLiveData(WriteFrameShape.SQUARE)
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
     val date = MutableLiveData(LocalDate.now())
@@ -183,12 +183,12 @@ internal class WriteViewModel(
     }
 
     private fun convertImageShape() {
-        val shape = frameShape.value ?: WriteFrameShape.RECTANGLE
+        val shape = frameShape.value ?: WriteFrameShape.SQUARE
         originBitmap?.let { bm ->
             editedImage.value = when (shape) {
-                WriteFrameShape.RECTANGLE -> bm
-                WriteFrameShape.OVAL -> CropImage.toOvalBitmap(bm)
-                WriteFrameShape.WINDOW -> CropImage.toWindowBitmap(bm)
+                WriteFrameShape.SQUARE -> bm
+                WriteFrameShape.CIRCLE -> CropImage.toOvalBitmap(bm)
+                WriteFrameShape.ARCH -> CropImage.toWindowBitmap(bm)
             }
         }
         hideMenuType.value = WriteMenu.FRAME

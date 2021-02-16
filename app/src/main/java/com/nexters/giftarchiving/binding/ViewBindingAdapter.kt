@@ -171,18 +171,17 @@ fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorThem
 @BindingAdapter("theme", "emptyFrameShape")
 fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFrameShape) {
     when (frameShape) {
-        WriteFrameShape.RECTANGLE -> {
+        WriteFrameShape.SQUARE -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_rectangle_white
             else R.drawable.write_empty_image_background_rectangle_black
         }
-        WriteFrameShape.OVAL -> {
+        WriteFrameShape.CIRCLE -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_oval_white
             else R.drawable.write_empty_image_background_oval_black
         }
-        WriteFrameShape.WINDOW -> {
+        WriteFrameShape.ARCH -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
             else R.drawable.write_empty_image_background_window_black
         }
-    }.let { getDrawableByResource(v.context, it) }
-        ?.let { v.background = it }
+    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
 }
