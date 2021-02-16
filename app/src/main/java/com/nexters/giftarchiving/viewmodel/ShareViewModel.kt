@@ -21,6 +21,7 @@ internal class ShareViewModel : BaseViewModel() {
     val frameShape = MutableLiveData<WriteFrameShape>()
     val saveImage = LiveEvent<Unit?>()
     val shareKakaoMessage = LiveEvent<Unit?>()
+    var isReceive = true
 
     init {
         viewModelScope.launch {
@@ -30,6 +31,7 @@ internal class ShareViewModel : BaseViewModel() {
                     name.value = it.name
                     backgroundColorTheme.value = it.backgroundTheme
                     frameShape.value = it.frameShape
+                    isReceive = it.isReceive
                 }
         }
     }
@@ -40,7 +42,7 @@ internal class ShareViewModel : BaseViewModel() {
         }
     }
 
-    fun onClickBackHome(){
+    fun onClickBackHome() {
         navDirections.value = ShareFragmentDirections.actionShareFragmentToHomeFragment()
     }
 
@@ -56,7 +58,8 @@ internal class ShareViewModel : BaseViewModel() {
         navDirections.value = ShareFragmentDirections.actionShareFragmentToShareInstagramFragment(
             response.value?.noBgImgUrl,
             name.value,
-            backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+            backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
+            isReceive
         )
     }
 }

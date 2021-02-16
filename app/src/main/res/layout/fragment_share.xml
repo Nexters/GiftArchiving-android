@@ -51,7 +51,8 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@{viewModel.backgroundColorTheme}"
-                    android:text="@string/write_name_from"
+                    android:text="@{viewModel.receive?@string/write_name_from:@string/write_name_to}"
+                    tools:text="@string/write_name_from"
                     tools:textColor="@color/white"/>
 
                 <TextView
@@ -185,7 +186,8 @@
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/write_name_from"
+                        android:text="@{viewModel.receive?@string/write_name_from:@string/write_name_to}"
+                        tools:text="@string/write_name_from"
                         tools:textColor="@color/colorWhite"/>
                     <TextView
                         android:layout_width="wrap_content"

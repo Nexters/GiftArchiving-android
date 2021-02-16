@@ -172,7 +172,8 @@ internal class WriteViewModel(
                         name.value,
                         response,
                         backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
-                        frameShape.value ?: WriteFrameShape.SQUARE
+                        frameShape.value ?: WriteFrameShape.SQUARE,
+                        isReceiveGift
                     )
                 navDirections.postValue(directions)
             } else {

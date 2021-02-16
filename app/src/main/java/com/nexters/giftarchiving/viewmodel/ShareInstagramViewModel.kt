@@ -16,6 +16,7 @@ internal class ShareInstagramViewModel: BaseViewModel() {
     val name = MutableLiveData<String>()
     val instagramStory = LiveEvent<Unit?>()
     val instagramFeed = LiveEvent<Unit?>()
+    var isReceive = true
 
     init {
         viewModelScope.launch {
@@ -24,6 +25,7 @@ internal class ShareInstagramViewModel: BaseViewModel() {
                     noBgImgUrl.value = it.noBgUrl
                     backgroundColorTheme.value = it.backgroundTheme
                     name.value = it.name
+                    isReceive = it.isReceive
                 }
         }
     }
