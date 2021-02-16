@@ -228,7 +228,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun saveGift() {
         binding.stickerView.removeStickerHandler()
-        val noBgBitmap = viewModel.convertLayoutToBitmap(binding.stickerView)
+        val noBgBitmap = binding.stickerView.createBitmap()
         binding.shareIv.setImageBitmap(noBgBitmap)
         viewModel.delayAndCallback {
             val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)

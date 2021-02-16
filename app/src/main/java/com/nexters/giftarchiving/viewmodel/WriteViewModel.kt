@@ -82,7 +82,7 @@ internal class WriteViewModel(
     }
 
     fun setNewImage(img: Bitmap) {
-        originBitmap = img
+        originBitmap = img.copy(Bitmap.Config.ARGB_8888, true)
         convertImageShape()
     }
 
