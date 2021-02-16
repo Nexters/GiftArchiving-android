@@ -9,15 +9,16 @@ import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
 import com.nexters.giftarchiving.ui.ShareFragmentDirections
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 internal class ShareViewModel : BaseViewModel() {
     val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
     val backgroundColorTheme = MutableLiveData<BackgroundColorTheme>()
+    val frameShape = MutableLiveData<WriteFrameShape>()
     val saveImage = LiveEvent<Unit?>()
     val shareKakaoMessage = LiveEvent<Unit?>()
 
@@ -28,6 +29,7 @@ internal class ShareViewModel : BaseViewModel() {
                     response.value = it.response
                     name.value = it.name
                     backgroundColorTheme.value = it.backgroundTheme
+                    frameShape.value = it.frameShape
                 }
         }
     }

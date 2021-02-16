@@ -157,7 +157,8 @@ internal class WriteViewModel(
                     WriteFragmentDirections.actionWriteFragmentToShareFragment(
                         name.value,
                         response,
-                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
+                        frameShape.value ?: WriteFrameShape.SQUARE
                     )
                 navDirections.postValue(directions)
             } else {
@@ -204,10 +205,11 @@ internal class WriteViewModel(
 
     companion object {
         @JvmStatic
-        val INFORMATION_NUMBER_OF_PAGE= 8
+        val INFORMATION_NUMBER_OF_PAGE = 8
 
         @JvmStatic
         val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
+
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
     }

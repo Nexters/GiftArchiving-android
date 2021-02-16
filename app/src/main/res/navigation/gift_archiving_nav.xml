@@ -115,6 +115,10 @@
             android:name="background_theme"
             app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
             android:defaultValue="MONO" />
+        <argument
+            android:name="frame_shape"
+            app:argType="com.nexters.giftarchiving.ui.data.write.WriteFrameShape"
+            android:defaultValue="SQUARE" />
     </fragment>
     <fragment
         android:id="@+id/cropFragment"

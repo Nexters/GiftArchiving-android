@@ -184,4 +184,14 @@ fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFr
             else R.drawable.write_empty_image_background_window_black
         }
     }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+
+}
+
+@BindingAdapter("iconFrameShape")
+fun setIconFrameShape(v: View, frameShape: WriteFrameShape) {
+    when (frameShape) {
+        WriteFrameShape.SQUARE -> R.drawable.frame_background_rectangle
+        WriteFrameShape.CIRCLE -> R.drawable.frame_background_oval
+        WriteFrameShape.ARCH -> R.drawable.frame_background_window
+    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
 }

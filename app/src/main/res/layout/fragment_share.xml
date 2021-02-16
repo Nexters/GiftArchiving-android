@@ -211,21 +211,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.62"
                 app:layout_constraintVertical_bias="0.75"/>
-            
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="16dp"
                 app:layout_constraintEnd_toEndOf="@id/letter_front_iv"
                 app:layout_constraintBottom_toBottomOf="@id/letter_front_iv">
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/frame_background_oval"
                     android:backgroundTint="@{viewModel.backgroundColorTheme}"
-                    tools:backgroundTint="@color/colorOrange"/>
-
+                    app:iconFrameShape="@{viewModel.frameShape}"
+                    tools:backgroundTint="@color/colorOrange"
+                    tools:background="@drawable/frame_background_oval"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
