@@ -73,10 +73,12 @@ internal fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
 }
 
 @BindingAdapter("android:src")
-internal fun setSrcWithUrl(iv: ImageView, url: String) {
-    Glide.with(iv.context)
-        .load(url)
-        .into(iv)
+internal fun setSrcWithUrl(iv: ImageView, url: String?) {
+    url?.let {
+        Glide.with(iv.context)
+            .load(it)
+            .into(iv)
+    }
 }
 
 @BindingAdapter("android:backgroundTint")

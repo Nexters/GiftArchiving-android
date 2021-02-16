@@ -75,6 +75,11 @@ internal interface GiftZipService {
         @Query("size") size : Int?
     ) :GiftListResponse
 
+    @GET("/api/gift/{giftId}")
+    suspend fun getGift(
+        @Path("giftId") giftId: String
+    ): GiftDetailResponse
+
     @GET("/api/admin")
     suspend fun getNoticeList() :NoticeListResponse
 }

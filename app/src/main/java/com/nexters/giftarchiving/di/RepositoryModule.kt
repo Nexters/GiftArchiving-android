@@ -1,6 +1,6 @@
 package com.nexters.giftarchiving.di
 
-import com.nexters.giftarchiving.repository.*
+import com.nexters.giftarchiving.repository.DetailRepository
 import com.nexters.giftarchiving.repository.GiftRepository
 import com.nexters.giftarchiving.repository.LoginRepository
 import com.nexters.giftarchiving.repository.NoticeRepository
@@ -14,4 +14,5 @@ val repositoryModule = module {
     single { WriteRepository(get()) }
     single { GiftRepository(get()) }
     single { NoticeRepository(get()) }
+    single { DetailRepository(get()) }
 }
