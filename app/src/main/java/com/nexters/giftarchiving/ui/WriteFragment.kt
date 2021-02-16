@@ -146,6 +146,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 if (viewModel.editedImage.value != null) {
                     binding.menuStickerLayout
                 } else {
+                    viewModel.hideCurrentMenu()
                     toast(WriteViewModel.NOTICE_SELECT_IMAGE)
                     null
                 }

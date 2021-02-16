@@ -3,7 +3,6 @@ package com.nexters.giftarchiving.binding
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +19,7 @@ import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
+import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -193,4 +193,12 @@ internal fun setIconFrameShape(v: View, frameShape: WriteFrameShape) {
         WriteFrameShape.CIRCLE -> R.drawable.frame_background_oval
         WriteFrameShape.ARCH -> R.drawable.frame_background_window
     }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+}
+
+@BindingAdapter("theme", "backgroundColorByMenu")
+internal fun setBackgroundColorByMenu(v: View, colorTheme: BackgroundColorTheme, menu: WriteMenu?) {
+    when (menu?.isShowBottomBar) {
+        true -> colorTheme.popupBackgroundColor
+        else -> colorTheme.backgroundColor
+    }.let { v.setBackgroundColor(getColorByResource(v.context, it)) }
 }

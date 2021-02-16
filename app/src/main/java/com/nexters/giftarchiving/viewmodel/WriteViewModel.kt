@@ -46,6 +46,7 @@ internal class WriteViewModel(
     val name = MutableLiveData<String>()
     val content = MutableLiveData<String>()
     val isLoading = MutableLiveData(false)
+    val currentMenuType = MutableLiveData<WriteMenu>()
     val showMenuType = LiveEvent<WriteMenu>()
     val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
@@ -70,14 +71,13 @@ internal class WriteViewModel(
     }
 
     fun setInformationMenu(item: WriteInformationMenu) {
-        when (showMenuType.value) {
+        when (currentMenuType.value) {
             WriteMenu.INFORMATION_CATEGORY -> category.value = item as WriteCategoryMenu
             WriteMenu.INFORMATION_PURPOSE -> purpose.value = item as WritePurposeMenu
             WriteMenu.INFORMATION_EMOTION -> emotion.value = item as WriteEmotionMenu
             else -> return
         }
-
-        hideMenuType.value = showMenuType.value
+        hideCurrentMenu()
     }
 
     fun setNewImage(img: Bitmap) {
@@ -104,22 +104,36 @@ internal class WriteViewModel(
 
     fun attachSticker() {
         addSticker.call()
-        hideMenuType.value = WriteMenu.STICKER
+        hideMenu(WriteMenu.STICKER)
     }
 
     fun onClickBack() {
         navDirections.value = BackDirections()
     }
 
-    fun setShowMenuType(menuType: WriteMenu) {
-        if (menuType != showMenuType.value) {
-            showMenuType.value?.let { setHideMenuType(it) }
-        }
+    private fun showMenu(menuType: WriteMenu) {
         showMenuType.value = menuType
+        currentMenuType.value = menuType
+    }
+
+    private fun hideMenu(menuType: WriteMenu) {
+        hideMenuType.value = menuType
+        currentMenuType.value = null
+    }
+
+    fun hideCurrentMenu() {
+        currentMenuType.value?.let { hideMenu(it) }
+    }
+
+    fun setShowMenuType(menuType: WriteMenu) {
+        if (currentMenuType.value!= null && menuType != currentMenuType.value) {
+            hideCurrentMenu()
+        }
+        showMenu(menuType)
     }
 
     fun setHideMenuType(menuType: WriteMenu) {
-        hideMenuType.value = menuType
+        hideMenu(menuType)
     }
 
     fun changeDate() {
@@ -191,7 +205,7 @@ internal class WriteViewModel(
                 WriteFrameShape.ARCH -> CropImage.toWindowBitmap(bm)
             }
         }
-        hideMenuType.value = WriteMenu.FRAME
+        hideMenu(WriteMenu.FRAME)
     }
 
     private fun bitmapToMultipartBody(

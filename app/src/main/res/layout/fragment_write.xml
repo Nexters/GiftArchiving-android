@@ -551,7 +551,8 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:paddingHorizontal="20dp"
-            android:background="@{viewModel.backgroundColorTheme}"
+            app:theme="@{viewModel.backgroundColorTheme}"
+            app:backgroundColorByMenu="@{viewModel.currentMenuType}"
             app:layout_constraintBottom_toBottomOf="parent">
 
             <ImageView
