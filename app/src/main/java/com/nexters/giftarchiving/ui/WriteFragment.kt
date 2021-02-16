@@ -188,7 +188,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun setInformationMenuViewPager(menuType: WriteMenu) {
         with(binding.informationMenuViewpager) {
-            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, 2)
+            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, viewModel.isReceiveGift)
             TabLayoutMediator(binding.informationMenuTabLayout, this) { tab, pos ->
 
             }.attach()

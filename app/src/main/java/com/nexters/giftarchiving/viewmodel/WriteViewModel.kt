@@ -56,7 +56,7 @@ internal class WriteViewModel(
 
     var stickerList = mutableListOf<Sticker>()
     var originBitmap: Bitmap? = null
-    private var isReceiveGift = true
+    var isReceiveGift = true
 
     init {
         viewModelScope.launch {
@@ -144,12 +144,9 @@ internal class WriteViewModel(
                     name = name.value ?: "",
                     content = content.value ?: "",
                     receiveDate = date.value ?: LocalDate.now(),
-//                    category = category.value?.title ?: "",
-//                    reason = purpose.value?.title ?: "",
-//                    emotion = emotion.value?.title ?: "",
-                    category = "LIVING",
-                    reason = "BIRTHDAY",
-                    emotion = "GOOD",
+                    category = category.value?.titleEng ?: "",
+                    reason = purpose.value?.titleEng ?: "",
+                    emotion = emotion.value?.titleEng ?: "",
                     bgColor = backgroundColorTheme.value?.toString() ?: "",
                     noBgImg = noBgImg,
                     bgImg = bgImg
@@ -207,8 +204,10 @@ internal class WriteViewModel(
 
     companion object {
         @JvmStatic
-        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
+        val INFORMATION_NUMBER_OF_PAGE= 8
 
+        @JvmStatic
+        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
     }
