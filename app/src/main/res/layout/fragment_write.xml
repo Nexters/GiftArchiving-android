@@ -5,6 +5,7 @@
 
     <data>
         <import type="com.nexters.giftarchiving.ui.data.BackgroundColorTheme" />
+        <import type="com.nexters.giftarchiving.ui.data.write.WriteFrameShape" />
         <import type="com.nexters.giftarchiving.ui.data.write.WriteMenu" />
 
         <variable
@@ -37,9 +38,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
                 <ImageView
-                    android:layout_width="224dp"
-                    android:layout_height="190dp"
-                    android:layout_marginBottom="33dp"
+                    android:layout_width="223dp"
+                    android:layout_height="228dp"
                     android:background="@drawable/ic_share_illust_lettertop"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"/>
@@ -99,6 +99,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <ImageView
+                    android:id="@+id/letter_front_iv"
                     android:layout_width="224dp"
                     android:layout_height="124dp"
                     android:background="@drawable/ic_illust_share_letter"
@@ -188,14 +189,15 @@
                         android:layout_margin="24dp"
                         android:gravity="center"
                         android:alpha="0.3"
-                        android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/write_empty_image_background_white : @drawable/write_empty_image_background_black}"
                         android:visibility="@{viewModel.editedImage == null}"
+                        app:theme="@{viewModel.backgroundColorTheme}"
+                        app:emptyFrameShape="@{viewModel.frameShape}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintDimensionRatio="1:1"
-                        tools:background="@drawable/write_empty_image_background_white"/>
+                        tools:background="@drawable/write_empty_image_background_oval_white"/>
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -216,9 +218,11 @@
                         android:id="@+id/sticker_view"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        app:showIcons="true"
                         android:paddingHorizontal="40dp"
                         android:paddingVertical="35dp"
+                        app:showIcons="true"
+                        app:showBorder="true"
+                        app:borderColor="@color/colorWhite"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -231,7 +235,7 @@
                             android:layout_gravity="center"
                             android:scaleType="centerCrop"
                             android:adjustViewBounds="true"
-                            android:background="@{viewModel.editedImage}"/>
+                            android:src="@{viewModel.editedImage}"/>
 
                     </com.xiaopo.flying.sticker.StickerView>
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -345,19 +349,19 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical"
                             android:gravity="center_horizontal"
-                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
                             app:layout_constraintHorizontal_bias="0.25"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -366,15 +370,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
-                                    app:informationMenu="@{viewModel.category}"
+                                    app:informationMenu="@{viewModel.purpose}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_oval_copy_10"/>
+                                    tools:background="@drawable/ic_icon_purpose_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -382,8 +387,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
-                                android:text="@{viewModel.category.title}"
-                                tools:text="화장품"
+                                android:text="@{viewModel.purpose.title}"
+                                tools:text="목적"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -393,19 +398,19 @@
                             android:layout_height="wrap_content"
                             android:gravity="center_horizontal"
                             android:orientation="vertical"
-                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
+                            android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
                             app:layout_constraintHorizontal_bias="0.5"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -414,15 +419,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
-                                    app:informationMenu="@{viewModel.purpose}"
+                                    app:informationMenu="@{viewModel.category}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_icon_present"/>
+                                    tools:background="@drawable/ic_icon_category_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -430,8 +436,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
-                                android:text="@{viewModel.purpose.title}"
-                                tools:text="생일 선물"
+                                android:text="@{viewModel.category.title}"
+                                tools:text="카테고리"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -448,12 +454,12 @@
                             app:layout_constraintTop_toTopOf="parent">
 
                             <androidx.constraintlayout.widget.ConstraintLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_width="40dp"
+                                android:layout_height="40dp">
 
                                 <View
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
                                     android:background="@drawable/write_information_icon_background"
                                     android:alpha="0.24"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -462,15 +468,16 @@
                                     app:layout_constraintBottom_toBottomOf="parent"/>
 
                                 <ImageView
-                                    android:layout_width="40dp"
-                                    android:layout_height="40dp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.emotion}"
                                     app:layout_constraintStart_toStartOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintTop_toTopOf="parent"
                                     app:layout_constraintBottom_toBottomOf="parent"
-                                    tools:background="@drawable/ic_icon_feeling"/>
+                                    tools:background="@drawable/ic_icon_feeling_default"/>
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
                             <TextView
@@ -479,7 +486,7 @@
                                 android:layout_marginTop="8dp"
                                 android:textColor="@{viewModel.backgroundColorTheme}"
                                 android:text="@{viewModel.emotion.title}"
-                                tools:text="감동이야"
+                                tools:text="감정"
                                 tools:textColor="@color/colorWhite"
                                 android:textSize="14sp"/>
                         </LinearLayout>
@@ -542,7 +549,7 @@
                 android:layout_height="26dp"
                 android:layout_marginEnd="18dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_frame : @drawable/ic_btn_frame_b}"
-                android:onClick="@{() -> viewModel.loadCropEditor()}"
+                android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.FRAME)}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/sticker_iv"
@@ -611,7 +618,7 @@
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/information_menu_viewpager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/information_menu_tab_layout"
@@ -760,9 +767,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:onClick="@{()->viewModel.setHideMenuType(WriteMenu.STICKER)}"
-                app:layout_constraintTop_toTopOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/sticker_layout"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sticker_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}"
@@ -791,6 +800,113 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/menu_sticker_tab_layout"
                     app:layout_constraintBottom_toBottomOf="parent"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/menu_frame_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/bottom_layout">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:onClick="@{()->viewModel.setHideMenuType(WriteMenu.FRAME)}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/frame_layout"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/frame_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="33dp"
+                app:popUpBackground="@{viewModel.backgroundColorTheme}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:background="@color/colorPopupMono">
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.RECTANGLE)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.25">
+                    
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_icon_frame_rectangle:@drawable/ic_icon_frame_rectangle_bk}"
+                        tools:background="@drawable/ic_icon_frame_rectangle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@string/frame_square"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.OVAL)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5">
+
+                    <ImageView
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_marginBottom="7dp"
+                        android:background="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_icon_frame_circle:@drawable/ic_icon_frame_circle_bk}"
+                        tools:background="@drawable/ic_icon_frame_circle"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@string/frame_oval"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.WINDOW)}"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.75">
+
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_icon_frame_window:@drawable/ic_icon_frame_window_bk}"
+                        tools:background="@drawable/ic_icon_frame_window"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="12sp"
+                        android:textColor="@{viewModel.backgroundColorTheme}"
+                        android:text="@string/frame_window"/>
+                </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
