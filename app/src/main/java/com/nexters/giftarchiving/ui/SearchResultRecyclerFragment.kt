@@ -24,7 +24,7 @@ class SearchResultRecyclerFragment(val giftList: ArrayList<GiftResponse>) : Frag
         super.onCreateView(inflater, container, savedInstanceState)
         val view: View = inflater.inflate(R.layout.fragment_search_result_recycler, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.search_result_recyclerView)
-        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList)
+        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList, null)
         recyclerView.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
         recyclerView.layoutManager = gridLayoutManager

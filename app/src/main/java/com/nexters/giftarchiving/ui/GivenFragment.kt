@@ -52,9 +52,9 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                 adapter = if(it.giftListGifts.isEmpty()){
                     val emptyGift = GiftResponse("empty","To. 받은이","empty",getString(R.string.home_default_given),"empty","empty","empty",
                         "","empty",true)
-                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0)
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0, null)
                 } else{
-                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,0)
+                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,0, null)
                 }
             }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){

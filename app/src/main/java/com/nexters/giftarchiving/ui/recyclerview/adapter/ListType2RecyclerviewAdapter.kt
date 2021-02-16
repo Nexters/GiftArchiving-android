@@ -12,9 +12,14 @@ import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
+import com.nexters.giftarchiving.viewmodel.ListViewModel
 import java.time.format.DateTimeFormatter
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
+internal class ListType2RecyclerviewAdapter(
+    private val context: Context,
+    private val gifts: List<GiftResponse>,
+    val viewModel: ListViewModel?
+) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
 
     var mPosition = 0
 
@@ -38,6 +43,7 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
             personTextView.text = gift.giftName
             val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
             dateTextView.text = gift.giftReceiveDate.format(formatter)
+            viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
         }
     }
 

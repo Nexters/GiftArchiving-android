@@ -54,4 +54,7 @@ internal class ListViewModel(
     fun onClickSearch(){
         navDirections.value = ListFragmentDirections.actionListFragmentToSearchFragment()
     }
+
+    fun onClickDetail(giftId: String) {
+    }
 }
