@@ -77,4 +77,8 @@
     <string name="search_result_given">보낸 선물</string>
     <string name="home_default_taken">아직 받은 선물이 없어요\n상단 버튼을 통해\n선물집을 만들어봐요</string>
     <string name="home_default_given">아직 보낸 선물이 없어요\n상단 버튼을 통해\n선물집을 만들어봐요</string>
+    <string name="login_guide_title1">주고 받은\n선물을 기록해보세요</string>
+    <string name="login_guide_detail1">선물 종류부터 감정, 원하는 스티커까지</string>
+    <string name="login_guide_title2">친구에게 기록을\n공유해보세요</string>
+    <string name="login_guide_title3">선물 기록을\n차곡차곡 모아보세요</string>
 </resources>
