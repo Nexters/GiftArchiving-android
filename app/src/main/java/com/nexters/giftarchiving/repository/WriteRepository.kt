@@ -19,6 +19,7 @@ internal class WriteRepository(private val giftZipService: GiftZipService) {
         category: String,
         reason: String,
         emotion: String,
+        frameType: String,
         bgColor: String,
         noBgImg: MultipartBody.Part,
         bgImg: MultipartBody.Part
@@ -33,6 +34,7 @@ internal class WriteRepository(private val giftZipService: GiftZipService) {
             category,
             reason,
             emotion,
+            frameType,
             bgColor,
             noBgImg,
             bgImg
