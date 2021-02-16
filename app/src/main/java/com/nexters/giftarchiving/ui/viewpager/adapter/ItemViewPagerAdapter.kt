@@ -31,7 +31,7 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                 personTextView.text = gift.giftName
             } else{
                 Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
-                if(viewType==1){
+                if(viewType==2||viewType==3){
                     constraintLayout.clipToOutline = true
                     when(gift.bgColor){
                         "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
@@ -39,6 +39,11 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                         "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
                         else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                     }
+                }
+                if(viewType==0||viewType==2){
+                    personTextView.text = String.format("From. %s",gift.giftName)
+                } else{
+                    personTextView.text = String.format("To. %s",gift.giftName)
                 }
                 personTextView.text = gift.giftName
                 val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")

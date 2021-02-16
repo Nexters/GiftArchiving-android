@@ -14,7 +14,7 @@ import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import java.time.format.DateTimeFormatter
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
+class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>, val isReceived : Boolean) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
 
     var mPosition = 0
 
@@ -35,7 +35,11 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
         fun bind(gift : GiftResponse, position: Int) {
             Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             itemImageView.clipToOutline = true
-            personTextView.text = gift.giftName
+            if(isReceived){
+                personTextView.text = String.format("From. %s",gift.giftName)
+            } else{
+                personTextView.text = String.format("To. %s",gift.giftName)
+            }
             val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
             dateTextView.text = gift.giftReceiveDate.format(formatter)
         }

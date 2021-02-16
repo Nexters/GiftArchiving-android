@@ -7,7 +7,7 @@ import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.ListType1Fragment
 import com.nexters.giftarchiving.ui.ListType2Fragment
 
-class ListViewPagerAdapter(fragment: Fragment, val giftList: List<GiftResponse>) : FragmentStateAdapter(fragment) {
+class ListViewPagerAdapter(fragment: Fragment, val giftList: List<GiftResponse>, val isReceived : Boolean) : FragmentStateAdapter(fragment) {
 
     companion object {
         private const val NUM_PAGES = 2
@@ -19,9 +19,9 @@ class ListViewPagerAdapter(fragment: Fragment, val giftList: List<GiftResponse>)
 
     override fun createFragment(position: Int): Fragment {
         return if(position == 0) {
-            ListType1Fragment(giftList)
+            ListType1Fragment(giftList,isReceived)
         }else {
-            ListType2Fragment(giftList)
+            ListType2Fragment(giftList,isReceived)
         }
     }
 }
