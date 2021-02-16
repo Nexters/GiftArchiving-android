@@ -2,7 +2,6 @@ package com.nexters.giftarchiving.viewmodel
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
-import android.net.Uri
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -169,7 +168,6 @@ internal class WriteViewModel(
     }
 
     fun convertLayoutToBitmap(v: View): Bitmap {
-        v.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
         val bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true)
         val canvas = Canvas(bmp)

@@ -1,5 +1,5 @@
 package com.nexters.giftarchiving.ui.data.write
 
-enum class WriteFrameShape {
+internal enum class WriteFrameShape {
     SQUARE, CIRCLE, ARCH
 }

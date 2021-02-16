@@ -3,7 +3,7 @@ package com.nexters.giftarchiving.ui.data
 import androidx.annotation.ColorRes
 import com.nexters.giftarchiving.R
 
-enum class BackgroundColorTheme(
+internal enum class BackgroundColorTheme(
     @ColorRes val backgroundColor: Int,
     @ColorRes val popupBackgroundColor: Int,
     val isDarkMode: Boolean
