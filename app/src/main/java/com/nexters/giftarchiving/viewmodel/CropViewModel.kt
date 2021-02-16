@@ -1,10 +1,17 @@
 package com.nexters.giftarchiving.viewmodel
 
 import com.nexters.giftarchiving.base.BaseViewModel
-import com.theartofdev.edmodo.cropper.CropImageView
+import com.nexters.giftarchiving.util.BackDirections
+import com.nexters.giftarchiving.util.LiveEvent
 
 internal class CropViewModel : BaseViewModel() {
-    fun onCrop(cropImageView: CropImageView) {
-        cropImageView.getCroppedImageAsync()
+    val crop = LiveEvent<Unit?>()
+
+    fun onClickBack(){
+        navDirections.value = BackDirections()
+    }
+
+    fun onCrop() {
+        crop.call()
     }
 }

@@ -40,6 +40,10 @@ internal class ShareViewModel : BaseViewModel() {
         }
     }
 
+    fun onClickBackHome(){
+        navDirections.value = ShareFragmentDirections.actionShareFragmentToHomeFragment()
+    }
+
     fun onClickSaveImage() {
         saveImage.call()
     }

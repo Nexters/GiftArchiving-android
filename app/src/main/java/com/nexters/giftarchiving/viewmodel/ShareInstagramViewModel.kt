@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.ui.ShareInstagramFragmentArgs
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -25,6 +26,10 @@ internal class ShareInstagramViewModel: BaseViewModel() {
                     name.value = it.name
                 }
         }
+    }
+
+    fun onClickBack() {
+        navDirections.value = BackDirections()
     }
 
     fun onClickShareInstagramStory() {

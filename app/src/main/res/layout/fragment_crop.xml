@@ -14,7 +14,6 @@
         android:layout_height="match_parent"
         android:background="@color/black">
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/top_layout"
             android:layout_width="match_parent"
@@ -29,6 +28,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/ic_icon_back"
+                android:onClick="@{()->viewModel.onClickBack()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
@@ -49,7 +49,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:background="@drawable/ic_icon_check"
-                android:onClick="@{(v) -> viewModel.onCrop(cropIv)}"
+                android:onClick="@{()->viewModel.onCrop()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

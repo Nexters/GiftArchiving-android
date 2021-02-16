@@ -26,8 +26,8 @@
         <action
             android:id="@+id/action_loginFragment_to_homeFragment"
             app:destination="@id/homeFragment"
-            app:popUpTo="@id/homeFragment"
-            app:popUpToInclusive="true"/>
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"
@@ -84,7 +84,9 @@
         <action
             android:id="@+id/action_writeFragment_to_shareFragment"
             app:destination="@id/shareFragment"
-            app:enterAnim="@anim/nav_default_enter_anim" />
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:popUpTo="@id/writeFragment"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_writeFragment_to_cropFragment"
             app:destination="@id/cropFragment" />
@@ -119,6 +121,11 @@
             android:name="frame_shape"
             app:argType="com.nexters.giftarchiving.ui.data.write.WriteFrameShape"
             android:defaultValue="SQUARE" />
+        <action
+            android:id="@+id/action_shareFragment_to_homeFragment"
+            app:destination="@id/homeFragment"
+            app:popUpTo="@id/shareFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/cropFragment"

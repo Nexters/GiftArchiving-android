@@ -26,6 +26,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/ic_icon_cancel"
+                android:onClick="@{()->viewModel.onClickBack()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
