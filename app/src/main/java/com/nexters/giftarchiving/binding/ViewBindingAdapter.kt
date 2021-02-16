@@ -170,21 +170,19 @@ fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorThem
 
 @BindingAdapter("theme", "emptyFrameShape")
 fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFrameShape) {
-    getDrawableByResource(
-        v.context,
-        when (frameShape) {
-            WriteFrameShape.RECTANGLE -> {
-                if (theme.isDarkMode) R.drawable.write_empty_image_background_rectangle_white
-                else R.drawable.write_empty_image_background_rectangle_black
-            }
-            WriteFrameShape.OVAL -> {
-                if (theme.isDarkMode) R.drawable.write_empty_image_background_oval_white
-                else R.drawable.write_empty_image_background_oval_black
-            }
-            WriteFrameShape.WINDOW -> {
-                if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
-                else R.drawable.write_empty_image_background_window_black
-            }
+    when (frameShape) {
+        WriteFrameShape.RECTANGLE -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_rectangle_white
+            else R.drawable.write_empty_image_background_rectangle_black
         }
-    )?.let { v.background = it }
+        WriteFrameShape.OVAL -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_oval_white
+            else R.drawable.write_empty_image_background_oval_black
+        }
+        WriteFrameShape.WINDOW -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
+            else R.drawable.write_empty_image_background_window_black
+        }
+    }.let { getDrawableByResource(v.context, it) }
+        ?.let { v.background = it }
 }
