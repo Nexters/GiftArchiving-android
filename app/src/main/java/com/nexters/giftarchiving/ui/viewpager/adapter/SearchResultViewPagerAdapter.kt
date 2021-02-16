@@ -17,9 +17,9 @@ class SearchResultViewPagerAdapter(fragment: Fragment, val takenList : ArrayList
 
     override fun createFragment(position: Int): Fragment {
         return if(position == 0) {
-            SearchResultRecyclerFragment(takenList)
+            SearchResultRecyclerFragment(takenList,true)
         }else {
-            SearchResultRecyclerFragment(givenList)
+            SearchResultRecyclerFragment(givenList,false)
         }
     }
 }
