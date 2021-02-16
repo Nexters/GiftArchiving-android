@@ -51,7 +51,8 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@{viewModel.backgroundColorTheme}"
-                    android:text="@string/write_name_from"
+                    android:text="@{viewModel.receive?@string/write_name_from:@string/write_name_to}"
+                    tools:text="@string/write_name_from"
                     tools:textColor="@color/white"/>
 
                 <TextView
@@ -82,6 +83,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/ic_icon_back"
+                android:onClick="@{()->viewModel.onClickBackHome()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -184,7 +186,8 @@
                         android:textStyle="bold"
                         android:textSize="14sp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/write_name_from"
+                        android:text="@{viewModel.receive?@string/write_name_from:@string/write_name_to}"
+                        tools:text="@string/write_name_from"
                         tools:textColor="@color/colorWhite"/>
                     <TextView
                         android:layout_width="wrap_content"
@@ -211,21 +214,20 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintWidth_percent="0.62"
                 app:layout_constraintVertical_bias="0.75"/>
-            
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_margin="16dp"
                 app:layout_constraintEnd_toEndOf="@id/letter_front_iv"
                 app:layout_constraintBottom_toBottomOf="@id/letter_front_iv">
-
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/frame_background_oval"
                     android:backgroundTint="@{viewModel.backgroundColorTheme}"
-                    tools:backgroundTint="@color/colorOrange"/>
-
+                    app:iconFrameShape="@{viewModel.frameShape}"
+                    tools:backgroundTint="@color/colorOrange"
+                    tools:background="@drawable/frame_background_oval"/>
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

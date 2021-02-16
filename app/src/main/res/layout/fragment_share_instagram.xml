@@ -26,6 +26,7 @@
                 android:layout_height="24dp"
                 android:layout_marginStart="16dp"
                 android:background="@drawable/ic_icon_cancel"
+                android:onClick="@{()->viewModel.onClickBack()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"/>
@@ -85,7 +86,8 @@
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@{viewModel.backgroundColorTheme}"
-                    android:text="@string/write_name_from"
+                    android:text="@{viewModel.receive?@string/write_name_from:@string/write_name_to}"
+                    tools:text="@string/write_name_from"
                     tools:textColor="@color/white"/>
 
                 <TextView

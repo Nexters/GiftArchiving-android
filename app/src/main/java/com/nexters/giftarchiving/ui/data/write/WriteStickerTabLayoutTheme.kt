@@ -4,7 +4,7 @@ import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import com.nexters.giftarchiving.R
 
-enum class WriteStickerTabLayoutTheme(
+internal enum class WriteStickerTabLayoutTheme(
     @ColorRes val tabTextColor: Int,
     @ColorRes val tabSelectedTextColor: Int
 ) {

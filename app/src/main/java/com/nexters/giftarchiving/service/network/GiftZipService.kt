@@ -23,6 +23,7 @@ internal interface GiftZipService {
         @Query("category") category: String,
         @Query("reason") reason: String,
         @Query("emotion") emotion: String,
+        @Query("frameType") frameType: String,
         @Query("bgColor") bgColor: String,
         @Part noBgImg: MultipartBody.Part,
         @Part bgImg: MultipartBody.Part

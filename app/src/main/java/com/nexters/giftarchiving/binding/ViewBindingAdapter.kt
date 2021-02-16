@@ -3,7 +3,6 @@ package com.nexters.giftarchiving.binding
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -20,6 +19,7 @@ import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
+import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -32,7 +32,7 @@ private fun getDrawableByResource(context: Context, @DrawableRes drawableId: Int
     ResourcesCompat.getDrawable(context.resources, drawableId, null)
 
 @BindingAdapter("android:textColor")
-fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
+internal fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
     val colorRes =
         if (colorTheme?.isDarkMode == false) {
             R.color.colorDarkGray
@@ -45,7 +45,7 @@ fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
 }
 
 @BindingAdapter("android:textColorHint")
-fun setFontHintColor(et: EditText, colorTheme: BackgroundColorTheme?) {
+internal fun setFontHintColor(et: EditText, colorTheme: BackgroundColorTheme?) {
     val colorRes =
         if (colorTheme?.isDarkMode == false) {
             R.color.colorDarkGray
@@ -58,7 +58,7 @@ fun setFontHintColor(et: EditText, colorTheme: BackgroundColorTheme?) {
 }
 
 @BindingAdapter("android:background")
-fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
+internal fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     val colorByResource =
         getColorByResource(
             v.context,
@@ -68,24 +68,24 @@ fun setBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
 }
 
 @BindingAdapter("android:background")
-fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
+internal fun setBackgroundDrawable(v: View, @DrawableRes drawableRes: Int) {
     v.setBackgroundResource(drawableRes)
 }
 
 @BindingAdapter("android:src")
-fun setSrcWithUrl(iv: ImageView, url: String) {
+internal fun setSrcWithUrl(iv: ImageView, url: String) {
     Glide.with(iv.context)
         .load(url)
         .into(iv)
 }
 
 @BindingAdapter("android:backgroundTint")
-fun setBackgroundTintColor(v: View, colorTheme: BackgroundColorTheme) {
+internal fun setBackgroundTintColor(v: View, colorTheme: BackgroundColorTheme) {
     v.backgroundTintList = ContextCompat.getColorStateList(v.context, colorTheme.backgroundColor)
 }
 
 @BindingAdapter("popUpBackground")
-fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
+internal fun setPopUpBackgroundColor(v: View, colorTheme: BackgroundColorTheme?) {
     val colorByResource =
         getColorByResource(
             v.context,
@@ -111,7 +111,7 @@ internal fun setInformationIconBackgroundColor(
 }
 
 @BindingAdapter("backgroundWithAnimation")
-fun setBackgroundColorWithAnimation(v: View, colorTheme: BackgroundColorTheme?) {
+internal fun setBackgroundColorWithAnimation(v: View, colorTheme: BackgroundColorTheme?) {
     val themeBackgroundColorRes =
         colorTheme?.backgroundColor ?: BackgroundColorTheme.MONO.backgroundColor
     val themeBackgroundColor = getColorByResource(v.context, themeBackgroundColorRes)
@@ -125,21 +125,21 @@ fun setBackgroundColorWithAnimation(v: View, colorTheme: BackgroundColorTheme?) 
 }
 
 @BindingAdapter("android:background")
-fun setBackgroundWithBitmap(iv: ImageView, bitmap: Bitmap?) {
+internal fun setBackgroundWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     bitmap?.let {
         iv.setImageBitmap(it)
     }
 }
 
 @BindingAdapter("android:src")
-fun setSrcWithBitmap(iv: ImageView, bitmap: Bitmap?) {
+internal fun setSrcWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     bitmap?.let {
         iv.setImageBitmap(it)
     }
 }
 
 @BindingAdapter("android:visibility")
-fun setVisibility(v: View, isVisible: Boolean) {
+internal fun setVisibility(v: View, isVisible: Boolean) {
     v.visibility = when (isVisible) {
         true -> View.VISIBLE
         false -> View.GONE
@@ -147,19 +147,19 @@ fun setVisibility(v: View, isVisible: Boolean) {
 }
 
 @BindingAdapter("localDateWithFormat")
-fun setLocalDate(tv: TextView, localDate: LocalDate) {
+internal fun setLocalDate(tv: TextView, localDate: LocalDate) {
     tv.text = localDate.format(DateTimeFormatter.ofPattern("yyyy.MM.dd. EEE", Locale.ENGLISH))
 }
 
 @BindingAdapter("tabTextColorsByTheme")
-fun setTabLayoutTextColors(tl: TabLayout, theme: WriteStickerTabLayoutTheme) {
+internal fun setTabLayoutTextColors(tl: TabLayout, theme: WriteStickerTabLayoutTheme) {
     val defaultColor = getColorByResource(tl.context, theme.tabTextColor)
     val selectColor = getColorByResource(tl.context, theme.tabSelectedTextColor)
     tl.setTabTextColors(defaultColor, selectColor)
 }
 
 @BindingAdapter("tabIndicatorBackgroundByTheme")
-fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorTheme) {
+internal fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorTheme) {
     val selectColorRes = when (colorTheme.isDarkMode) {
         true -> R.color.white
         false -> R.color.colorDarkGray
@@ -169,20 +169,36 @@ fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorThem
 }
 
 @BindingAdapter("theme", "emptyFrameShape")
-fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFrameShape) {
+internal fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFrameShape) {
     when (frameShape) {
-        WriteFrameShape.RECTANGLE -> {
+        WriteFrameShape.SQUARE -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_rectangle_white
             else R.drawable.write_empty_image_background_rectangle_black
         }
-        WriteFrameShape.OVAL -> {
+        WriteFrameShape.CIRCLE -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_oval_white
             else R.drawable.write_empty_image_background_oval_black
         }
-        WriteFrameShape.WINDOW -> {
+        WriteFrameShape.ARCH -> {
             if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
             else R.drawable.write_empty_image_background_window_black
         }
-    }.let { getDrawableByResource(v.context, it) }
-        ?.let { v.background = it }
+    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+}
+
+@BindingAdapter("iconFrameShape")
+internal fun setIconFrameShape(v: View, frameShape: WriteFrameShape) {
+    when (frameShape) {
+        WriteFrameShape.SQUARE -> R.drawable.frame_background_rectangle
+        WriteFrameShape.CIRCLE -> R.drawable.frame_background_oval
+        WriteFrameShape.ARCH -> R.drawable.frame_background_window
+    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+}
+
+@BindingAdapter("theme", "backgroundColorByMenu")
+internal fun setBackgroundColorByMenu(v: View, colorTheme: BackgroundColorTheme, menu: WriteMenu?) {
+    when (menu?.isShowBottomBar) {
+        true -> colorTheme.popupBackgroundColor
+        else -> colorTheme.backgroundColor
+    }.let { v.setBackgroundColor(getColorByResource(v.context, it)) }
 }

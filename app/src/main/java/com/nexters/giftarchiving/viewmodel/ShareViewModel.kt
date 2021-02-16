@@ -9,17 +9,19 @@ import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
 import com.nexters.giftarchiving.ui.ShareFragmentDirections
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
-
 
 internal class ShareViewModel : BaseViewModel() {
     val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
     val backgroundColorTheme = MutableLiveData<BackgroundColorTheme>()
+    val frameShape = MutableLiveData<WriteFrameShape>()
     val saveImage = LiveEvent<Unit?>()
     val shareKakaoMessage = LiveEvent<Unit?>()
+    var isReceive = true
 
     init {
         viewModelScope.launch {
@@ -28,6 +30,8 @@ internal class ShareViewModel : BaseViewModel() {
                     response.value = it.response
                     name.value = it.name
                     backgroundColorTheme.value = it.backgroundTheme
+                    frameShape.value = it.frameShape
+                    isReceive = it.isReceive
                 }
         }
     }
@@ -36,6 +40,10 @@ internal class ShareViewModel : BaseViewModel() {
         return response.value?.let {
             KakaoFeedMessage.getFeed(it.bgImgUrl, name.value ?: "")
         }
+    }
+
+    fun onClickBackHome() {
+        navDirections.value = ShareFragmentDirections.actionShareFragmentToHomeFragment()
     }
 
     fun onClickSaveImage() {
@@ -50,7 +58,8 @@ internal class ShareViewModel : BaseViewModel() {
         navDirections.value = ShareFragmentDirections.actionShareFragmentToShareInstagramFragment(
             response.value?.noBgImgUrl,
             name.value,
-            backgroundColorTheme.value ?: BackgroundColorTheme.MONO
+            backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
+            isReceive
         )
     }
 }
