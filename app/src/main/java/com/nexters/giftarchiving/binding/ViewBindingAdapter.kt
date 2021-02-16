@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.binding
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.drawable.ColorDrawable
+import android.graphics.drawable.Drawable
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageView
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -17,6 +19,7 @@ import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.data.write.WriteInformationMenu
 import com.nexters.giftarchiving.util.ThemeBackgroundColorChangeAnimator
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -24,6 +27,9 @@ import java.util.Locale
 
 private fun getColorByResource(context: Context, @ColorRes colorId: Int) =
     ContextCompat.getColor(context, colorId)
+
+private fun getDrawableByResource(context: Context, @DrawableRes drawableId: Int) =
+    ResourcesCompat.getDrawable(context.resources, drawableId, null)
 
 @BindingAdapter("android:textColor")
 fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
@@ -125,6 +131,13 @@ fun setBackgroundWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     }
 }
 
+@BindingAdapter("android:src")
+fun setSrcWithBitmap(iv: ImageView, bitmap: Bitmap?) {
+    bitmap?.let {
+        iv.setImageBitmap(it)
+    }
+}
+
 @BindingAdapter("android:visibility")
 fun setVisibility(v: View, isVisible: Boolean) {
     v.visibility = when (isVisible) {
@@ -153,4 +166,23 @@ fun setWriteStickerTabLayoutTheme(tl: TabLayout, colorTheme: BackgroundColorThem
     }
     val selectColor = getColorByResource(tl.context, selectColorRes)
     tl.setSelectedTabIndicatorColor(selectColor)
+}
+
+@BindingAdapter("theme", "emptyFrameShape")
+fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape: WriteFrameShape) {
+    when (frameShape) {
+        WriteFrameShape.RECTANGLE -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_rectangle_white
+            else R.drawable.write_empty_image_background_rectangle_black
+        }
+        WriteFrameShape.OVAL -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_oval_white
+            else R.drawable.write_empty_image_background_oval_black
+        }
+        WriteFrameShape.WINDOW -> {
+            if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
+            else R.drawable.write_empty_image_background_window_black
+        }
+    }.let { getDrawableByResource(v.context, it) }
+        ?.let { v.background = it }
 }

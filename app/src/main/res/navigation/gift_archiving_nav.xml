@@ -121,8 +121,8 @@
         android:name="com.nexters.giftarchiving.ui.CropFragment"
         android:label="CropFragment" >
         <argument
-            android:name="image_uri"
-            app:argType="string" />
+            android:name="bitmap"
+            app:argType="android.graphics.Bitmap" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"

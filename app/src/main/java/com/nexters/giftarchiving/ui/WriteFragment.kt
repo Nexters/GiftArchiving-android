@@ -25,8 +25,7 @@ import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
-import com.xiaopo.flying.sticker.DrawableSticker
-import com.xiaopo.flying.sticker.Sticker
+import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 
@@ -38,8 +37,11 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bitmap>("image")
-            ?.observe(viewLifecycleOwner, Observer { viewModel.editedImage.value = it })
+        findNavController()
+            .currentBackStackEntry
+            ?.savedStateHandle
+            ?.getLiveData<Bitmap>("image")
+            ?.observe(viewLifecycleOwner, Observer { viewModel.setNewImage(it) })
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -71,7 +73,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             data?.data?.let {
                 val source = ImageDecoder.createSource(requireActivity().contentResolver, it)
                 val bitmap = ImageDecoder.decodeBitmap(source)
-                viewModel.setNewImage(it, bitmap)
+                viewModel.navDirections.value =
+                    WriteFragmentDirections.actionWriteFragmentToCropFragment(bitmap)
             }
         }
     }
@@ -117,7 +120,18 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         with(binding.stickerView) {
             stickers = viewModel.stickerList
             isConstrained = true
-            configDefaultIcons()
+
+            val deleteIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_cancel_sticker),
+                BitmapStickerIcon.RIGHT_TOP
+            ).apply { iconEvent = DeleteIconEvent() }
+
+            val zoomIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_scale),
+                BitmapStickerIcon.RIGHT_BOTOM
+            ).apply { iconEvent = ZoomIconEvent() }
+
+            binding.stickerView.icons = listOf(deleteIcon, zoomIcon)
         }
     }
 
@@ -127,7 +141,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 setInformationMenuViewPager(menuType)
                 binding.menuInformationLayout
             }
-            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.FRAME -> binding.menuFrameLayout
             WriteMenu.STICKER -> {
                 if (viewModel.editedImage.value != null) {
                     binding.menuStickerLayout
@@ -147,7 +161,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun hideSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
-            WriteMenu.FRAME -> binding.informationLayout
+            WriteMenu.FRAME -> binding.menuFrameLayout
             WriteMenu.STICKER -> binding.menuStickerLayout
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> binding.menuDateLayout
@@ -174,7 +188,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun setInformationMenuViewPager(menuType: WriteMenu) {
         with(binding.informationMenuViewpager) {
-            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, 2)
+            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, viewModel.isReceiveGift)
             TabLayoutMediator(binding.informationMenuTabLayout, this) { tab, pos ->
 
             }.attach()
@@ -216,7 +230,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         binding.stickerView.removeStickerHandler()
         val noBgBitmap = viewModel.convertLayoutToBitmap(binding.stickerView)
         binding.shareIv.setImageBitmap(noBgBitmap)
-        viewModel.delayAndCallback{
+        viewModel.delayAndCallback {
             val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
             viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
         }

@@ -22,7 +22,7 @@ internal class CropFragment : BaseFragment<CropViewModel, FragmentCropBinding>()
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         with(binding.cropIv) {
-            setImageUriAsync(Uri.parse(navArgs.imageUri))
+            setImageBitmap(navArgs.bitmap)
             setOnCropImageCompleteListener(this@CropFragment)
         }
     }

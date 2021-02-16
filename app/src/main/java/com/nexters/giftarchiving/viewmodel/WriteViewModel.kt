@@ -18,9 +18,11 @@ import com.nexters.giftarchiving.ui.WriteFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
+import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
 import com.nexters.giftarchiving.util.ImageConverter
+import com.theartofdev.edmodo.cropper.CropImage
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -35,6 +37,7 @@ internal class WriteViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val editedImage = MutableLiveData<Bitmap?>()
+    val frameShape = MutableLiveData(WriteFrameShape.RECTANGLE)
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
     val stickerViewPagerTheme = MutableLiveData(WriteStickerTabLayoutTheme.DARK_MODE)
     val date = MutableLiveData(LocalDate.now())
@@ -52,14 +55,16 @@ internal class WriteViewModel(
     val isSaved = LiveEvent<Unit?>()
 
     var stickerList = mutableListOf<Sticker>()
-    var baseImageUri: Uri? = null
-    private var isReceiveGift = true
+    var originBitmap: Bitmap? = null
+    var isReceiveGift = true
 
     init {
         viewModelScope.launch {
             navArgs<WriteFragmentArgs>()
                 .collect {
-                    editedImage.value = it.bitmap
+                    if (originBitmap == null) {
+                        editedImage.value = it.bitmap
+                    }
                     isReceiveGift = it.isReceiveGift
                 }
         }
@@ -76,22 +81,18 @@ internal class WriteViewModel(
         hideMenuType.value = showMenuType.value
     }
 
-    fun setNewImage(uri: Uri, img: Bitmap) {
-        baseImageUri = uri
-        editedImage.value = img
+    fun setNewImage(img: Bitmap) {
+        originBitmap = img
+        convertImageShape()
     }
 
     fun loadGallery() {
         loadGallery.call()
     }
 
-    fun loadCropEditor() {
-        if (baseImageUri != null) {
-            navDirections.value =
-                WriteFragmentDirections.actionWriteFragmentToCropFragment(baseImageUri.toString())
-        } else {
-            toast.value = NOTICE_SELECT_IMAGE
-        }
+    fun setFrameShape(shape: WriteFrameShape) {
+        frameShape.value = shape
+        convertImageShape()
     }
 
     fun setBackgroundColor(colorTheme: BackgroundColorTheme) {
@@ -143,12 +144,9 @@ internal class WriteViewModel(
                     name = name.value ?: "",
                     content = content.value ?: "",
                     receiveDate = date.value ?: LocalDate.now(),
-//                    category = category.value?.title ?: "",
-//                    reason = purpose.value?.title ?: "",
-//                    emotion = emotion.value?.title ?: "",
-                    category = "LIVING",
-                    reason = "BIRTHDAY",
-                    emotion = "GOOD",
+                    category = category.value?.titleEng ?: "",
+                    reason = purpose.value?.titleEng ?: "",
+                    emotion = emotion.value?.titleEng ?: "",
                     bgColor = backgroundColorTheme.value?.toString() ?: "",
                     noBgImg = noBgImg,
                     bgImg = bgImg
@@ -171,9 +169,10 @@ internal class WriteViewModel(
     fun convertLayoutToBitmap(v: View): Bitmap {
         v.setLayerType(View.LAYER_TYPE_SOFTWARE, null)
         val bitmap = Bitmap.createBitmap(v.width, v.height, Bitmap.Config.ARGB_8888)
-        val canvas = Canvas(bitmap)
+        val bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true)
+        val canvas = Canvas(bmp)
         v.draw(canvas)
-        return bitmap
+        return bmp
     }
 
     fun delayAndCallback(callback: () -> Unit) {
@@ -181,6 +180,18 @@ internal class WriteViewModel(
             delay(100L)
             callback()
         }
+    }
+
+    private fun convertImageShape() {
+        val shape = frameShape.value ?: WriteFrameShape.RECTANGLE
+        originBitmap?.let { bm ->
+            editedImage.value = when (shape) {
+                WriteFrameShape.RECTANGLE -> bm
+                WriteFrameShape.OVAL -> CropImage.toOvalBitmap(bm)
+                WriteFrameShape.WINDOW -> CropImage.toWindowBitmap(bm)
+            }
+        }
+        hideMenuType.value = WriteMenu.FRAME
     }
 
     private fun bitmapToMultipartBody(
@@ -193,8 +204,10 @@ internal class WriteViewModel(
 
     companion object {
         @JvmStatic
-        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
+        val INFORMATION_NUMBER_OF_PAGE= 8
 
+        @JvmStatic
+        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
     }

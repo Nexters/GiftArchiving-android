@@ -102,8 +102,9 @@ public final class CropImage {
    * recycled.
    */
   public static Bitmap toOvalBitmap(@NonNull Bitmap bitmap) {
-    int width = bitmap.getWidth();
-    int height = bitmap.getHeight();
+    Bitmap bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+    int width = bmp.getWidth();
+    int height = bmp.getHeight();
     Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
 
     Canvas canvas = new Canvas(output);
@@ -118,9 +119,40 @@ public final class CropImage {
     RectF rect = new RectF(0, 0, width, height);
     canvas.drawOval(rect, paint);
     paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-    canvas.drawBitmap(bitmap, 0, 0, paint);
+    canvas.drawBitmap(bmp, 0, 0, paint);
 
-    bitmap.recycle();
+    bmp.recycle();
+
+    return output;
+  }
+
+  /**
+   * Create a new bitmap that has all pixels beyond the window shape transparent. Old bitmap is
+   * recycled.
+   */
+  public static Bitmap toWindowBitmap(@NonNull Bitmap bitmap) {
+    Bitmap bmp = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+    int width = bmp.getWidth();
+    int height = bmp.getHeight();
+    Bitmap output = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+
+    Canvas canvas = new Canvas(output);
+
+    int color = 0xff424242;
+    Paint paint = new Paint();
+
+    paint.setAntiAlias(true);
+    canvas.drawARGB(0, 0, 0, 0);
+    paint.setColor(color);
+
+    RectF oval = new RectF(0, 0, width, height);
+    RectF rect = new RectF(0, width/2f, width, height);
+    canvas.drawOval(oval, paint);
+    canvas.drawRect(rect, paint);
+    paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
+    canvas.drawBitmap(bmp, 0, 0, paint);
+
+    bmp.recycle();
 
     return output;
   }
