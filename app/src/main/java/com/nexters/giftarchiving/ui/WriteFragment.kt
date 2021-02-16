@@ -9,6 +9,7 @@ import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.lifecycle.Observer
@@ -24,6 +25,7 @@ import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
+import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -49,6 +51,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
         setStickerView()
         setStickerMenuViewPager()
+        setBackPressedDispatcher()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
@@ -135,6 +138,18 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         }
     }
 
+    private fun setBackPressedDispatcher() {
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            with(viewModel) {
+                if (currentMenuType.value != null) {
+                    hideCurrentMenu()
+                } else {
+                    navDirections.value = BackDirections()
+                }
+            }
+        }
+    }
+
     private fun showSelectedMenu(menuType: WriteMenu) {
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
@@ -189,7 +204,12 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     private fun setInformationMenuViewPager(menuType: WriteMenu) {
         with(binding.informationMenuViewpager) {
-            adapter = MenuSlidePagerAdapter(requireActivity(), viewModel, menuType, viewModel.isReceiveGift)
+            adapter = MenuSlidePagerAdapter(
+                requireActivity(),
+                viewModel,
+                menuType,
+                viewModel.isReceiveGift
+            )
             TabLayoutMediator(binding.informationMenuTabLayout, this) { tab, pos ->
 
             }.attach()

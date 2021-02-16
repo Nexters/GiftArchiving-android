@@ -112,13 +112,13 @@ internal class WriteViewModel(
     }
 
     private fun showMenu(menuType: WriteMenu) {
-        showMenuType.value = menuType
         currentMenuType.value = menuType
+        showMenuType.value = menuType
     }
 
     private fun hideMenu(menuType: WriteMenu) {
-        hideMenuType.value = menuType
         currentMenuType.value = null
+        hideMenuType.value = menuType
     }
 
     fun hideCurrentMenu() {
