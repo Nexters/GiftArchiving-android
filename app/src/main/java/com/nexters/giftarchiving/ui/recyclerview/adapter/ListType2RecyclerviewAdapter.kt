@@ -40,8 +40,8 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
             } else{
                 personTextView.text = String.format("To. %s",gift.giftName)
             }
-            val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
-            dateTextView.text = gift.giftReceiveDate.format(formatter)
+            val date = String.format("%s.%s.%s",gift.giftReceiveDate.substring(0,4),gift.giftReceiveDate.substring(5,7),gift.giftReceiveDate.substring(8,10))
+            dateTextView.text = date
         }
     }
 
