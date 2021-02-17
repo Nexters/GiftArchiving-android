@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -23,16 +24,10 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
-        if(viewModel.isReceived){
-            observe(viewModel.getAllReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
-                listTypeViewPager.adapter = listViewPagerAdapter
-            }
-        } else{
-            observe(viewModel.getAllNotReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
-                listTypeViewPager.adapter = listViewPagerAdapter
-            }
+        observe(viewModel.giftList) {
+            val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+            Log.e("List",it.giftListGifts.toString())
+            listTypeViewPager.adapter = listViewPagerAdapter
         }
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
             page.apply {

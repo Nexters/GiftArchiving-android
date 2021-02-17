@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.viewmodel
 
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -18,8 +19,7 @@ internal class ListViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val userId = preferenceRepository.getUserId()
-    val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
-    val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val giftList = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     val listType = MutableLiveData<Boolean>()
     val title = MutableLiveData<String>()
     var isReceived = true
@@ -31,10 +31,10 @@ internal class ListViewModel(
                 .collect {
                     title.value = it.title
                     isReceived = it.title=="받은 선물"
+                    giftList.value = it.response
                 }
             listType.value=type
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,50,true)
+            Log.e("ListVM",giftList.value.toString())
         }
     }
 

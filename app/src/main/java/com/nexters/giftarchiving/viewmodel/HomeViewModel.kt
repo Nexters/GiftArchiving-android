@@ -51,13 +51,13 @@ internal class HomeViewModel(
 
     private fun onClickTakenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")
+            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물",getAllReceivedGiftListResponse.value!!)
         }
     }
 
     private fun onClickGivenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물")
+            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물",getAllNotReceivedGiftListResponse.value!!)
         }
     }
 

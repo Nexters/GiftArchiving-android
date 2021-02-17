@@ -34,9 +34,9 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                 if(viewType==2||viewType==3){
                     constraintLayout.clipToOutline = true
                     when(gift.bgColor){
-                        "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
-                        "R.color.blue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                        "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                        "ORANGE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                        "BLUE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                        "YELLOW" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
                         else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                     }
                 }
