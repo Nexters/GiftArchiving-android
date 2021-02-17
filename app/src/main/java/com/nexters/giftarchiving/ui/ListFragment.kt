@@ -42,6 +42,15 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 binding.sortLatestCheck.visibility = View.GONE
                 binding.sortPastCheck.visibility = View.VISIBLE
             }
+            observe(viewModel.listType){
+                if (it){
+                    listTypeViewPager.currentItem = 0
+                    switchButton.setImageResource(R.drawable.ic_icon_2_grid)
+                } else{
+                    listTypeViewPager.currentItem = 1
+                    switchButton.setImageResource(R.drawable.ic_icon_1_grid)
+                }
+            }
         }
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
             page.apply {
@@ -64,7 +73,7 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 }
             }
         })
-        viewModel.listType.observe(this.viewLifecycleOwner, Observer {
+        observe(viewModel.listType){
             if (it){
                 listTypeViewPager.currentItem = 0
                 switchButton.setImageResource(R.drawable.ic_icon_2_grid)
@@ -72,7 +81,7 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 listTypeViewPager.currentItem = 1
                 switchButton.setImageResource(R.drawable.ic_icon_1_grid)
             }
-        })
+        }
         observe(viewModel.showSortBottom){
             if(it){
                 showSortBottom()

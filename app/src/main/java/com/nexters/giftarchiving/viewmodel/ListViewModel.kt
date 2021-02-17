@@ -66,13 +66,11 @@ internal class ListViewModel() : BaseViewModel() {
         isLatest.value = true
         sort_text.value = "최신순"
         showSortBottom.value = false
-        listType.value = true
     }
 
     fun onClickSortPast(){
         isLatest.value = false
         sort_text.value = "과거순"
         showSortBottom.value = false
-        listType.value = true
     }
 }
