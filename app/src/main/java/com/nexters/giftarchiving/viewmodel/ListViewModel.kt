@@ -29,7 +29,7 @@ internal class ListViewModel(
         viewModelScope.launch {
             navArgs<ListFragmentArgs>()
                 .collect {
-                    title.value = it.title
+                    title.value = String.format("%s %s",it.title,it.count)
                     isReceived = it.title=="받은 선물"
                     giftList.value = it.response
                 }
