@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.di
 
+import com.nexters.giftarchiving.viewmodel.ConfirmBottomSheetViewModel
 import com.nexters.giftarchiving.viewmodel.CropViewModel
 import com.nexters.giftarchiving.viewmodel.DetailViewModel
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
@@ -27,4 +28,5 @@ val viewModelModule = module {
     factory { SettingsViewModel(get()) }
     factory { SearchViewModel(get(), get()) }
     factory { DetailViewModel(get()) }
+    factory { ConfirmBottomSheetViewModel() }
 }

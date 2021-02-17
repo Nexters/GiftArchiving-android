@@ -12,6 +12,7 @@ import com.nexters.giftarchiving.repository.DetailRepository
 import com.nexters.giftarchiving.ui.DetailFragmentArgs
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.util.BackDirections
+import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
@@ -28,6 +29,7 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
     val category = MutableLiveData(WriteCategoryMenu())
     val emotion = MutableLiveData(WriteEmotionMenu())
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
+    val clickMore = LiveEvent<Unit?>()
 
     private var giftId: String = EMPTY_STRING
 
@@ -43,6 +45,17 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
 
     fun onClickBack() {
         navDirections.value = BackDirections()
+    }
+
+    fun onClickMore() {
+        clickMore.call()
+    }
+
+    fun onDelete() {
+        viewModelScope.launch {
+            repository.deleteGift(giftId)
+            navDirections.postValue(BackDirections())
+        }
     }
 
     private fun setGiftProperties(gift: GiftDetailResponse) {
