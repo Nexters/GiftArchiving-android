@@ -4,6 +4,7 @@ import com.nexters.giftarchiving.model.*
 import com.nexters.giftarchiving.model.LoginResponse
 import com.nexters.giftarchiving.model.User
 import okhttp3.MultipartBody
+import retrofit2.Response
 import retrofit2.http.*
 
 internal interface GiftZipService {
@@ -82,4 +83,15 @@ internal interface GiftZipService {
 
     @GET("/api/admin")
     suspend fun getNoticeList() :NoticeListResponse
+
+    @PUT("/api/gift/{giftId}")
+    suspend fun updateGift(
+        @Path("giftId") giftId: String,
+        @Body request: GiftUpdate
+    ): Response<Unit>
+
+    @DELETE("/api/gift/{giftId}")
+    suspend fun deleteGift(
+        @Path("giftId") giftId: String
+    ): Response<Unit>
 }
