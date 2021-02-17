@@ -84,6 +84,19 @@
         android:id="@+id/writeFragment"
         android:name="com.nexters.giftarchiving.ui.WriteFragment"
         android:label="WriteFragment" >
+        <argument
+            android:name="isReceiveGift"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <argument
+            android:name="is_edit_mode"
+            app:argType="boolean"
+            android:defaultValue="false" />
+        <argument
+            android:name="gift_detail"
+            app:argType="com.nexters.giftarchiving.model.GiftDetailResponse"
+            app:nullable="true"
+            android:defaultValue="@null" />
         <action
             android:id="@+id/action_writeFragment_to_shareFragment"
             app:destination="@id/shareFragment"
@@ -93,29 +106,23 @@
         <action
             android:id="@+id/action_writeFragment_to_cropFragment"
             app:destination="@id/cropFragment" />
-        <argument
-            android:name="bitmap"
-            app:argType="android.graphics.Bitmap"
-            app:nullable="true"
-            android:defaultValue="@null" />
-        <argument
-            android:name="isReceiveGift"
-            app:argType="boolean" />
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
         android:name="com.nexters.giftarchiving.ui.ShareFragment"
         android:label="ShareFragment" >
         <argument
-            android:name="name"
+            android:name="gift_id"
             app:argType="string"
             app:nullable="true" />
         <argument
-            android:name="response"
-            app:argType="com.nexters.giftarchiving.model.WriteResponse" />
-        <action
-            android:id="@+id/action_shareFragment_to_shareInstagramFragment"
-            app:destination="@id/shareInstagramFragment" />
+            android:name="is_receive"
+            app:argType="boolean"
+            android:defaultValue="true" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            app:nullable="true" />
         <argument
             android:name="background_theme"
             app:argType="com.nexters.giftarchiving.ui.data.BackgroundColorTheme"
@@ -124,15 +131,21 @@
             android:name="frame_shape"
             app:argType="com.nexters.giftarchiving.ui.data.write.WriteFrameShape"
             android:defaultValue="SQUARE" />
+        <argument
+            android:name="no_bg_img_url"
+            app:argType="string"
+            app:nullable="true" />
+        <argument android:name="bg_img_url"
+            app:argType="string"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_shareFragment_to_shareInstagramFragment"
+            app:destination="@id/shareInstagramFragment" />
         <action
             android:id="@+id/action_shareFragment_to_homeFragment"
             app:destination="@id/homeFragment"
             app:popUpTo="@id/shareFragment"
             app:popUpToInclusive="true" />
-        <argument
-            android:name="is_receive"
-            app:argType="boolean"
-            android:defaultValue="true" />
     </fragment>
     <fragment
         android:id="@+id/cropFragment"
@@ -212,5 +225,11 @@
         <argument
             android:name="gift_id"
             app:argType="string" />
+        <action
+            android:id="@+id/action_detailFragment_to_shareFragment"
+            app:destination="@id/shareFragment" />
+        <action
+            android:id="@+id/action_detailFragment_to_writeFragment"
+            app:destination="@id/writeFragment" />
     </fragment>
 </navigation>

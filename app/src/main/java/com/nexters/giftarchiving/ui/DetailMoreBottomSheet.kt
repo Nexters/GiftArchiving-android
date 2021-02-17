@@ -14,5 +14,24 @@ internal class DetailMoreBottomSheet(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setProperties()
+    }
+
+    private fun setProperties() {
+        with(binding) {
+            editLayout.setOnClickListener {
+                viewModel.onClickEdit()
+                dismiss()
+            }
+            deleteLayout.setOnClickListener {
+                viewModel.onClickDelete()
+                dismiss()
+            }
+            shareLayout.setOnClickListener {
+                viewModel.onClickShare()
+                dismiss()
+            }
+            cancelBtn.setOnClickListener { dismiss() }
+        }
     }
 }

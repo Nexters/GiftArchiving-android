@@ -1,8 +1,11 @@
 package com.nexters.giftarchiving.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
-internal data class GiftDetailResponse(
+@Parcelize
+data class GiftDetailResponse(
     @SerializedName("id")
     val id: String,
     @SerializedName("createdBy")
@@ -31,4 +34,4 @@ internal data class GiftDetailResponse(
     val emotion: String,
     @SerializedName("reason")
     val reason: String
-)
+): Parcelable

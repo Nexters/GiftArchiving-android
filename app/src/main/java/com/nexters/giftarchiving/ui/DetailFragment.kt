@@ -17,14 +17,20 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        observe(viewModel.clickMore) { showDeleteDialog() }
+        observe(viewModel.clickMore) { showMenuDialog() }
+        observe(viewModel.clickDelete) { showDeleteDialog() }
+    }
+
+    private fun showMenuDialog() {
+        DetailMoreBottomSheet(viewModel)
+            .show(parentFragmentManager, CONFIRM_DIALOG_TAG)
     }
 
     private fun showDeleteDialog() {
         val listener = object : BaseConfirmDialogListener() {
             override fun onConfirm() {
                 super.onConfirm()
-                viewModel.onDelete()
+                viewModel.deleteGift()
             }
         }
         ConfirmBottomSheet(
@@ -33,10 +39,11 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
             confirmTitle = "삭제",
             cancelTitle = "취소",
             listener = listener
-        ).show(parentFragmentManager, CONFIRM_DIALOG_TAG)
+        ).show(parentFragmentManager, DELETE_DIALOG_TAG)
     }
 
     companion object {
         private const val CONFIRM_DIALOG_TAG = "confirm dialog"
+        private const val DELETE_DIALOG_TAG = "delete dialog"
     }
 }
