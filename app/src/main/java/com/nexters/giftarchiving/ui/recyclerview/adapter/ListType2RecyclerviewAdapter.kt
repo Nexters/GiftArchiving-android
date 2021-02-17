@@ -35,6 +35,12 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
         fun bind(gift : GiftResponse, position: Int) {
             Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             itemImageView.clipToOutline = true
+            when(gift.bgColor){
+                "ORANGE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_orange_background)
+                "BLUE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_blue_background)
+                "YELLOW" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_yellow_background)
+                else -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_gray_background)
+            }
             if(isReceived){
                 personTextView.text = String.format("From. %s",gift.giftName)
             } else{
