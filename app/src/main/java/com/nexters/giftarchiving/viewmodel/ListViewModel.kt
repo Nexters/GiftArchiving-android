@@ -14,16 +14,15 @@ import com.nexters.giftarchiving.util.BackDirections
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-internal class ListViewModel(
-    private val giftRepository: GiftRepository,
-    private val preferenceRepository: PreferenceRepository
-) : BaseViewModel() {
-    val userId = preferenceRepository.getUserId()
+internal class ListViewModel() : BaseViewModel() {
     val giftList = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     val listType = MutableLiveData<Boolean>()
     val title = MutableLiveData<String>()
     var isReceived = true
     var type = true
+    var sort_text = MutableLiveData("최신순")
+    val showSortBottom = MutableLiveData(false)
+    val isLatest = MutableLiveData(true)
 
     init {
         viewModelScope.launch {
@@ -53,5 +52,27 @@ internal class ListViewModel(
 
     fun onClickSearch(){
         navDirections.value = ListFragmentDirections.actionListFragmentToSearchFragment()
+    }
+
+    fun onClickSortButton(){
+        showSortBottom.value = true
+    }
+
+    fun onClickSortBackground(){
+        showSortBottom.value = false
+    }
+
+    fun onClickSortLatest(){
+        isLatest.value = true
+        sort_text.value = "최신순"
+        showSortBottom.value = false
+        listType.value = true
+    }
+
+    fun onClickSortPast(){
+        isLatest.value = false
+        sort_text.value = "과거순"
+        showSortBottom.value = false
+        listType.value = true
     }
 }

@@ -24,10 +24,24 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
-        observe(viewModel.giftList) {
-            val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
-            Log.e("List",it.giftListGifts.toString())
-            listTypeViewPager.adapter = listViewPagerAdapter
+        observe(viewModel.isLatest){ isLatest ->
+            observe(viewModel.giftList) {
+                if(isLatest){
+                    val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                    listTypeViewPager.adapter = listViewPagerAdapter
+                } else{
+                    val temp = it.giftListGifts.reversed()
+                    val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                    listTypeViewPager.adapter = listViewPagerAdapter
+                }
+            }
+            if(isLatest){
+                binding.sortLatestCheck.visibility = View.VISIBLE
+                binding.sortPastCheck.visibility = View.GONE
+            } else{
+                binding.sortLatestCheck.visibility = View.GONE
+                binding.sortPastCheck.visibility = View.VISIBLE
+            }
         }
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
             page.apply {
@@ -59,5 +73,20 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 switchButton.setImageResource(R.drawable.ic_icon_1_grid)
             }
         })
+        observe(viewModel.showSortBottom){
+            if(it){
+                showSortBottom()
+            } else{
+                hideSortBottom()
+            }
+        }
+    }
+
+    private fun showSortBottom(){
+        binding.sortLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideSortBottom(){
+        binding.sortLayout.visibility = View.GONE
     }
 }

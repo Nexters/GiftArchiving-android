@@ -21,7 +21,7 @@ val viewModelModule = module {
     factory { SplashViewModel() }
     factory { LoginViewModel(get(), get()) }
     factory { HomeViewModel(get(), get()) }
-    factory { ListViewModel(get(), get()) }
+    factory { ListViewModel() }
     factory { SettingsViewModel(get()) }
     factory { SearchViewModel(get(), get()) }
 }

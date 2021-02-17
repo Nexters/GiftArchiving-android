@@ -53,8 +53,8 @@
 
         <ImageButton
             android:id="@+id/list_style_button"
-            android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:src="@drawable/ic_icon_2_grid"
             app:layout_constraintTop_toBottomOf="@id/list_title"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -63,12 +63,108 @@
             android:layout_marginStart="20dp"
             android:onClick="@{viewModel.onClickListSwitchListener}"/>
 
+        <TextView
+            android:id="@+id/list_sort_button"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            app:layout_constraintTop_toTopOf="@id/list_style_button"
+            app:layout_constraintBottom_toBottomOf="@id/list_style_button"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_marginEnd="20dp"
+            android:text="@{viewModel.sort_text}"
+            android:textSize="14sp"
+            android:textColor="@color/white"
+            android:gravity="center_vertical"
+            android:drawablePadding="8dp"
+            app:drawableEndCompat="@drawable/ic_btn_datedropdown"
+            android:onClick="@{()->viewModel.onClickSortButton()}"/>
+
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/list_viewPager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/list_style_button" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/sort_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/sort_bottomSheet"
+                android:onClick="@{()->viewModel.onClickSortBackground()}"
+                />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/sort_bottomSheet"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintHeight_percent="0.25"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="@color/settingsBlack"
+                android:padding="24dp"
+                >
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/settingsGray">
+                    <TextView
+                        android:id="@+id/sort_latest"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintHeight_percent="0.498"
+                        android:background="@color/settingsBlack"
+                        android:text="@string/sort_latest"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:onClick="@{()->viewModel.onClickSortLatest()}"
+                        />
+
+                    <ImageView
+                        android:id="@+id/sort_latest_check"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_icon_check"
+                        app:layout_constraintTop_toTopOf="@id/sort_latest"
+                        app:layout_constraintBottom_toBottomOf="@id/sort_latest"
+                        app:layout_constraintRight_toRightOf="@id/sort_latest"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:id="@+id/sort_past"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintHeight_percent="0.498"
+                        android:background="@color/settingsBlack"
+                        android:text="@string/sort_past"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:gravity="center_vertical"
+                        android:padding="8dp"
+                        android:onClick="@{()->viewModel.onClickSortPast()}"/>
+
+                    <ImageView
+                        android:id="@+id/sort_past_check"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/ic_icon_check"
+                        app:layout_constraintTop_toTopOf="@id/sort_past"
+                        app:layout_constraintBottom_toBottomOf="@id/sort_past"
+                        app:layout_constraintRight_toRightOf="@id/sort_past"
+                        android:layout_marginEnd="8dp"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
