@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.viewmodel
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.repository.GiftRepository
@@ -17,6 +18,8 @@ internal class HomeViewModel(
     val userId = preferenceRepository.getUserId()
     val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val currentBgColor = MutableLiveData(R.color.gray)
+    val currentFrame = MutableLiveData("SQUARE")
     var totalReceive = 0
     var totalNotReceive = 0
     init {
@@ -69,5 +72,10 @@ internal class HomeViewModel(
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
         }
+    }
+
+    fun setCurrentBgColorAndFrame(bgColor : Int, frame : String){
+        currentBgColor.value = bgColor
+        currentFrame.value = frame
     }
 }

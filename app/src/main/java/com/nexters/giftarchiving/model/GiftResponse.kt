@@ -27,5 +27,7 @@ data class GiftResponse(
     @SerializedName("bgColor")
     val bgColor : String,
     @SerializedName("isReceiveGift")
-    val isReceiveGift : Boolean
+    val isReceiveGift : Boolean,
+    @SerializedName("frameType")
+    val frameType : String
 ): Parcelable
