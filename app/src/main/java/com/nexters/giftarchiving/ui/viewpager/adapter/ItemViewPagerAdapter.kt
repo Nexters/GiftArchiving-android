@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui.viewpager.adapter
 
 import android.content.Context
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +12,8 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
-import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
-import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ItemViewPagerAdapter(val context : Context, private val giftListResponse: List<GiftResponse>, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
@@ -49,8 +49,21 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                 } else{
                     personTextView.text = String.format("To. %s",gift.giftName)
                 }
-                val date = String.format("%s.%s.%s",gift.giftReceiveDate.substring(0,4),gift.giftReceiveDate.substring(5,7),gift.giftReceiveDate.substring(8,10))
-                dateTextView.text = date
+                var inputDate = String.format("%s.%s.%s",gift.giftReceiveDate.substring(0,4),gift.giftReceiveDate.substring(5,7),gift.giftReceiveDate.substring(8,10))
+                val dateFormat = SimpleDateFormat("yyyy.MM.dd")
+                val date = dateFormat.parse(inputDate)
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+                when(calendar.get(Calendar.DAY_OF_WEEK)){
+                    1 -> inputDate += " (일)"
+                    2 -> inputDate += " (월)"
+                    3 -> inputDate += " (화)"
+                    4 -> inputDate += " (수)"
+                    5 -> inputDate += " (목)"
+                    6 -> inputDate += " (금)"
+                    else -> inputDate += " (토)"
+                }
+                dateTextView.text = inputDate
             }
         }
     }
