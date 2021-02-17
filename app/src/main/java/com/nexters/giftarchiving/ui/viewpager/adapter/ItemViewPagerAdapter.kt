@@ -45,7 +45,6 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                 } else{
                     personTextView.text = String.format("To. %s",gift.giftName)
                 }
-                personTextView.text = gift.giftName
                 val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
                 dateTextView.text = gift.giftReceiveDate.format(formatter)
             }
