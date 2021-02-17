@@ -39,6 +39,9 @@ internal class SearchViewModel(
         currentReason.value = null
         currentSearchText.value = ""
         fragmentType.value=0
+        searchResult.value = listOf()
+        searchResultGiven.value!!.clear()
+        searchResultTaken.value!!.clear()
     }
 
     val onClickCategoryListener = View.OnClickListener(){

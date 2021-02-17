@@ -3,16 +3,20 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="52dp">
+    android:layout_height="53dp"
+    android:background="#1d1d21">
 
     <TextView
         android:id="@+id/recyclerView_search_person_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="52dp"
         android:drawableStart="@drawable/ic_icon_search_hint"
         android:drawablePadding="12dp"
         android:textSize="16sp"
         android:textColor="@color/white"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/settingsBlack"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
