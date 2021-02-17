@@ -36,9 +36,13 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                     when(gift.bgColor){
                         "ORANGE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
                         "BLUE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                        "YELLOW" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                        "YELLOW" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context, R.drawable.round_yellow_background)
                         else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                     }
+                }
+                if (gift.bgColor=="YELLOW"){
+                    personTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
+                    dateTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
                 }
                 if(viewType==0||viewType==2){
                     personTextView.text = String.format("From. %s",gift.giftName)

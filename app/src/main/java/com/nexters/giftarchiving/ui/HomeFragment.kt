@@ -52,6 +52,11 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
 
         observe(viewModel.currentBgColor){
             binding.logo.backgroundTintList = ContextCompat.getColorStateList(requireContext(),it)
+            if (it==R.color.yellow){
+                binding.logo.setImageResource(R.drawable.ic_logo_bgcolor_none_black)
+            } else{
+                binding.logo.setImageResource(R.drawable.ic_logo_bgcolor_none_white)
+            }
         }
 
         observe(viewModel.currentFrame){
