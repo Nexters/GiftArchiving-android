@@ -9,12 +9,12 @@ internal data class GiftUpdate(
     val name: String,
     @SerializedName("receiveDate")
     val receiveDate: String,
-    @SerializedName("bgColor")
-    val bgColor: String,
     @SerializedName("category")
     val category: String,
     @SerializedName("emotion")
     val emotion: String,
     @SerializedName("reason")
-    val reason: String
+    val reason: String,
+    @SerializedName("bgColor")
+    val bgColor: String
 )

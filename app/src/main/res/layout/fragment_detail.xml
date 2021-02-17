@@ -140,7 +140,6 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
                         app:theme="@{viewModel.backgroundColorTheme}"
                         app:informationMenu="@{viewModel.purpose}"
                         app:layout_constraintStart_toStartOf="parent"
@@ -188,7 +187,6 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
                         app:theme="@{viewModel.backgroundColorTheme}"
                         app:informationMenu="@{viewModel.category}"
                         app:layout_constraintStart_toStartOf="parent"
@@ -236,7 +234,6 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
                         app:theme="@{viewModel.backgroundColorTheme}"
                         app:informationMenu="@{viewModel.emotion}"
                         app:layout_constraintStart_toStartOf="parent"
