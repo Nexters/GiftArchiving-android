@@ -87,6 +87,15 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
             )
             addItemDecoration(itemDecoration)
         }
+        observe(viewModel.currentBgColor){
+            if (it==R.color.yellow){
+                binding.givenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+                binding.givenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_arrow_bk,0)
+            } else{
+                binding.givenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                binding.givenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_all,0)
+            }
+        }
     }
 
     override fun onResume() {

@@ -99,6 +99,15 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
             )
             addItemDecoration(itemDecoration)
         }
+        observe(viewModel.currentBgColor){
+            if (it==R.color.yellow){
+                binding.takenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+                binding.takenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_arrow_bk,0)
+            } else{
+                binding.takenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                binding.takenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_all,0)
+            }
+        }
     }
 
     override fun onResume() {
