@@ -14,7 +14,7 @@ import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import java.time.format.DateTimeFormatter
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
+class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>, val isReceived : Boolean) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
 
     var mPosition = 0
 
@@ -35,9 +35,19 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
         fun bind(gift : GiftResponse, position: Int) {
             Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             itemImageView.clipToOutline = true
-            personTextView.text = gift.giftName
-            val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
-            dateTextView.text = gift.giftReceiveDate.format(formatter)
+            when(gift.bgColor){
+                "ORANGE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_orange_background)
+                "BLUE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_blue_background)
+                "YELLOW" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_yellow_background)
+                else -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_gray_background)
+            }
+            if(isReceived){
+                personTextView.text = String.format("From. %s",gift.giftName)
+            } else{
+                personTextView.text = String.format("To. %s",gift.giftName)
+            }
+            val date = String.format("%s.%s.%s",gift.giftReceiveDate.substring(0,4),gift.giftReceiveDate.substring(5,7),gift.giftReceiveDate.substring(8,10))
+            dateTextView.text = date
         }
     }
 

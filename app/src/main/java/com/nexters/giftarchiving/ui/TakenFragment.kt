@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.DimenRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
@@ -22,16 +23,18 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>() {
     override val layoutId = R.layout.fragment_taken
-    override val viewModel: HomeViewModel by viewModel()
+    override val viewModel: HomeViewModel by viewModels({requireParentFragment()})
     var current = 0
+    val bgColors = arrayListOf<Int>(R.color.gray)
+    val frames = arrayListOf<String>("SQUARE")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.homeTakenViewpager
-        val bgColors = arrayListOf<Int>(R.color.gray)
         observe(viewModel.getAllReceivedGiftListResponse){
             if(it.giftListGifts.isNotEmpty()){
                 bgColors.clear()
+                frames.clear()
                 for(item in it.giftListGifts){
                     when(item.bgColor){
                         "ORANGE"->bgColors.add(R.color.orange)
@@ -39,6 +42,7 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
                         "BLUE"->bgColors.add(R.color.blue)
                         else->bgColors.add(R.color.gray)
                     }
+                    frames.add(item.frameType)
                 }
             }
         }
@@ -49,19 +53,35 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
             clipToPadding = false
             setPageTransformer(pageTransformer)
             observe(viewModel.getAllReceivedGiftListResponse) {
-                adapter = if(it.giftListGifts.isEmpty()){
-                    val emptyGift = GiftResponse("empty","From. 보낸이","empty",getString(R.string.home_default_taken),"empty","empty","empty",
-                        "","empty",true)
-                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0)
-                } else{
-                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,0)
+                adapter = if (it.giftListGifts.isEmpty()) {
+                    val emptyGift = GiftResponse(
+                        "empty",
+                        "From. 보낸이",
+                        "empty",
+                        getString(R.string.home_default_taken),
+                        "empty",
+                        "empty",
+                        "empty",
+                        "",
+                        "MONO",
+                        true,
+                        "SQUARE"
+                    )
+                    viewModel.setCurrentBgColorAndFrame(R.color.gray,"SQUARE")
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift), 0)
+                } else {
+                    ItemViewPagerAdapter(requireContext(), it.giftListGifts, 0)
                 }
             }
-            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+
+            registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    val valueAnimator = ValueAnimator.ofObject(ArgbEvaluator(),ContextCompat.getColor(context,bgColors[current]),ContextCompat.getColor(context,bgColors[position]))
-                    Log.d("position",position.toString())
+                    val valueAnimator = ValueAnimator.ofObject(
+                        ArgbEvaluator(),
+                        ContextCompat.getColor(context, bgColors[current]),
+                        ContextCompat.getColor(context, bgColors[position])
+                    )
                     valueAnimator.apply {
                         duration = 500
                         addUpdateListener {
@@ -69,7 +89,8 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
                         }
                         start()
                     }
-                    current=position
+                    viewModel.setCurrentBgColorAndFrame(bgColors[position], frames[position])
+                    current = position
                 }
             })
             val itemDecoration = HorizontalMarginItemDecoration(
@@ -78,6 +99,11 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
             )
             addItemDecoration(itemDecoration)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setCurrentBgColorAndFrame(bgColors[current],frames[current])
     }
 
 

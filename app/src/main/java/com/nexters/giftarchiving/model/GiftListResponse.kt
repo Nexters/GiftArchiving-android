@@ -1,7 +1,10 @@
 package com.nexters.giftarchiving.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 data class GiftListResponse(
     @SerializedName("gifts")
     val giftListGifts : List<GiftResponse>,
@@ -11,4 +14,4 @@ data class GiftListResponse(
     val giftListSize : Int,
     @SerializedName("totalCount")
     val giftListTotalCount : Int
-)
+): Parcelable
