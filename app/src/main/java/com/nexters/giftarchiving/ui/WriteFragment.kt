@@ -151,11 +151,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun setBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             with(viewModel) {
-                if (currentMenuType.value != null) {
-                    hideCurrentMenu()
-                } else {
-                    navDirections.value = BackDirections()
-                }
+                if (currentMenuType.value != null) hideCurrentMenu()
+                else showExitDialog()
             }
         }
     }
@@ -268,6 +265,20 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         }
     }
 
+    private fun showExitDialog() {
+        val listener = object : BaseConfirmDialogListener() {
+            override fun onConfirm() {
+                super.onConfirm()
+                viewModel.onBackExit()
+            }
+        }
+        ConfirmBottomSheet(
+            title = EXIT_DIALOG_TITLE,
+            subTitle = EXIT_DIALOG_SUB_TITLE,
+            listener = listener
+        ).show(parentFragmentManager, EXIT_DIALOG_TAG)
+    }
+
     private fun hideSoftKeypad() {
         val imm =
             requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -276,5 +287,9 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     companion object {
         private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 100
+
+        private const val EXIT_DIALOG_TAG = "exit dialog"
+        private const val EXIT_DIALOG_TITLE = "저장하지 않고 나가시겠습니까?"
+        private const val EXIT_DIALOG_SUB_TITLE = "작성중이던 내용이 사라집니다."
     }
 }

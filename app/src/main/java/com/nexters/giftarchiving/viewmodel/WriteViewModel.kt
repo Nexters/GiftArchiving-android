@@ -134,6 +134,12 @@ internal class WriteViewModel(
         navDirections.value = BackDirections()
     }
 
+    fun onBackExit() {
+        if (isEditMode) navDirections.value =
+            WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, false)
+        else navDirections.value = BackDirections()
+    }
+
     private fun showMenu(menuType: WriteMenu) {
         currentMenuType.value = menuType
         showMenuType.value = menuType
