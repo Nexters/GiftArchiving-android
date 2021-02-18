@@ -68,9 +68,9 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
                         "SQUARE"
                     )
                     viewModel.setCurrentBgColorAndFrame(R.color.gray,"SQUARE")
-                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift), 0)
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift), 0, null)
                 } else {
-                    ItemViewPagerAdapter(requireContext(), it.giftListGifts, 0)
+                    ItemViewPagerAdapter(requireContext(), it.giftListGifts, 0, null)
                 }
             }
 

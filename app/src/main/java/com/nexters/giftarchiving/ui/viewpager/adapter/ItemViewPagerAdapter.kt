@@ -13,9 +13,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftResponse
+import com.nexters.giftarchiving.viewmodel.ListViewModel
+import java.time.format.DateTimeFormatter
 import java.util.*
 
-class ItemViewPagerAdapter(val context : Context, private val giftListResponse: List<GiftResponse>, private val viewType: Int) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
+internal class ItemViewPagerAdapter(
+    val context: Context,
+    private val giftListResponse: List<GiftResponse>,
+    private val viewType: Int,
+    private val viewModel: ListViewModel?
+) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -64,6 +71,7 @@ class ItemViewPagerAdapter(val context : Context, private val giftListResponse: 
                     else -> inputDate += " (토)"
                 }
                 dateTextView.text = inputDate
+                viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
             }
         }
     }

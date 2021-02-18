@@ -1,12 +1,15 @@
 package com.nexters.giftarchiving.di
 
-import com.nexters.giftarchiving.viewmodel.*
+import com.nexters.giftarchiving.viewmodel.ConfirmBottomSheetViewModel
 import com.nexters.giftarchiving.viewmodel.CropViewModel
+import com.nexters.giftarchiving.viewmodel.DetailViewModel
 import com.nexters.giftarchiving.viewmodel.HomeViewModel
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 import com.nexters.giftarchiving.viewmodel.LoginViewModel
 import com.nexters.giftarchiving.viewmodel.MainViewModel
+import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import com.nexters.giftarchiving.viewmodel.SettingsViewModel
+import com.nexters.giftarchiving.viewmodel.ShareInstagramViewModel
 import com.nexters.giftarchiving.viewmodel.ShareViewModel
 import com.nexters.giftarchiving.viewmodel.SplashViewModel
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
@@ -24,4 +27,6 @@ val viewModelModule = module {
     factory { ListViewModel(get(), get()) }
     factory { SettingsViewModel(get()) }
     factory { SearchViewModel(get(), get()) }
+    factory { DetailViewModel(get()) }
+    factory { ConfirmBottomSheetViewModel() }
 }

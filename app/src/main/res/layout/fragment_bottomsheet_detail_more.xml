@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/secondary_500">
+        
+        <View
+            android:id="@+id/tab_view"
+            android:layout_width="41dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/background_bottom_sheet_tab"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <LinearLayout
+            android:id="@+id/menu_layout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/tab_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.87">
+            <LinearLayout
+                android:id="@+id/edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/background_bottom_line_dark">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_icon_edit"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/detail_edit"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/delete_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:gravity="center_vertical"
+                android:background="@drawable/background_bottom_line_dark">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_icon_delete"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/detail_delete"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="16dp"
+                android:gravity="center_vertical">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:src="@drawable/ic_icon_share"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="@color/colorWhite"
+                    android:text="@string/detail_share"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/cancel_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/colorWhite"
+            android:text="@string/detail_cancel"
+            android:background="@drawable/cancel_button_background"
+            app:layout_constraintTop_toBottomOf="@id/menu_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintWidth_percent="0.87"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

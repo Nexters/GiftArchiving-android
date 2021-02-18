@@ -48,18 +48,18 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                     }
                 }
             }
-            if(isLatest){
+            if (isLatest) {
                 binding.sortLatestCheck.visibility = View.VISIBLE
                 binding.sortPastCheck.visibility = View.GONE
-            } else{
+            } else {
                 binding.sortLatestCheck.visibility = View.GONE
                 binding.sortPastCheck.visibility = View.VISIBLE
             }
-            observe(viewModel.listType){
-                if (it){
+            observe(viewModel.listType) {
+                if (it) {
                     listTypeViewPager.currentItem = 0
                     switchButton.setImageResource(R.drawable.ic_icon_2_grid)
-                } else{
+                } else {
                     listTypeViewPager.currentItem = 1
                     switchButton.setImageResource(R.drawable.ic_icon_1_grid)
                 }
@@ -75,30 +75,30 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                         translationZ = -1f
                     }
                     position <= 0.5f -> {
-                        translationX = pageWidth*-position
+                        translationX = pageWidth * -position
                         alpha = 1f
                         translationZ = 0f
                     }
                     else -> {
-                        translationX = pageWidth*position
+                        translationX = pageWidth * position
                         alpha = 0f
                     }
                 }
             }
         })
-        observe(viewModel.listType){
-            if (it){
+        observe(viewModel.listType) {
+            if (it) {
                 listTypeViewPager.currentItem = 0
                 switchButton.setImageResource(R.drawable.ic_icon_2_grid)
-            } else{
+            } else {
                 listTypeViewPager.currentItem = 1
                 switchButton.setImageResource(R.drawable.ic_icon_1_grid)
             }
         }
-        observe(viewModel.showSortBottom){
-            if(it){
+        observe(viewModel.showSortBottom) {
+            if (it) {
                 showSortBottom()
-            } else{
+            } else {
                 hideSortBottom()
             }
         }
@@ -113,7 +113,7 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         binding.sortLayout.visibility = View.VISIBLE
     }
 
-    private fun hideSortBottom(){
+    private fun hideSortBottom() {
         binding.sortLayout.visibility = View.GONE
     }
 }

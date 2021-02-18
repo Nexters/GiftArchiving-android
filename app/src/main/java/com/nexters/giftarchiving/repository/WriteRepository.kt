@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.repository
 
 import androidx.annotation.WorkerThread
+import com.nexters.giftarchiving.model.GiftUpdate
 import com.nexters.giftarchiving.model.WriteResponse
 import com.nexters.giftarchiving.service.network.GiftZipService
 import com.nexters.giftarchiving.util.DateConvert
@@ -40,4 +41,8 @@ internal class WriteRepository(private val giftZipService: GiftZipService) {
             bgImg
         )
     }
+
+    @WorkerThread
+    suspend fun updateGift(giftId: String, gift: GiftUpdate) =
+        giftZipService.updateGift(giftId, gift)
 }

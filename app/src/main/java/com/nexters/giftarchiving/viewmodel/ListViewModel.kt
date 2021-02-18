@@ -93,4 +93,8 @@ internal class ListViewModel(
             title.value = if(isReceived) String.format("%s %d",title.value,totalReceive) else String.format("%s %d",title.value,totalNotReceive)
         }
     }
+
+    fun onClickDetail(giftId: String) {
+        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId, false)
+    }
 }

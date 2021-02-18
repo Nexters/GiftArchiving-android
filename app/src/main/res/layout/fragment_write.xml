@@ -197,120 +197,83 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/editor_layout"
                     android:layout_width="match_parent"
                     android:layout_height="266dp"
                     app:layout_constraintTop_toTopOf="parent">
 
-                    <LinearLayout
-                        android:layout_width="0dp"
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_margin="24dp"
-                        android:gravity="center"
-                        android:alpha="0.3"
-                        android:visibility="@{viewModel.editedImage == null}"
-                        app:theme="@{viewModel.backgroundColorTheme}"
-                        app:emptyFrameShape="@{viewModel.frameShape}"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintDimensionRatio="1:1"
-                        tools:background="@drawable/write_empty_image_background_oval_white"/>
+                        android:visibility="@{!viewModel.editMode}">
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_margin="24dp"
+                            android:gravity="center"
+                            android:alpha="0.3"
+                            android:visibility="@{viewModel.editedImage == null}"
+                            app:theme="@{viewModel.backgroundColorTheme}"
+                            app:emptyFrameShape="@{viewModel.frameShape}"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintDimensionRatio="1:1"
+                            tools:background="@drawable/write_empty_image_background_oval_white"/>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:alpha="0.6"
-                        android:textSize="13sp"
-                        android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/notice_select_image"
-                        android:visibility="@{viewModel.editedImage == null}"
-                        tools:textColor="@color/colorWhite"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:alpha="0.6"
+                            android:textSize="13sp"
+                            android:textColor="@{viewModel.backgroundColorTheme}"
+                            android:text="@string/notice_select_image"
+                            android:visibility="@{viewModel.editedImage == null}"
+                            tools:textColor="@color/colorWhite"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"/>
 
-                    <com.xiaopo.flying.sticker.StickerView
-                        android:id="@+id/sticker_view"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:paddingHorizontal="40dp"
-                        android:paddingVertical="35dp"
-                        app:showIcons="true"
-                        app:showBorder="true"
-                        app:borderColor="@color/colorWhite"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintBottom_toBottomOf="parent" >
-
-                        <ImageView
-                            android:id="@+id/iv"
+                        <com.xiaopo.flying.sticker.StickerView
+                            android:id="@+id/sticker_view"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:adjustViewBounds="true"
-                            android:src="@{viewModel.editedImage}"/>
+                            android:paddingHorizontal="40dp"
+                            android:paddingVertical="35dp"
+                            app:showIcons="true"
+                            app:showBorder="true"
+                            app:borderColor="@color/colorWhite"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent" >
 
-                    </com.xiaopo.flying.sticker.StickerView>
+                            <ImageView
+                                android:id="@+id/iv"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:adjustViewBounds="true"
+                                android:src="@{viewModel.editedImage}"/>
+
+                        </com.xiaopo.flying.sticker.StickerView>
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:adjustViewBounds="true"
+                        android:src="@{viewModel.noBgImgUrl}"
+                        android:visibility="@{viewModel.editMode}"
+                        tools:src="@drawable/icon_share_kakao"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="10dp"
-                    android:orientation="vertical"
-                    android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/editor_layout">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="배경색상"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" >
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.ORANGE)}"
-                            android:text="빨강" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.YELLOW)}"
-                            android:text="초록"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.BLUE)}"
-                            android:text="파랑"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-
-                        <Button
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:onClick="@{() -> viewModel.setBackgroundColor(BackgroundColorTheme.MONO)}"
-                            android:text="하양"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
-
-                </LinearLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/middle_layout"
@@ -525,6 +488,7 @@
                     android:layout_alignParentBottom="true">
 
                     <EditText
+                        android:id="@+id/content_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="top"
@@ -553,6 +517,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:paddingHorizontal="20dp"
+            android:visibility="@{!viewModel.editMode}"
             app:theme="@{viewModel.backgroundColorTheme}"
             app:backgroundColorByMenu="@{viewModel.currentMenuType}"
             app:layout_constraintBottom_toBottomOf="parent">

@@ -46,4 +46,24 @@ internal object WriteInformationMenuList {
         WriteEmotionMenu("감동이야", "IMPRESSION",R.drawable.ic_emoji_touch_b, R.drawable.ic_emoji_touch),
         WriteEmotionMenu("놀라워", "AMAZING", R.drawable.ic_emoji_surprisal_b, R.drawable.ic_emoji_surprisal)
     ).map { WriteEmotionMenuItem(it) }
+
+    fun findPurpose(engName: String?): WritePurposeMenu =
+        purposeMenuList
+            .find { it.purposeMenu.titleEng == engName }
+            ?.purposeMenu
+            ?: WritePurposeMenu()
+
+    fun findCategory(engName: String?): WriteCategoryMenu =
+        categoryMenuList
+            .find { it.categoryMenu.titleEng == engName }
+            ?.categoryMenu
+            ?: WriteCategoryMenu()
+
+    fun findEmotion(engName: String?, isReceive: Boolean = true): WriteEmotionMenu =
+        when (isReceive) {
+            true -> receiveEmotionList
+            false -> sendEmotionList
+        }.find { it.emotionMenu.titleEng == engName }
+            ?.emotionMenu
+            ?: WriteEmotionMenu()
 }

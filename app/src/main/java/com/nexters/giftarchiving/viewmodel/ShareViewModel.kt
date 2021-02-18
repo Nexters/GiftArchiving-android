@@ -15,31 +15,34 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
 internal class ShareViewModel : BaseViewModel() {
-    val response = MutableLiveData<WriteResponse>()
     val name = MutableLiveData<String>()
     val backgroundColorTheme = MutableLiveData<BackgroundColorTheme>()
     val frameShape = MutableLiveData<WriteFrameShape>()
+    val noBgImgUrl = MutableLiveData<String>()
+    val bgImgUrl = MutableLiveData<String>()
     val saveImage = LiveEvent<Unit?>()
     val shareKakaoMessage = LiveEvent<Unit?>()
     var isReceive = true
+
+    private var giftId: String? = null
 
     init {
         viewModelScope.launch {
             navArgs<ShareFragmentArgs>()
                 .collect {
-                    response.value = it.response
+                    giftId = it.giftId
+                    isReceive = it.isReceive
                     name.value = it.name
                     backgroundColorTheme.value = it.backgroundTheme
                     frameShape.value = it.frameShape
-                    isReceive = it.isReceive
+                    noBgImgUrl.value = it.noBgImgUrl
+                    bgImgUrl.value = it.bgImgUrl
                 }
         }
     }
 
     fun getKakaoMessageFeed(): FeedTemplate? {
-        return response.value?.let {
-            KakaoFeedMessage.getFeed(it.bgImgUrl, name.value ?: "")
-        }
+        return KakaoFeedMessage.getFeed(bgImgUrl.value ?: "", name.value ?: "")
     }
 
     fun onClickBackHome() {
@@ -56,7 +59,7 @@ internal class ShareViewModel : BaseViewModel() {
 
     fun onClickSharedInstagram() {
         navDirections.value = ShareFragmentDirections.actionShareFragmentToShareInstagramFragment(
-            response.value?.noBgImgUrl,
+            noBgImgUrl.value,
             name.value,
             backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
             isReceive
