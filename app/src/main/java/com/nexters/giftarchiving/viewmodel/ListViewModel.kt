@@ -79,6 +79,8 @@ internal class ListViewModel(
     }
 
     fun getAllList(){
+        getAllReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
+        getAllNotReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
         viewModelScope.launch {
             totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
             totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
