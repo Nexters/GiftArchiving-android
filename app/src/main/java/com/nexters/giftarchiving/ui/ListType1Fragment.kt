@@ -30,12 +30,13 @@ internal class ListType1Fragment(val giftList: List<GiftResponse>, val viewModel
         val pageTransformer = CardSwipePageTransformer()
 
         viewPager.apply {
+            val callback: (String) -> Unit = { viewModel.onClickDetail(it) }
             offscreenPageLimit = 1
             clipToPadding = false
             if(isReceived){
-                adapter = ItemViewPagerAdapter(requireContext(),giftList,2, viewModel)
+                adapter = ItemViewPagerAdapter(requireContext(),giftList,2, callback)
             } else{
-                adapter = ItemViewPagerAdapter(requireContext(),giftList,3, viewModel)
+                adapter = ItemViewPagerAdapter(requireContext(),giftList,3, callback)
             }
             setPadding( resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0,resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0)
             setPageTransformer(pageTransformer)

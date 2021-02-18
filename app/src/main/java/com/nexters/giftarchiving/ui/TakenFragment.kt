@@ -70,7 +70,9 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
                     viewModel.setCurrentBgColorAndFrame(R.color.gray,"SQUARE")
                     ItemViewPagerAdapter(requireContext(), listOf(emptyGift), 0, null)
                 } else {
-                    ItemViewPagerAdapter(requireContext(), it.giftListGifts, 0, null)
+                    ItemViewPagerAdapter(requireContext(), it.giftListGifts, 0) { id ->
+                        viewModel.onClickDetail(id)
+                    }
                 }
             }
 

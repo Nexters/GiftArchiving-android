@@ -57,9 +57,11 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                     val emptyGift = GiftResponse("empty","To. 받은이","empty",getString(R.string.home_default_given),"empty","empty","empty",
                         "","MONO",true,"SQUARE")
                     viewModel.setCurrentBgColorAndFrame(R.color.gray,"SQUARE")
-                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),1,null)
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),1, null)
                 } else{
-                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,1,null)
+                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,1) { id ->
+                        viewModel.onClickDetail(id)
+                    }
                 }
             }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){

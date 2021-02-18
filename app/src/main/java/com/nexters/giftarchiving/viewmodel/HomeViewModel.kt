@@ -82,4 +82,8 @@ internal class HomeViewModel(
             getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
         }
     }
+
+    fun onClickDetail(giftId: String) {
+        navDirections.value = HomeFragmentDirections.actionHomeFragmentToDetailFragment(giftId, false)
+    }
 }

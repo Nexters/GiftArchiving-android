@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFramgent"
             app:destination="@id/searchFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
