@@ -284,8 +284,7 @@ internal class WriteViewModel(
                     receiveDate = receiveDate,
                     category = category.value?.titleEng ?: "",
                     emotion = emotion.value?.titleEng ?: "",
-                    reason = purpose.value?.titleEng ?: "",
-                    bgColor = (backgroundColorTheme.value ?: BackgroundColorTheme.MONO).toString()
+                    reason = purpose.value?.titleEng ?: ""
                 )
             )
 

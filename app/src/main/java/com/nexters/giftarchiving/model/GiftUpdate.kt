@@ -14,7 +14,5 @@ internal data class GiftUpdate(
     @SerializedName("emotion")
     val emotion: String,
     @SerializedName("reason")
-    val reason: String,
-    @SerializedName("bgColor")
-    val bgColor: String
+    val reason: String
 )
