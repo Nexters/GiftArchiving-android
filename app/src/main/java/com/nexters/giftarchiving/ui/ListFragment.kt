@@ -25,14 +25,27 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
         observe(viewModel.isLatest){ isLatest ->
-            observe(viewModel.giftList) {
-                if(isLatest){
-                    val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
-                    listTypeViewPager.adapter = listViewPagerAdapter
-                } else{
-                    val temp = it.giftListGifts.reversed()
-                    val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
-                    listTypeViewPager.adapter = listViewPagerAdapter
+            if(viewModel.isReceived){
+                observe(viewModel.getAllReceivedGiftListResponse){
+                    if(isLatest){
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    } else{
+                        val temp = it.giftListGifts.reversed()
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    }
+                }
+            } else{
+                observe(viewModel.getAllNotReceivedGiftListResponse){
+                    if(isLatest){
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    } else{
+                        val temp = it.giftListGifts.reversed()
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    }
                 }
             }
             if(isLatest){
@@ -89,6 +102,11 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 hideSortBottom()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllList()
     }
 
     private fun showSortBottom(){

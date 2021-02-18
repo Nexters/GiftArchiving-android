@@ -23,18 +23,7 @@ internal class HomeViewModel(
     var totalReceive = 0
     var totalNotReceive = 0
     init {
-        viewModelScope.launch {
-            totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
-            totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
-            var tempCountReceive = totalReceive
-            var tempCountNotReceive = totalNotReceive
-            if (totalReceive==0)
-                tempCountReceive=1
-            if(totalNotReceive==0)
-                tempCountNotReceive=1
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountReceive, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
-        }
+        getAllList()
     }
     val onClickGivenListButtonListener = View.OnClickListener(){
         onClickGivenListButton()
@@ -58,13 +47,13 @@ internal class HomeViewModel(
 
     private fun onClickTakenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물",getAllReceivedGiftListResponse.value!!,totalReceive.toString())
+            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")
         }
     }
 
     private fun onClickGivenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물",getAllNotReceivedGiftListResponse.value!!,totalNotReceive.toString())
+            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물")
         }
     }
 
@@ -77,5 +66,20 @@ internal class HomeViewModel(
     fun setCurrentBgColorAndFrame(bgColor : Int, frame : String){
         currentBgColor.value = bgColor
         currentFrame.value = frame
+    }
+
+    fun getAllList(){
+        viewModelScope.launch {
+            totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
+            totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
+            var tempCountReceive = totalReceive
+            var tempCountNotReceive = totalNotReceive
+            if (totalReceive==0)
+                tempCountReceive=1
+            if(totalNotReceive==0)
+                tempCountNotReceive=1
+            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountReceive, true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
+        }
     }
 }
