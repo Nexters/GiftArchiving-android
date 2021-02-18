@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.ui
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -9,6 +10,7 @@ import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -25,7 +27,6 @@ import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
-import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -160,6 +161,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun showSelectedMenu(menuType: WriteMenu) {
+        hideSoftKeypad()
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
                 setInformationMenuViewPager(menuType)
@@ -264,6 +266,12 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
             viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
         }
+    }
+
+    private fun hideSoftKeypad() {
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
     }
 
     companion object {
