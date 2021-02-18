@@ -67,4 +67,9 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
             }
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllList()
+    }
 }

@@ -24,17 +24,28 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
-        observe(viewModel.isLatest) { isLatest ->
-            observe(viewModel.giftList) {
-                if (isLatest) {
-                    val listViewPagerAdapter =
-                        ListViewPagerAdapter(this, it.giftListGifts, viewModel, viewModel.isReceived)
-                    listTypeViewPager.adapter = listViewPagerAdapter
-                } else {
-                    val temp = it.giftListGifts.reversed()
-                    val listViewPagerAdapter =
-                        ListViewPagerAdapter(this, temp, viewModel, viewModel.isReceived)
-                    listTypeViewPager.adapter = listViewPagerAdapter
+        observe(viewModel.isLatest){ isLatest ->
+            if(viewModel.isReceived){
+                observe(viewModel.getAllReceivedGiftListResponse){
+                    if(isLatest){
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    } else{
+                        val temp = it.giftListGifts.reversed()
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    }
+                }
+            } else{
+                observe(viewModel.getAllNotReceivedGiftListResponse){
+                    if(isLatest){
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    } else{
+                        val temp = it.giftListGifts.reversed()
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        listTypeViewPager.adapter = listViewPagerAdapter
+                    }
                 }
             }
             if (isLatest) {
@@ -93,7 +104,12 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         }
     }
 
-    private fun showSortBottom() {
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllList()
+    }
+
+    private fun showSortBottom(){
         binding.sortLayout.visibility = View.VISIBLE
     }
 
