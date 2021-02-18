@@ -51,6 +51,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
         setStickerView()
         setStickerMenuViewPager()
+        setContentEditTextSize()
         setBackPressedDispatcher()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
@@ -135,6 +136,14 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             ).apply { iconEvent = ZoomIconEvent() }
 
             binding.stickerView.icons = listOf(deleteIcon, zoomIcon)
+        }
+    }
+
+    private fun setContentEditTextSize() {
+        with(binding.contentEt) {
+            viewTreeObserver.addOnGlobalLayoutListener {
+                height = height
+            }
         }
     }
 
