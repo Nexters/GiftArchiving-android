@@ -20,9 +20,10 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        receiveArgFromOtherView<Boolean>("isEdit") { if (it) showSaveImageNotice() }
+
         observe(viewModel.clickMore) { showMenuDialog() }
         observe(viewModel.clickDelete) { showDeleteDialog() }
-        observe(viewModel.isFinishEdit) { if (it) showSaveImageNotice() }
     }
 
     private fun showMenuDialog() {

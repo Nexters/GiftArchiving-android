@@ -6,16 +6,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
@@ -56,6 +52,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
+        observe(viewModel.isBack) { showExitDialog() }
         observe(viewModel.isSaved) { saveGift() }
         observe(viewModel.addSticker) { addSticker(it) }
     }
@@ -73,10 +70,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
-                val source = ImageDecoder.createSource(requireActivity().contentResolver, it)
-                val bitmap = ImageDecoder.decodeBitmap(source)
                 viewModel.navDirections.value =
-                    WriteFragmentDirections.actionWriteFragmentToCropFragment(bitmap)
+                    WriteFragmentDirections.actionWriteFragmentToCropFragment(it)
             }
         }
     }
@@ -252,13 +247,18 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun saveGift() {
-        sendArgToBackStack("needReload", true)
-        binding.stickerView.removeStickerHandler()
-        val noBgBitmap = binding.stickerView.createBitmap()
-        binding.shareIv.setImageBitmap(noBgBitmap)
-        viewModel.delayAndCallback {
-            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
-            viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+        if(viewModel.isEditMode){
+            sendArgToBackStack("isEdit", true)
+            viewModel.editGiftProperties()
+        }else {
+            sendArgToBackStack("needReload", true)
+            binding.stickerView.removeStickerHandler()
+            val noBgBitmap = binding.stickerView.createBitmap()
+            binding.shareIv.setImageBitmap(noBgBitmap)
+            viewModel.delayAndCallback {
+                val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
+                viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+            }
         }
     }
 
@@ -266,7 +266,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         val listener = object : BaseConfirmDialogListener() {
             override fun onConfirm() {
                 super.onConfirm()
-                viewModel.onBackExit()
+                with(viewModel){
+                    if(isEditMode) sendArgToBackStack("isEdit", false)
+                    onBackExit()
+                }
             }
         }
         ConfirmBottomSheet(

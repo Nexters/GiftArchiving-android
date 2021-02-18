@@ -86,6 +86,6 @@ internal class HomeViewModel(
     }
 
     fun onClickDetail(giftId: String) {
-        navDirections.value = HomeFragmentDirections.actionHomeFragmentToDetailFragment(giftId, false)
+        navDirections.value = HomeFragmentDirections.actionHomeFragmentToDetailFragment(giftId)
     }
 }

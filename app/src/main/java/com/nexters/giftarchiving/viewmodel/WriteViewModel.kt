@@ -57,6 +57,7 @@ internal class WriteViewModel(
     val changeDate = LiveEvent<Unit?>()
     val addSticker = LiveEvent<Int>()
     val loadGallery = LiveEvent<Unit?>()
+    val isBack = LiveEvent<Unit?>()
     val isSaved = LiveEvent<Unit?>()
 
     var isReceiveGift = true
@@ -132,13 +133,11 @@ internal class WriteViewModel(
     }
 
     fun onClickBack() {
-        navDirections.value = BackDirections()
+        isBack.call()
     }
 
     fun onBackExit() {
-        if (isEditMode) navDirections.value =
-            WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, false)
-        else navDirections.value = BackDirections()
+        navDirections.value = BackDirections()
     }
 
     private fun showMenu(menuType: WriteMenu) {
@@ -173,20 +172,11 @@ internal class WriteViewModel(
 
     fun onClickNext() {
         isLoading.value = true
-        if(isEditMode) {
-            if (needMoreEdit()) {
-                toast.postValue(NOTICE_MORE_WRITE)
-                isLoading.value = false
-            } else {
-                editGiftProperties()
-            }
+        if((isEditMode && needMoreEdit()) || (!isEditMode && needMoreWrite())) {
+            toast.postValue(NOTICE_MORE_WRITE)
+            isLoading.value = false
         } else {
-            if (needMoreWrite()) {
-                toast.postValue(NOTICE_MORE_WRITE)
-                isLoading.value = false
-            } else {
-                isSaved.call()
-            }
+            isSaved.call()
         }
     }
 
@@ -246,6 +236,25 @@ internal class WriteViewModel(
         }
     }
 
+    fun editGiftProperties() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val receiveDate =
+                DateConvert.localDateToLocalDateTimeStr(date.value ?: LocalDate.now())
+            val response = writeRepository.updateGift(
+                giftId, GiftUpdate(
+                    content = content.value ?: "",
+                    receiveDate = receiveDate,
+                    category = category.value?.titleEng ?: "",
+                    emotion = emotion.value?.titleEng ?: "",
+                    reason = purpose.value?.titleEng ?: ""
+                )
+            )
+
+            val directions = BackDirections()
+            navDirections.postValue(directions)
+        }
+    }
+
     private fun convertImageShape() {
         val shape = frameShape.value ?: WriteFrameShape.SQUARE
         originBitmap?.let { bm ->
@@ -275,26 +284,6 @@ internal class WriteViewModel(
 
     private fun needMoreWrite() =
         originBitmap == null || needMoreEdit()
-
-    private fun editGiftProperties() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val receiveDate =
-                DateConvert.localDateToLocalDateTimeStr(date.value ?: LocalDate.now())
-            val response = writeRepository.updateGift(
-                giftId, GiftUpdate(
-                    content = content.value ?: "",
-                    receiveDate = receiveDate,
-                    category = category.value?.titleEng ?: "",
-                    emotion = emotion.value?.titleEng ?: "",
-                    reason = purpose.value?.titleEng ?: ""
-                )
-            )
-
-            val directions =
-                WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, true)
-            navDirections.postValue(directions)
-        }
-    }
 
     companion object {
         @JvmStatic
