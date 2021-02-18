@@ -15,7 +15,7 @@ import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.recyclerview.adapter.ListType2RecyclerviewAdapter
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 
-internal class ListType2Fragment(val giftList: List<GiftResponse>, val viewModel: ListViewModel) : Fragment() {
+internal class ListType2Fragment(val giftList: List<GiftResponse>, val viewModel: ListViewModel, val isReceived : Boolean) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -25,7 +25,7 @@ internal class ListType2Fragment(val giftList: List<GiftResponse>, val viewModel
         val view: View = inflater.inflate(R.layout.fragment_list_type2, container, false)
 
         val list_recyclerview = view.findViewById<RecyclerView>(R.id.list2_recyclerView)
-        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList, viewModel)
+        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList, viewModel,isReceived)
         list_recyclerview.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
         list_recyclerview.layoutManager = gridLayoutManager

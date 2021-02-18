@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import androidx.annotation.DimenRes
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.nexters.giftarchiving.R
@@ -22,16 +23,18 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>() {
     override val layoutId = R.layout.fragment_given
-    override val viewModel: HomeViewModel by viewModel()
+    override val viewModel: HomeViewModel by viewModels({requireParentFragment()})
     var current = 0
+    val bgColors = arrayListOf<Int>(R.color.gray)
+    val frames = arrayListOf<String>("SQUARE")
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val viewPager = binding.homeGivenViewpager
-        val bgColors = arrayListOf<Int>(R.color.gray)
         observe(viewModel.getAllNotReceivedGiftListResponse){
             if(it.giftListGifts.isNotEmpty()){
                 bgColors.clear()
+                frames.clear()
                 for(item in it.giftListGifts){
                     when(item.bgColor){
                         "ORANGE"->bgColors.add(R.color.orange)
@@ -39,6 +42,7 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                         "BLUE"->bgColors.add(R.color.blue)
                         else->bgColors.add(R.color.gray)
                     }
+                    frames.add(item.frameType)
                 }
             }
         }
@@ -51,10 +55,11 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
             observe(viewModel.getAllNotReceivedGiftListResponse){
                 adapter = if(it.giftListGifts.isEmpty()){
                     val emptyGift = GiftResponse("empty","To. 받은이","empty",getString(R.string.home_default_given),"empty","empty","empty",
-                        "","empty",true)
-                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),0, null)
+                        "","MONO",true,"SQUARE")
+                    viewModel.setCurrentBgColorAndFrame(R.color.gray,"SQUARE")
+                    ItemViewPagerAdapter(requireContext(), listOf(emptyGift),1,null)
                 } else{
-                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,0, null)
+                    ItemViewPagerAdapter(requireContext(),it.giftListGifts,1,null)
                 }
             }
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
@@ -72,6 +77,7 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                         }
                         start()
                     }
+                    viewModel.setCurrentBgColorAndFrame(bgColors[position],frames[position])
                     current=position
                 }
             })
@@ -81,6 +87,20 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
             )
             addItemDecoration(itemDecoration)
         }
+        observe(viewModel.currentBgColor){
+            if (it==R.color.yellow){
+                binding.givenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.black))
+                binding.givenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_arrow_bk,0)
+            } else{
+                binding.givenDetailButton.setTextColor(ContextCompat.getColor(requireContext(),R.color.white))
+                binding.givenDetailButton.setCompoundDrawablesRelativeWithIntrinsicBounds(0,0,R.drawable.ic_icon_all,0)
+            }
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.setCurrentBgColorAndFrame(bgColors[current],frames[current])
     }
 
 

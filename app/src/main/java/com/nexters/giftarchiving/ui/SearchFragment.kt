@@ -12,8 +12,7 @@ import com.nexters.giftarchiving.databinding.FragmentSearchBinding
 import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.viewmodel.SearchViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBinding>() {
@@ -23,24 +22,29 @@ internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBind
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        observe(viewModel.fragmentType){
-            changeFragment(it)
-        }
-        binding.searchAutoCompleteTextView.setOnEditorActionListener { v, actionId, event ->
-            if(actionId==EditorInfo.IME_ACTION_DONE){
-                if(binding.searchAutoCompleteTextView.text.toString()==""){
-                    toast("검색어를 입력해주세요")
-                } else{
-                    viewModel.setCurrentSearchText(binding.searchAutoCompleteTextView.text.toString())
-                    insertKeyword(binding.searchAutoCompleteTextView.text.toString())
+        GlobalScope.launch(Dispatchers.Main) {
+            delay(100L)
+            withContext(Dispatchers.Main){
+                observe(viewModel.fragmentType){
+                    changeFragment(it)
                 }
-            } else{
-                return@setOnEditorActionListener false
+                binding.searchAutoCompleteTextView.setOnEditorActionListener { v, actionId, event ->
+                    if(actionId==EditorInfo.IME_ACTION_DONE){
+                        if(binding.searchAutoCompleteTextView.text.toString()==""){
+                            toast("검색어를 입력해주세요")
+                        } else{
+                            viewModel.setCurrentSearchText(binding.searchAutoCompleteTextView.text.toString())
+                            insertKeyword(binding.searchAutoCompleteTextView.text.toString())
+                        }
+                    } else{
+                        return@setOnEditorActionListener false
+                    }
+                    return@setOnEditorActionListener true
+                }
+                observe(viewModel.currentSearchText){
+                    binding.searchAutoCompleteTextView.text = Editable.Factory.getInstance().newEditable(it)
+                }
             }
-            return@setOnEditorActionListener true
-        }
-        observe(viewModel.currentSearchText){
-            binding.searchAutoCompleteTextView.text = Editable.Factory.getInstance().newEditable(it)
         }
     }
 

@@ -1,9 +1,12 @@
 package com.nexters.giftarchiving.model
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 import retrofit2.http.Url
 import java.time.LocalDate
 
+@Parcelize
 data class GiftResponse(
     @SerializedName("id")
     val giftId : String,
@@ -24,5 +27,7 @@ data class GiftResponse(
     @SerializedName("bgColor")
     val bgColor : String,
     @SerializedName("isReceiveGift")
-    val isReceiveGift : Boolean
-)
+    val isReceiveGift : Boolean,
+    @SerializedName("frameType")
+    val frameType : String
+): Parcelable

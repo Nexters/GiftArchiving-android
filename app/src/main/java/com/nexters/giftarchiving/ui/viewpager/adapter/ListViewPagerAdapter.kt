@@ -11,7 +11,8 @@ import com.nexters.giftarchiving.viewmodel.ListViewModel
 internal class ListViewPagerAdapter(
     fragment: Fragment,
     val giftList: List<GiftResponse>,
-    val viewModel: ListViewModel
+    val viewModel: ListViewModel,
+    val isReceived : Boolean
 ) : FragmentStateAdapter(fragment) {
 
     companion object {
@@ -24,9 +25,9 @@ internal class ListViewPagerAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return if(position == 0) {
-            ListType1Fragment(giftList, viewModel)
-        }else {
-            ListType2Fragment(giftList, viewModel)
+            ListType1Fragment(giftList, viewModel, isReceived)
+        } else {
+            ListType2Fragment(giftList, viewModel, isReceived)
         }
     }
 }

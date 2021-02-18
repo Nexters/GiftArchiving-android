@@ -57,6 +57,12 @@
         <argument
             android:name="title"
             app:argType="string"/>
+        <argument
+            android:name="response"
+            app:argType="com.nexters.giftarchiving.model.GiftListResponse"/>
+        <argument
+            android:name="count"
+            app:argType="string"/>
         <action
             android:id="@+id/action_listFragment_to_searchFragment"
             app:destination="@id/searchFragment"/>

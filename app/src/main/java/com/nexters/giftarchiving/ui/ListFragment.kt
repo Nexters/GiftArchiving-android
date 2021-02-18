@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -23,15 +24,32 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
-        if(viewModel.isReceived){
-            observe(viewModel.getAllReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts, viewModel)
-                listTypeViewPager.adapter = listViewPagerAdapter
+        observe(viewModel.isLatest){ isLatest ->
+            observe(viewModel.giftList) {
+                if(isLatest){
+                    val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                    listTypeViewPager.adapter = listViewPagerAdapter
+                } else{
+                    val temp = it.giftListGifts.reversed()
+                    val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                    listTypeViewPager.adapter = listViewPagerAdapter
+                }
             }
-        } else{
-            observe(viewModel.getAllNotReceivedGiftListResponse) {
-                val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts, viewModel)
-                listTypeViewPager.adapter = listViewPagerAdapter
+            if(isLatest){
+                binding.sortLatestCheck.visibility = View.VISIBLE
+                binding.sortPastCheck.visibility = View.GONE
+            } else{
+                binding.sortLatestCheck.visibility = View.GONE
+                binding.sortPastCheck.visibility = View.VISIBLE
+            }
+            observe(viewModel.listType){
+                if (it){
+                    listTypeViewPager.currentItem = 0
+                    switchButton.setImageResource(R.drawable.ic_icon_2_grid)
+                } else{
+                    listTypeViewPager.currentItem = 1
+                    switchButton.setImageResource(R.drawable.ic_icon_1_grid)
+                }
             }
         }
         listTypeViewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
@@ -55,7 +73,7 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 }
             }
         })
-        viewModel.listType.observe(this.viewLifecycleOwner, Observer {
+        observe(viewModel.listType){
             if (it){
                 listTypeViewPager.currentItem = 0
                 switchButton.setImageResource(R.drawable.ic_icon_2_grid)
@@ -63,6 +81,20 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 listTypeViewPager.currentItem = 1
                 switchButton.setImageResource(R.drawable.ic_icon_1_grid)
             }
-        })
+        }
+        observe(viewModel.showSortBottom){
+            if(it){
+                showSortBottom()
+            } else{
+                hideSortBottom()
+            }
+        }
     }
-}
+
+    private fun showSortBottom(){
+        binding.sortLayout.visibility = View.VISIBLE
+    }
+
+    private fun hideSortBottom(){
+        binding.sortLayout.visibility = View.GONE
+    }

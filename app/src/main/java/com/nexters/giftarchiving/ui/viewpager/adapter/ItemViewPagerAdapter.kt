@@ -1,6 +1,7 @@
 package com.nexters.giftarchiving.ui.viewpager.adapter
 
 import android.content.Context
+import android.icu.text.SimpleDateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,10 +12,10 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
-import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 internal class ItemViewPagerAdapter(
     val context: Context,
@@ -37,18 +38,39 @@ internal class ItemViewPagerAdapter(
                 personTextView.text = gift.giftName
             } else{
                 Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
-                if(viewType==1){
+                if(viewType==2||viewType==3){
                     constraintLayout.clipToOutline = true
                     when(gift.bgColor){
-                        "R.color.orange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
-                        "R.color.blue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                        "R.color.yellow" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_yellow_background)
+                        "ORANGE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                        "BLUE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                        "YELLOW" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context, R.drawable.round_yellow_background)
                         else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                     }
                 }
-                personTextView.text = gift.giftName
-                val formatter = DateTimeFormatter.ofPattern("yyyy.mm.dd")
-                dateTextView.text = gift.giftReceiveDate.format(formatter)
+                if (gift.bgColor=="YELLOW"){
+                    personTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
+                    dateTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
+                }
+                if(viewType==0||viewType==2){
+                    personTextView.text = String.format("From. %s",gift.giftName)
+                } else{
+                    personTextView.text = String.format("To. %s",gift.giftName)
+                }
+                var inputDate = String.format("%s.%s.%s",gift.giftReceiveDate.substring(0,4),gift.giftReceiveDate.substring(5,7),gift.giftReceiveDate.substring(8,10))
+                val dateFormat = SimpleDateFormat("yyyy.MM.dd")
+                val date = dateFormat.parse(inputDate)
+                val calendar = Calendar.getInstance()
+                calendar.time = date
+                when(calendar.get(Calendar.DAY_OF_WEEK)){
+                    1 -> inputDate += " (일)"
+                    2 -> inputDate += " (월)"
+                    3 -> inputDate += " (화)"
+                    4 -> inputDate += " (수)"
+                    5 -> inputDate += " (목)"
+                    6 -> inputDate += " (금)"
+                    else -> inputDate += " (토)"
+                }
+                dateTextView.text = inputDate
                 viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
             }
         }

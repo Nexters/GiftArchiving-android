@@ -32,7 +32,11 @@ internal class ListType1Fragment(val giftList: List<GiftResponse>, val viewModel
         viewPager.apply {
             offscreenPageLimit = 1
             clipToPadding = false
-            adapter = ItemViewPagerAdapter(requireContext(),giftList,1, viewModel)
+            if(isReceived){
+                adapter = ItemViewPagerAdapter(requireContext(),giftList,2, viewModel)
+            } else{
+                adapter = ItemViewPagerAdapter(requireContext(),giftList,3, viewModel)
+            }
             setPadding( resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0,resources.getDimension(R.dimen.list1_viewpager_padding).toInt(),0)
             setPageTransformer(pageTransformer)
             val itemDecoration = VerticalMarginItemDecoration(

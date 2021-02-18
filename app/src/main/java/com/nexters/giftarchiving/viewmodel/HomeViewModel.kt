@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.viewmodel
 import android.view.View
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.repository.GiftRepository
@@ -17,16 +18,22 @@ internal class HomeViewModel(
     val userId = preferenceRepository.getUserId()
     val getAllReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
     val getAllNotReceivedGiftListResponse = MutableLiveData(GiftListResponse(listOf(),0,0,0))
+    val currentBgColor = MutableLiveData(R.color.gray)
+    val currentFrame = MutableLiveData("SQUARE")
+    var totalReceive = 0
+    var totalNotReceive = 0
     init {
         viewModelScope.launch {
-            var totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
-            var totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
+            totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
+            totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
+            var tempCountReceive = totalReceive
+            var tempCountNotReceive = totalNotReceive
             if (totalReceive==0)
-                totalReceive=1
+                tempCountReceive=1
             if(totalNotReceive==0)
-                totalNotReceive=1
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalReceive, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalNotReceive,false)
+                tempCountNotReceive=1
+            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountReceive, true)
+            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
         }
     }
     val onClickGivenListButtonListener = View.OnClickListener(){
@@ -51,13 +58,13 @@ internal class HomeViewModel(
 
     private fun onClickTakenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물")
+            navDirections.value=HomeFragmentDirections.actionTakenFragmentToListFragment("받은 선물",getAllReceivedGiftListResponse.value!!,totalReceive.toString())
         }
     }
 
     private fun onClickGivenListButton(){
         viewModelScope.launch {
-            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물")
+            navDirections.value=HomeFragmentDirections.actionGivenFragmentToListFragment("보낸 선물",getAllNotReceivedGiftListResponse.value!!,totalNotReceive.toString())
         }
     }
 
@@ -65,5 +72,10 @@ internal class HomeViewModel(
         viewModelScope.launch {
             navDirections.value=HomeFragmentDirections.actionHomeFragmentToSettingsFragment()
         }
+    }
+
+    fun setCurrentBgColorAndFrame(bgColor : Int, frame : String){
+        currentBgColor.value = bgColor
+        currentFrame.value = frame
     }
 }
