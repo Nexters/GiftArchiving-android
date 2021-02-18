@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.text.InputType"/>
         <import type="com.nexters.giftarchiving.ui.data.BackgroundColorTheme" />
         <import type="com.nexters.giftarchiving.ui.data.write.WriteFrameShape" />
         <import type="com.nexters.giftarchiving.ui.data.write.WriteMenu" />
@@ -306,7 +307,7 @@
                         <EditText
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:inputType="text"
+                            android:inputType='@{viewModel.editMode?InputType.TYPE_NULL:InputType.TYPE_CLASS_TEXT}'
                             android:maxLines="1"
                             android:textSize="18sp"
                             android:textStyle="bold"

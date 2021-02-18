@@ -10,7 +10,6 @@ import android.widget.TextView
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
@@ -27,9 +26,6 @@ import java.util.Locale
 
 private fun getColorByResource(context: Context, @ColorRes colorId: Int) =
     ContextCompat.getColor(context, colorId)
-
-private fun getDrawableByResource(context: Context, @DrawableRes drawableId: Int) =
-    ResourcesCompat.getDrawable(context.resources, drawableId, null)
 
 @BindingAdapter("android:textColor")
 internal fun setFontColor(tv: TextView, colorTheme: BackgroundColorTheme?) {
@@ -140,6 +136,13 @@ internal fun setSrcWithBitmap(iv: ImageView, bitmap: Bitmap?) {
     }
 }
 
+@BindingAdapter("android:src")
+internal fun setSrcWithDrawableResId(iv: ImageView, @DrawableRes resId: Int?) {
+    resId?.let {
+        iv.setImageResource(resId)
+    }
+}
+
 @BindingAdapter("android:visibility")
 internal fun setVisibility(v: View, isVisible: Boolean) {
     v.visibility = when (isVisible) {
@@ -185,7 +188,7 @@ internal fun setEmptyFrameShape(v: View, theme: BackgroundColorTheme, frameShape
             if (theme.isDarkMode) R.drawable.write_empty_image_background_window_white
             else R.drawable.write_empty_image_background_window_black
         }
-    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+    }.let { v.setBackgroundResource(it) }
 }
 
 @BindingAdapter("iconFrameShape")
@@ -194,7 +197,7 @@ internal fun setIconFrameShape(v: View, frameShape: WriteFrameShape) {
         WriteFrameShape.SQUARE -> R.drawable.frame_background_rectangle
         WriteFrameShape.CIRCLE -> R.drawable.frame_background_oval
         WriteFrameShape.ARCH -> R.drawable.frame_background_window
-    }.let { res -> getDrawableByResource(v.context, res)?.let { v.background = it } }
+    }.let { v.setBackgroundResource(it) }
 }
 
 @BindingAdapter("theme", "backgroundColorByMenu")

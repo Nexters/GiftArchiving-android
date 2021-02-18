@@ -61,7 +61,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
         observe(viewModel.isSaved) { saveGift() }
-        observe(viewModel.addSticker) { addSticker() }
+        observe(viewModel.addSticker) { addSticker(it) }
     }
 
     override fun onDestroyView() {
@@ -128,12 +128,12 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             isConstrained = true
 
             val deleteIcon = BitmapStickerIcon(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_cancel_sticker),
+                ContextCompat.getDrawable(context, R.drawable.ic_icon_cancel_sticker),
                 BitmapStickerIcon.RIGHT_TOP
             ).apply { iconEvent = DeleteIconEvent() }
 
             val zoomIcon = BitmapStickerIcon(
-                ContextCompat.getDrawable(requireContext(), R.drawable.ic_icon_scale),
+                ContextCompat.getDrawable(context, R.drawable.ic_icon_scale),
                 BitmapStickerIcon.RIGHT_BOTOM
             ).apply { iconEvent = ZoomIconEvent() }
 
@@ -250,9 +250,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         startActivityForResult(intent, 0)
     }
 
-    private fun addSticker() {
-        val drawable =
-            ResourcesCompat.getDrawable(resources, R.drawable.ic_launcher_foreground, null)
+    private fun addSticker(stickerResId: Int) {
+        val drawable = ContextCompat.getDrawable(requireContext(), stickerResId)
         binding.stickerView.addSticker(DrawableSticker(drawable), Sticker.Position.CENTER)
     }
 
