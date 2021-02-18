@@ -281,7 +281,6 @@ internal class WriteViewModel(
             val response = writeRepository.updateGift(
                 giftId, GiftUpdate(
                     content = content.value ?: "",
-                    name = name.value ?: "",
                     receiveDate = receiveDate,
                     category = category.value?.titleEng ?: "",
                     emotion = emotion.value?.titleEng ?: "",
