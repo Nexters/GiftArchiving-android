@@ -29,6 +29,7 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
     val category = MutableLiveData(WriteCategoryMenu())
     val emotion = MutableLiveData(WriteEmotionMenu())
     val backgroundColorTheme = MutableLiveData(BackgroundColorTheme.MONO)
+    val isFinishEdit = LiveEvent<Boolean>()
     val clickMore = LiveEvent<Unit?>()
     val clickDelete = LiveEvent<Unit?>()
 
@@ -44,6 +45,7 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
                     giftId = it.giftId
                     giftDetail = repository.getGift(giftId)
                     giftDetail?.let { gift -> setGiftProperties(gift) }
+                    if (isFinishEdit.value != true) isFinishEdit.postValue(it.isFinishEdit)
                 }
         }
     }

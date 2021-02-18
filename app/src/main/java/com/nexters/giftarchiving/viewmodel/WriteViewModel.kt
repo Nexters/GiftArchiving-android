@@ -273,10 +273,9 @@ internal class WriteViewModel(
                 )
             )
 
-            if(response.isSuccessful) toast.postValue("수정완료")
-            else toast.postValue("수정실패")
-
-            navDirections.postValue(BackDirections())
+            val directions =
+                WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, true)
+            navDirections.postValue(directions)
         }
     }
 

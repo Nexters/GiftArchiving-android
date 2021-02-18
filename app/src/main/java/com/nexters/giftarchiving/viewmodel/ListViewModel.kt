@@ -56,6 +56,6 @@ internal class ListViewModel(
     }
 
     fun onClickDetail(giftId: String) {
-        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId)
+        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId, false)
     }
 }

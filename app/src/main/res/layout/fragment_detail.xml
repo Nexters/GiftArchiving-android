@@ -273,5 +273,30 @@
                 tools:textColor="@color/colorWhite"
                 tools:text="이 마르고 닳도록 대한민국 보우하사 우리 나라 만세 동해"/>
         </ScrollView>
+
+        <LinearLayout
+            android:id="@+id/notice_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginBottom="40dp"
+            android:paddingVertical="16dp"
+            android:visibility="gone"
+            android:gravity="center"
+            android:backgroundTint="@color/colorBlueGrey"
+            android:background="@drawable/share_round_background"
+            android:animateLayoutChanges="true"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:text="@string/detail_notice_edit_success"/>
+        </LinearLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

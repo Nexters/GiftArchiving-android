@@ -1,6 +1,9 @@
 package com.nexters.giftarchiving.ui
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.os.Bundle
+import android.view.View
 import androidx.navigation.fragment.navArgs
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseConfirmDialogListener
@@ -19,6 +22,7 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
         super.onActivityCreated(savedInstanceState)
         observe(viewModel.clickMore) { showMenuDialog() }
         observe(viewModel.clickDelete) { showDeleteDialog() }
+        observe(viewModel.isFinishEdit) { if (it) showSaveImageNotice() }
     }
 
     private fun showMenuDialog() {
@@ -40,6 +44,24 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
             cancelTitle = "취소",
             listener = listener
         ).show(parentFragmentManager, DELETE_DIALOG_TAG)
+    }
+
+    private fun showSaveImageNotice() {
+        binding.noticeLayout.apply {
+            visibility = View.VISIBLE
+            alpha = 1.0f
+
+            animate()
+                .setStartDelay(1000L)
+                .alpha(0f)
+                .setDuration(500L)
+                .setListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator?) {
+                        super.onAnimationEnd(animation)
+                        visibility = View.GONE
+                    }
+                }).start()
+        }
     }
 
     companion object {
