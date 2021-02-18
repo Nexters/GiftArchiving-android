@@ -16,7 +16,7 @@ import com.nexters.giftarchiving.ui.viewpager.adapter.ItemViewPagerAdapter
 import com.nexters.giftarchiving.viewmodel.ListViewModel
 import kotlinx.android.synthetic.main.fragment_list_type1.view.*
 
-internal class ListType1Fragment(val giftList: List<GiftResponse>, val viewModel: ListViewModel) : Fragment() {
+internal class ListType1Fragment(val giftList: List<GiftResponse>, val viewModel: ListViewModel, val isReceived : Boolean) : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
