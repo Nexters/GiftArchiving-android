@@ -53,7 +53,7 @@ internal class ListViewModel() : BaseViewModel() {
     fun onClickSearch(){
         navDirections.value = ListFragmentDirections.actionListFragmentToSearchFragment()
     }
-
+      
     fun onClickSortButton(){
         showSortBottom.value = true
     }
@@ -72,5 +72,9 @@ internal class ListViewModel() : BaseViewModel() {
         isLatest.value = false
         sort_text.value = "과거순"
         showSortBottom.value = false
+    }
+  
+    fun onClickDetail(giftId: String) {
+        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId, false)
     }
 }

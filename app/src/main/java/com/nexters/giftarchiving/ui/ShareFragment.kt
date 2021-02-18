@@ -46,13 +46,9 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
     }
 
     private fun saveImage() {
-        if (viewModel.response.value?.noBgImgUrl != null) {
-            val bitmap = ImageConverter.layoutToBitmap(binding.saveImageLayout)
-            ImageManager.saveImage(requireContext().contentResolver, bitmap)
-            showSaveImageNotice()
-        } else {
-            toast(FAIL_SAVE_IAMGE)
-        }
+        val bitmap = ImageConverter.layoutToBitmap(binding.saveImageLayout)
+        ImageManager.saveImage(requireContext().contentResolver, bitmap)
+        showSaveImageNotice()
     }
 
     private fun showSaveImageNotice() {

@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.ui
 
 import android.Manifest
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -9,6 +10,7 @@ import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
@@ -17,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseConfirmDialogListener
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentWriteBinding
 import com.nexters.giftarchiving.extension.observe
@@ -25,7 +28,6 @@ import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteSticker
 import com.nexters.giftarchiving.ui.viewpager.adapter.MenuSlidePagerAdapter
 import com.nexters.giftarchiving.ui.viewpager.adapter.StickerSlidePagerAdapter
-import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -51,6 +53,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
         setStickerView()
         setStickerMenuViewPager()
+        setContentEditTextSize()
         setBackPressedDispatcher()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
@@ -138,19 +141,25 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         }
     }
 
+    private fun setContentEditTextSize() {
+        with(binding.contentEt) {
+            viewTreeObserver.addOnGlobalLayoutListener {
+                height = height
+            }
+        }
+    }
+
     private fun setBackPressedDispatcher() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             with(viewModel) {
-                if (currentMenuType.value != null) {
-                    hideCurrentMenu()
-                } else {
-                    navDirections.value = BackDirections()
-                }
+                if (currentMenuType.value != null) hideCurrentMenu()
+                else showExitDialog()
             }
         }
     }
 
     private fun showSelectedMenu(menuType: WriteMenu) {
+        hideSoftKeypad()
         when (menuType) {
             WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
                 setInformationMenuViewPager(menuType)
@@ -257,7 +266,31 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         }
     }
 
+    private fun showExitDialog() {
+        val listener = object : BaseConfirmDialogListener() {
+            override fun onConfirm() {
+                super.onConfirm()
+                viewModel.onBackExit()
+            }
+        }
+        ConfirmBottomSheet(
+            title = EXIT_DIALOG_TITLE,
+            subTitle = EXIT_DIALOG_SUB_TITLE,
+            listener = listener
+        ).show(parentFragmentManager, EXIT_DIALOG_TAG)
+    }
+
+    private fun hideSoftKeypad() {
+        val imm =
+            requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(requireView().windowToken, 0)
+    }
+
     companion object {
         private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 100
+
+        private const val EXIT_DIALOG_TAG = "exit dialog"
+        private const val EXIT_DIALOG_TITLE = "저장하지 않고 나가시겠습니까?"
+        private const val EXIT_DIALOG_SUB_TITLE = "작성중이던 내용이 사라집니다."
     }
 }

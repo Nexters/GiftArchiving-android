@@ -13,11 +13,16 @@ import com.bumptech.glide.Glide
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
+import com.nexters.giftarchiving.viewmodel.ListViewModel
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class ListType2RecyclerviewAdapter(private val context: Context, private val gifts : List<GiftResponse>, val isReceived : Boolean) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
-
+internal class ListType2RecyclerviewAdapter(
+    private val context: Context,
+    private val gifts: List<GiftResponse>,
+    val viewModel: ListViewModel?,
+    val isReceived : Boolean
+) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
     var mPosition = 0
 
     fun getPosition() : Int{
@@ -63,6 +68,7 @@ class ListType2RecyclerviewAdapter(private val context: Context, private val gif
                 else -> inputDate += " (토)"
             }
             dateTextView.text = inputDate
+            viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
         }
     }
 

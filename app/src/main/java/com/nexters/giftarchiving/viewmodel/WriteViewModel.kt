@@ -9,7 +9,10 @@ import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.data.write.WriteCategoryMenu
 import com.nexters.giftarchiving.data.write.WriteEmotionMenu
 import com.nexters.giftarchiving.data.write.WriteInformationMenu
+import com.nexters.giftarchiving.data.write.WriteInformationMenuList
 import com.nexters.giftarchiving.data.write.WritePurposeMenu
+import com.nexters.giftarchiving.model.GiftDetailResponse
+import com.nexters.giftarchiving.model.GiftUpdate
 import com.nexters.giftarchiving.repository.PreferenceRepository
 import com.nexters.giftarchiving.repository.WriteRepository
 import com.nexters.giftarchiving.ui.WriteFragmentArgs
@@ -20,6 +23,7 @@ import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
 import com.nexters.giftarchiving.ui.data.write.WriteMenu
 import com.nexters.giftarchiving.ui.data.write.WriteStickerTabLayoutTheme
+import com.nexters.giftarchiving.util.DateConvert
 import com.nexters.giftarchiving.util.ImageConverter
 import com.theartofdev.edmodo.cropper.CropImage
 import com.xiaopo.flying.sticker.Sticker
@@ -54,20 +58,39 @@ internal class WriteViewModel(
     val loadGallery = LiveEvent<Unit?>()
     val isSaved = LiveEvent<Unit?>()
 
+    var isReceiveGift = true
+    var isEditMode = false
+    var noBgImgUrl: String? = null
     var stickerList = mutableListOf<Sticker>()
     var originBitmap: Bitmap? = null
-    var isReceiveGift = true
+
+    private var giftId = ""
 
     init {
         viewModelScope.launch {
             navArgs<WriteFragmentArgs>()
                 .collect {
-                    if (originBitmap == null) {
-                        editedImage.value = it.bitmap
-                    }
+                    isEditMode = it.isEditMode
                     isReceiveGift = it.isReceiveGift
+                    if (it.isEditMode && it.giftDetail != null) {
+                        setGiftProperties(it.giftDetail)
+                    }
                 }
         }
+    }
+
+    private fun setGiftProperties(gift: GiftDetailResponse) {
+        giftId = gift.id
+        isReceiveGift = gift.isReceiveGift
+        noBgImgUrl = gift.noBgImgUrl
+        name.postValue(gift.name)
+        content.postValue(gift.content)
+        date.postValue(DateConvert.localDateTimeStrToLocalDate(gift.receiveDate))
+        backgroundColorTheme.postValue(BackgroundColorTheme.valueOf(gift.bgColor))
+        frameShape.postValue(WriteFrameShape.valueOf(gift.frameType))
+        purpose.postValue(WriteInformationMenuList.findPurpose(gift.reason))
+        category.postValue(WriteInformationMenuList.findCategory(gift.category))
+        emotion.postValue(WriteInformationMenuList.findEmotion(gift.emotion, isReceiveGift))
     }
 
     fun setInformationMenu(item: WriteInformationMenu) {
@@ -111,6 +134,12 @@ internal class WriteViewModel(
         navDirections.value = BackDirections()
     }
 
+    fun onBackExit() {
+        if (isEditMode) navDirections.value =
+            WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, false)
+        else navDirections.value = BackDirections()
+    }
+
     private fun showMenu(menuType: WriteMenu) {
         currentMenuType.value = menuType
         showMenuType.value = menuType
@@ -126,7 +155,7 @@ internal class WriteViewModel(
     }
 
     fun setShowMenuType(menuType: WriteMenu) {
-        if (currentMenuType.value!= null && menuType != currentMenuType.value) {
+        if (currentMenuType.value != null && menuType != currentMenuType.value) {
             hideCurrentMenu()
         }
         showMenu(menuType)
@@ -143,7 +172,21 @@ internal class WriteViewModel(
 
     fun onClickNext() {
         isLoading.value = true
-        isSaved.call()
+        if(isEditMode) {
+            if (needMoreEdit()) {
+                toast.postValue(NOTICE_MORE_WRITE)
+                isLoading.value = false
+            } else {
+                editGiftProperties()
+            }
+        } else {
+            if (needMoreWrite()) {
+                toast.postValue(NOTICE_MORE_WRITE)
+                isLoading.value = false
+            } else {
+                isSaved.call()
+            }
+        }
     }
 
     fun goNext(parentDir: File, noBgBitmap: Bitmap, bgBitmap: Bitmap) {
@@ -166,20 +209,23 @@ internal class WriteViewModel(
                     bgImg = bgImg
                 )
 
-                isLoading.postValue(false)
                 val directions =
                     WriteFragmentDirections.actionWriteFragmentToShareFragment(
-                        name.value,
-                        response,
-                        backgroundColorTheme.value ?: BackgroundColorTheme.MONO,
-                        frameShape.value ?: WriteFrameShape.SQUARE,
-                        isReceiveGift
+                        giftId = response.id,
+                        isReceive = isReceiveGift,
+                        name = name.value,
+                        backgroundTheme = backgroundColorTheme.value
+                            ?: BackgroundColorTheme.MONO,
+                        frameShape = frameShape.value ?: WriteFrameShape.SQUARE,
+                        noBgImgUrl = response.noBgImgUrl,
+                        bgImgUrl = response.bgImgUrl
                     )
                 navDirections.postValue(directions)
             } else {
                 toast.postValue(NOTICE_FAIL_CONVERT_IMG)
             }
         }
+        isLoading.postValue(false)
     }
 
     fun convertLayoutToBitmap(v: View): Bitmap {
@@ -217,6 +263,38 @@ internal class WriteViewModel(
         return ImageConverter.bitmapToMultipartBody(bitmap, parentDir, null, multipartName)
     }
 
+    private fun needMoreEdit() =
+        name.value.isNullOrEmpty()
+                || content.value.isNullOrEmpty()
+                || category.value?.title == WriteCategoryMenu().title
+                || purpose.value?.title == WritePurposeMenu().title
+                || emotion.value?.title == WriteEmotionMenu().title
+
+    private fun needMoreWrite() =
+        originBitmap == null || needMoreEdit()
+
+    private fun editGiftProperties() {
+        viewModelScope.launch(Dispatchers.IO) {
+            val receiveDate =
+                DateConvert.localDateToLocalDateTimeStr(date.value ?: LocalDate.now())
+            val response = writeRepository.updateGift(
+                giftId, GiftUpdate(
+                    content = content.value ?: "",
+                    name = name.value ?: "",
+                    receiveDate = receiveDate,
+                    category = category.value?.titleEng ?: "",
+                    emotion = emotion.value?.titleEng ?: "",
+                    reason = purpose.value?.titleEng ?: "",
+                    bgColor = (backgroundColorTheme.value ?: BackgroundColorTheme.MONO).toString()
+                )
+            )
+
+            val directions =
+                WriteFragmentDirections.actionWriteFragmentToDetailFragment(giftId, true)
+            navDirections.postValue(directions)
+        }
+    }
+
     companion object {
         @JvmStatic
         val INFORMATION_NUMBER_OF_PAGE = 8
@@ -226,5 +304,8 @@ internal class WriteViewModel(
 
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
+
+        @JvmStatic
+        val NOTICE_MORE_WRITE = "모든 항목을 입력해야 합니다"
     }
 }

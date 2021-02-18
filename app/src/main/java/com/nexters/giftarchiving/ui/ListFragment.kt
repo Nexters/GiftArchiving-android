@@ -98,4 +98,3 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
     private fun hideSortBottom(){
         binding.sortLayout.visibility = View.GONE
     }
-}
