@@ -7,10 +7,4 @@ internal data class LoginResponse(
     val code: Int,
     @SerializedName("message")
     val message: String
-) {
-    fun isSuccess() = (message == SUCCESS)
-
-    companion object {
-        private const val SUCCESS = "SUCCESS"
-    }
-}
+)

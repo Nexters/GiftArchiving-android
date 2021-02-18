@@ -22,10 +22,15 @@ internal class LoginViewModel(
     fun signIn(userId: Long) {
         viewModelScope.launch(Dispatchers.IO) {
             val response = loginRepository.signIn(userId = userId.toString())
-            if (response.isSuccess()) {
+            if (response.code() == SUCCESS_SIGN_UP_CODE || response.code() == SUCCESS_SIGN_IN_CODE) {
                 preferenceRepository.setUserId(userId)
                 navDirections.postValue(LoginFragmentDirections.actionLoginFragmentToHomeFragment())
             }
         }
+    }
+
+    companion object {
+        private const val SUCCESS_SIGN_UP_CODE = 200
+        private const val SUCCESS_SIGN_IN_CODE = 406
     }
 }
