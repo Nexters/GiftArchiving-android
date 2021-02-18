@@ -28,22 +28,22 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
             if(viewModel.isReceived){
                 observe(viewModel.getAllReceivedGiftListResponse){
                     if(isLatest){
-                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel,viewModel.isReceived)
                         listTypeViewPager.adapter = listViewPagerAdapter
                     } else{
                         val temp = it.giftListGifts.reversed()
-                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel,viewModel.isReceived)
                         listTypeViewPager.adapter = listViewPagerAdapter
                     }
                 }
             } else{
                 observe(viewModel.getAllNotReceivedGiftListResponse){
                     if(isLatest){
-                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel.isReceived)
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,it.giftListGifts,viewModel,viewModel.isReceived)
                         listTypeViewPager.adapter = listViewPagerAdapter
                     } else{
                         val temp = it.giftListGifts.reversed()
-                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel.isReceived)
+                        val listViewPagerAdapter = ListViewPagerAdapter(this,temp,viewModel,viewModel.isReceived)
                         listTypeViewPager.adapter = listViewPagerAdapter
                     }
                 }
