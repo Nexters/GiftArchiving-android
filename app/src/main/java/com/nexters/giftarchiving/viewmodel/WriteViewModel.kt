@@ -173,9 +173,19 @@ internal class WriteViewModel(
     fun onClickNext() {
         isLoading.value = true
         if(isEditMode) {
-            editGiftProperties()
+            if (needMoreEdit()) {
+                toast.postValue(NOTICE_MORE_WRITE)
+                isLoading.value = false
+            } else {
+                editGiftProperties()
+            }
         } else {
-            isSaved.call()
+            if (needMoreWrite()) {
+                toast.postValue(NOTICE_MORE_WRITE)
+                isLoading.value = false
+            } else {
+                isSaved.call()
+            }
         }
     }
 
@@ -294,5 +304,8 @@ internal class WriteViewModel(
 
         @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
+
+        @JvmStatic
+        val NOTICE_MORE_WRITE = "모든 항목을 입력해야 합니다"
     }
 }

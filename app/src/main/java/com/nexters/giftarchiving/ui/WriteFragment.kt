@@ -19,6 +19,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseConfirmDialogListener
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentWriteBinding
 import com.nexters.giftarchiving.extension.observe
