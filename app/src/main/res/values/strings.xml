@@ -86,4 +86,5 @@
     <string name="detail_delete">삭제하기</string>
     <string name="detail_share">공유하기</string>
     <string name="detail_cancel">취소</string>
+    <string name="detail_notice_edit_success">수정이 완료되었습니다.</string>
 </resources>

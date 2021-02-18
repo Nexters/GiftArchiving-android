@@ -27,7 +27,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_icon_cancel"
+                android:src="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_icon_cancel:@drawable/ic_icon_cancel_bk}"
                 android:onClick="@{()->viewModel.onClickBack()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:src="@drawable/ic_icon_more"
+                android:src="@{viewModel.backgroundColorTheme.darkMode?@drawable/ic_icon_more:@drawable/ic_icon_more_bk}"
                 android:onClick="@{()->viewModel.onClickMore()}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
