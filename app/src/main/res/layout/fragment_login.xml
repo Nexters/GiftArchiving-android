@@ -21,8 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/kakao_login_button"
-            android:layout_marginBottom="124dp"/>
+            app:layout_constraintHeight_percent="0.66"/>
 
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/login_guide_indicator"
