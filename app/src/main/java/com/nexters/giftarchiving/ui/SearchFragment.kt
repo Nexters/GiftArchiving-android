@@ -23,7 +23,7 @@ internal class SearchFragment : BaseFragment<SearchViewModel, FragmentSearchBind
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         GlobalScope.launch(Dispatchers.Main) {
-            delay(100L)
+            delay(200L)
             withContext(Dispatchers.Main){
                 observe(viewModel.fragmentType){
                     changeFragment(it)
