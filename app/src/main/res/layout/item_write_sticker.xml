@@ -18,13 +18,13 @@
         android:padding="8dp"
         android:orientation="vertical"
         android:gravity="center"
-        android:onClick="@{()->viewModel.attachSticker()}"
+        android:onClick="@{()->viewModel.attachSticker(item.stickerResId)}"
         tools:background="@color/colorPopupMono">
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_launcher_foreground"
+            android:src="@{item.stickerResId}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

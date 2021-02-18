@@ -3,6 +3,7 @@ package com.nexters.giftarchiving.viewmodel
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.view.View
+import androidx.annotation.DrawableRes
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
@@ -54,7 +55,7 @@ internal class WriteViewModel(
     val showMenuType = LiveEvent<WriteMenu>()
     val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
-    val addSticker = LiveEvent<Unit?>()
+    val addSticker = LiveEvent<Int>()
     val loadGallery = LiveEvent<Unit?>()
     val isSaved = LiveEvent<Unit?>()
 
@@ -125,8 +126,8 @@ internal class WriteViewModel(
         }
     }
 
-    fun attachSticker() {
-        addSticker.call()
+    fun attachSticker(@DrawableRes resId: Int) {
+        addSticker.value = resId
         hideMenu(WriteMenu.STICKER)
     }
 
