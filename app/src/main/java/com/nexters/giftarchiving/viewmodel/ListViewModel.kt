@@ -32,6 +32,7 @@ internal class ListViewModel(
 
     init {
         viewModelScope.launch {
+            getAllList()
             navArgs<ListFragmentArgs>()
                 .collect {
                     isReceived = it.title=="받은 선물"

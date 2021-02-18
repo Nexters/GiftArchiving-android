@@ -256,6 +256,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun saveGift() {
+        sendArgToBackStack("needReload", true)
         binding.stickerView.removeStickerHandler()
         val noBgBitmap = binding.stickerView.createBitmap()
         binding.shareIv.setImageBitmap(noBgBitmap)

@@ -20,6 +20,10 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        receiveArgFromOtherView<Boolean>("needReload") {
+            if(it) viewModel.getAllList()
+        }
+
         val tabLayout = binding.homeTabLayout
         val viewPager = binding.homeViewpager
         val tabTextList = arrayListOf(getString(R.string.home_taken_button_name),getString(R.string.home_given_button_name))
@@ -66,10 +70,5 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
                 else -> ContextCompat.getDrawable(requireContext(),R.drawable.frame_background_window)
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllList()
     }
 }

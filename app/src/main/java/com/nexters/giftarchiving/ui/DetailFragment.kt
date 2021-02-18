@@ -34,6 +34,7 @@ internal class DetailFragment : BaseFragment<DetailViewModel, FragmentDetailBind
         val listener = object : BaseConfirmDialogListener() {
             override fun onConfirm() {
                 super.onConfirm()
+                sendArgToBackStack("needReload", true)
                 viewModel.deleteGift()
             }
         }

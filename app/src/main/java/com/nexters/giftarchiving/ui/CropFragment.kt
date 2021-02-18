@@ -32,11 +32,7 @@ internal class CropFragment : BaseFragment<CropViewModel, FragmentCropBinding>()
 
     private fun handleCropResult(result: CropImageView.CropResult?) {
         result?.let {
-            findNavController()
-                .previousBackStackEntry
-                ?.savedStateHandle
-                ?.getLiveData<Bitmap>("image")
-                ?.value = it.bitmap
+            sendArgToBackStack("image", it.bitmap)
             viewModel.navDirections.value = BackDirections(R.id.writeFragment)
         }
     }
