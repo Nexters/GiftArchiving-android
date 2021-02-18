@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseViewModel
 import com.nexters.giftarchiving.model.NoticeResponse
 import com.nexters.giftarchiving.repository.NoticeRepository
@@ -12,8 +13,6 @@ import kotlinx.coroutines.launch
 internal class SettingsViewModel(
     private val noticeRepository: NoticeRepository
 ) : BaseViewModel() {
-    val opensourceNames = arrayListOf<String>("Kakao","Koin")
-    val opensourceDetails = arrayListOf<String>("Kakao detail","Koin detail")
     val notices = MutableLiveData(mutableListOf<NoticeResponse>())
     fun onClickBack() {
         navDirections.value = BackDirections()
