@@ -41,11 +41,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController()
-            .currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<Bitmap>("image")
-            ?.observe(viewLifecycleOwner, Observer { viewModel.setNewImage(it) })
+        receiveArgFromOtherView<Bitmap>("image") { viewModel.setNewImage(it) }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

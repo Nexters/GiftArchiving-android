@@ -190,6 +190,8 @@ internal class WriteViewModel(
         }
     }
 
+    fun preventClickOverlap() {}
+
     fun goNext(parentDir: File, noBgBitmap: Bitmap, bgBitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             val noBgImg = bitmapToMultipartBody(parentDir, noBgBitmap, "noBgImg")

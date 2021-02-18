@@ -358,7 +358,6 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.purpose}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -407,7 +406,6 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.category}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -456,7 +454,6 @@
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
-                                    android:layout_margin="4dp"
                                     app:theme="@{viewModel.backgroundColorTheme}"
                                     app:informationMenu="@{viewModel.emotion}"
                                     app:layout_constraintStart_toStartOf="parent"
@@ -526,6 +523,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="20dp"
+                android:alpha="@{viewModel.currentMenuType==WriteMenu.STICKER||viewModel.currentMenuType==WriteMenu.FRAME?0.3f:1f}"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_camera : @drawable/ic_btn_camera_b}"
                 android:onClick="@{() -> viewModel.loadGallery()}"
                 app:layout_constraintTop_toTopOf="parent"
@@ -537,6 +535,7 @@
                 android:layout_width="26dp"
                 android:layout_height="26dp"
                 android:layout_marginEnd="18dp"
+                android:alpha="@{viewModel.currentMenuType==WriteMenu.STICKER?0.3f:1f}"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_frame : @drawable/ic_btn_frame_b}"
                 android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.FRAME)}"
                 app:layout_constraintTop_toTopOf="parent"
@@ -549,6 +548,7 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_marginEnd="18dp"
+                android:alpha="@{viewModel.currentMenuType==WriteMenu.FRAME?0.3f:1f}"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_btn_sticker : @drawable/ic_btn_sticker_b}"
                 android:onClick="@{() -> viewModel.setShowMenuType(WriteMenu.STICKER)}"
                 app:layout_constraintTop_toTopOf="parent"
@@ -560,12 +560,14 @@
                 android:id="@+id/color_iv"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
+                android:alpha="@{viewModel.currentMenuType==WriteMenu.STICKER||viewModel.currentMenuType==WriteMenu.FRAME?0.3f:1f}"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_oval_copy_10 : @drawable/ic_oval_copy_10_b}"
                 android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.BACKGROUND_COLOR)}"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 tools:background="@drawable/ic_oval_copy_10" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -587,7 +589,7 @@
                 android:id="@+id/information_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_CATEGORY)}"
+                android:onClick="@{()->viewModel.preventClickOverlap()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.33"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}">
@@ -632,6 +634,7 @@
                 android:id="@+id/date_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:onClick="@{()->viewModel.preventClickOverlap()}"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@color/colorPopupMono">
@@ -763,6 +766,7 @@
                 android:id="@+id/sticker_layout"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:onClick="@{()->viewModel.preventClickOverlap()}"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.38"
@@ -812,6 +816,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingVertical="33dp"
+                android:onClick="@{()->viewModel.preventClickOverlap()}"
                 app:popUpBackground="@{viewModel.backgroundColorTheme}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 tools:background="@color/colorPopupMono">
@@ -821,6 +826,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:alpha="@{viewModel.frameShape==WriteFrameShape.SQUARE?1f:0.6f}"
                     android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.SQUARE)}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -840,7 +846,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/frame_square"/>
+                        android:text="@string/frame_square"
+                        tools:textColor="@color/colorWhite"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -848,6 +855,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:alpha="@{viewModel.frameShape==WriteFrameShape.CIRCLE?1f:0.6f}"
                     android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.CIRCLE)}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -867,7 +875,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/frame_oval"/>
+                        android:text="@string/frame_oval"
+                        tools:textColor="@color/colorWhite"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -875,6 +884,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center"
+                    android:alpha="@{viewModel.frameShape==WriteFrameShape.ARCH?1f:0.6f}"
                     android:onClick="@{()->viewModel.setFrameShape(WriteFrameShape.ARCH)}"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -894,7 +904,8 @@
                         android:layout_height="wrap_content"
                         android:textSize="12sp"
                         android:textColor="@{viewModel.backgroundColorTheme}"
-                        android:text="@string/frame_window"/>
+                        android:text="@string/frame_window"
+                        tools:textColor="@color/colorWhite"/>
                 </LinearLayout>
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
