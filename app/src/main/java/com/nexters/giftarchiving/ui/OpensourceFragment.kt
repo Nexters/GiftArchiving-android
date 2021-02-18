@@ -19,8 +19,10 @@ internal class OpensourceFragment : BaseFragment<SettingsViewModel, FragmentOpen
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val osNames = viewModel.opensourceNames
-        val osDetails = viewModel.opensourceDetails
+        val osNames = arrayListOf<String>("Coroutine","Koin","Retrofit","Gson","Glide","Android Image Cropper","StickerView","CircleIndicator")
+        val osDetails = arrayListOf<String>(getString(R.string.coroutine_opensource_detail),getString(R.string.koin_opensource_detail),getString(R.string.retrofit_opensource_detail)
+        ,getString(R.string.gson_opensource_detail),getString(R.string.glide_opensource_detail),getString(R.string.cropper_opensource_detail),getString(R.string.stickerview_opensource_detail)
+        ,getString(R.string.circleIndicator_opensource_detail))
         val osAdapter = OpensourceListAdapter(osNames,osDetails)
         binding.opensourceDetailText.adapter = osAdapter
         binding.opensourceDetailText.layoutManager =LinearLayoutManager(this.requireContext())
