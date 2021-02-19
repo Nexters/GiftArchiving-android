@@ -53,15 +53,17 @@
 
                 <TextView
                     android:id="@+id/privacy_detail_title"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:background="@drawable/setting_detail_underline"
                     android:text="@string/privacy_detail_title"
                     android:textSize="24sp"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    android:layout_marginStart="20dp"/>
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"/>
 
                 <TextView
                     android:id="@+id/privacy_detail_text"
