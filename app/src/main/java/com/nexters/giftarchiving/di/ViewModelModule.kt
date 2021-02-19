@@ -25,7 +25,7 @@ val viewModelModule = module {
     factory { LoginViewModel(get(), get()) }
     factory { HomeViewModel(get(), get()) }
     factory { ListViewModel(get(), get()) }
-    factory { SettingsViewModel(get()) }
+    factory { SettingsViewModel(get(), get()) }
     factory { SearchViewModel(get(), get()) }
     factory { DetailViewModel(get()) }
     factory { ConfirmBottomSheetViewModel() }
