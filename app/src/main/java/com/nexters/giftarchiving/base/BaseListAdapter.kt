@@ -32,10 +32,14 @@ internal abstract class BaseListAdapter<T : BaseItem>(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<T> {
         val inflate = LayoutInflater.from(parent.context)
         val binding: ViewDataBinding = DataBindingUtil.inflate(inflate, viewType, parent, false)
-        val viewHolder = BaseViewHolder<T>(binding)
+        val viewHolder = createViewHolder(binding, viewType)
         binding.setVariable(BR.viewModel, viewModel)
         binding.lifecycleOwner = viewHolder
         return viewHolder
+    }
+
+    open fun createViewHolder(binding: ViewDataBinding, viewType: Int): BaseViewHolder<T> {
+        return BaseViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<T>, position: Int) {

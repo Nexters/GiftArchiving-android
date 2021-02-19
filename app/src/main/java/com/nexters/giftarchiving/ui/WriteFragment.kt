@@ -13,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseConfirmDialogListener
@@ -28,7 +29,6 @@ import com.nexters.giftarchiving.viewmodel.WriteViewModel
 import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.time.LocalDate
-
 
 internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding>() {
     override val layoutId = R.layout.fragment_write
@@ -217,13 +217,35 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun setStickerMenuViewPager() {
+        val stickerType = WriteSticker.values()
         with(binding.menuStickerViewpager) {
-            adapter = StickerSlidePagerAdapter(requireActivity(), viewModel)
-            val stickerType = WriteSticker.values()
-            TabLayoutMediator(binding.menuStickerTabLayout, this) { tab, pos ->
+            isUserInputEnabled = false
+            resetStickerMenuViewPager()
+        }
+        with(binding.menuStickerTabLayout) {
+            TabLayoutMediator(this, binding.menuStickerViewpager) { tab, pos ->
                 tab.text = WriteSticker.valueOf(stickerType[pos].name).menuTitle
             }.attach()
+            addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 1) {
+                        resetStickerMenuViewPager()
+                        binding.menuStickerViewpager.currentItem = tab.position
+                    }
+                }
+                override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 1) {
+                        resetStickerMenuViewPager()
+                    }
+                }
+            })
         }
+    }
+
+    private fun resetStickerMenuViewPager() {
+        binding.menuStickerViewpager.adapter =
+            StickerSlidePagerAdapter(requireActivity(), viewModel)
     }
 
     private fun checkPermissionAndAccessGallery() {
