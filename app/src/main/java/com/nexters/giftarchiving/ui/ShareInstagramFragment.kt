@@ -46,7 +46,7 @@ internal class ShareInstagramFragment :
     }
 
     private fun getUriFromInstaLayout(): Uri? {
-        if(viewModel.shareImgUri == null) {
+        if (viewModel.shareImgUri == null) {
             val bitmap = ImageConverter.layoutToBitmap(binding.shareImageLayout)
             viewModel.shareImgUri = ImageManager.saveImage(requireContext().contentResolver, bitmap)
         }

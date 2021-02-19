@@ -45,13 +45,19 @@ internal object WriteStickerList {
         WriteStickerMenuItem(R.drawable.sticker_21)
     )
 
-    fun getPackageStickerList() = listOf(
+    fun getPackageStickers() = listOf(
         WritePackageStickerMenuItem(R.drawable.heart_package_sticker, WritePackageSticker.HEART),
         WritePackageStickerMenuItem(R.drawable.heart_diary_sticker, WritePackageSticker.DIARY),
         WritePackageStickerMenuItem()
     )
 
-    fun getPackageStickerType1List() = listOf(
+    fun getPackageStickerList(packageType: WritePackageSticker) =
+        when(packageType) {
+            WritePackageSticker.HEART -> getHeartPackageStickerList()
+            WritePackageSticker.DIARY -> getDiaryPackageStickerList()
+        }
+
+    private fun getHeartPackageStickerList() = listOf(
         WriteStickerMenuItem(R.drawable.ic_heart_package_sticker_01),
         WriteStickerMenuItem(R.drawable.ic_heart_package_sticker_02),
         WriteStickerMenuItem(R.drawable.ic_heart_package_sticker_03),
@@ -66,7 +72,7 @@ internal object WriteStickerList {
         WriteStickerMenuItem(R.drawable.ic_heart_package_sticker_12)
     )
 
-    fun getPackageStickerType2List() = listOf(
+    private fun getDiaryPackageStickerList() = listOf(
         WriteStickerMenuItem(R.drawable.ic_diary_package_sticker_01),
         WriteStickerMenuItem(R.drawable.ic_diary_package_sticker_02),
         WriteStickerMenuItem(R.drawable.ic_diary_package_sticker_03),

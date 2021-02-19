@@ -19,7 +19,7 @@ internal class WritePackageStickerMenuAdapter(
         R.layout.item_write_sticker_package
 
     init {
-        submitList(WriteStickerList.getPackageStickerList())
+        submitList(WriteStickerList.getPackageStickers())
         setViewModel(viewModel)
     }
 

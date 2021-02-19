@@ -15,11 +15,7 @@ internal class WritePackageStickerDetailMenuAdapter(
         R.layout.item_write_sticker_package_detail
 
     init {
-        val list = when (packageType) {
-            WritePackageSticker.HEART -> WriteStickerList.getPackageStickerType1List()
-            WritePackageSticker.DIARY -> WriteStickerList.getPackageStickerType2List()
-        }
-        submitList(list)
+        submitList(WriteStickerList.getPackageStickerList(packageType))
         setViewModel(viewModel)
     }
 }

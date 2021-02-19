@@ -1,10 +1,8 @@
 package com.nexters.giftarchiving.ui
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -51,7 +49,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
-        observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
+        observe(viewModel.loadGallery) { accessGallery() }
         observe(viewModel.isBack) { showExitDialog() }
         observe(viewModel.isSaved) { saveGift() }
         observe(viewModel.addSticker) { addSticker(it) }
@@ -72,43 +70,6 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             data?.data?.let {
                 viewModel.navDirections.value =
                     WriteFragmentDirections.actionWriteFragmentToCropFragment(it)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_CODE_READ_EXTERNAL_STORAGE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    accessGallery()
-                } else {
-                    toast("갤러리에 접근할 수 없습니다")
-                }
-                return
-            }
-        }
-    }
-
-    private fun checkPermission(requestCode: Int, doAccess: () -> Unit) {
-        val permission = when (requestCode) {
-            REQUEST_CODE_READ_EXTERNAL_STORAGE -> Manifest.permission.READ_EXTERNAL_STORAGE
-            else -> null
-        }
-
-        permission?.let {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    it
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(arrayOf(permission), requestCode)
-            } else {
-                doAccess()
             }
         }
     }
@@ -226,13 +187,14 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             TabLayoutMediator(this, binding.menuStickerViewpager) { tab, pos ->
                 tab.text = WriteSticker.valueOf(stickerType[pos].name).menuTitle
             }.attach()
-            addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
                 override fun onTabReselected(tab: TabLayout.Tab?) {
                     if (tab?.position == 1) {
                         resetStickerMenuViewPager()
                         binding.menuStickerViewpager.currentItem = tab.position
                     }
                 }
+
                 override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
                 override fun onTabSelected(tab: TabLayout.Tab?) {
                     if (tab?.position == 1) {
@@ -246,12 +208,6 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun resetStickerMenuViewPager() {
         binding.menuStickerViewpager.adapter =
             StickerSlidePagerAdapter(requireActivity(), viewModel)
-    }
-
-    private fun checkPermissionAndAccessGallery() {
-        checkPermission(REQUEST_CODE_READ_EXTERNAL_STORAGE) {
-            accessGallery()
-        }
     }
 
     private fun accessGallery() {
@@ -269,10 +225,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun saveGift() {
-        if(viewModel.isEditMode){
+        if (viewModel.isEditMode) {
             sendArgToBackStack("isEdit", true)
             viewModel.editGiftProperties()
-        }else {
+        } else {
             sendArgToBackStack("needReload", true)
             binding.stickerView.removeStickerHandler()
             val noBgBitmap = binding.stickerView.createBitmap()
@@ -288,8 +244,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         val listener = object : BaseConfirmDialogListener() {
             override fun onConfirm() {
                 super.onConfirm()
-                with(viewModel){
-                    if(isEditMode) sendArgToBackStack("isEdit", false)
+                with(viewModel) {
+                    if (isEditMode) sendArgToBackStack("isEdit", false)
                     onBackExit()
                 }
             }
@@ -308,8 +264,6 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     companion object {
-        private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 100
-
         private const val EXIT_DIALOG_TAG = "exit dialog"
         private const val EXIT_DIALOG_TITLE = "저장하지 않고 나가시겠습니까?"
         private const val EXIT_DIALOG_SUB_TITLE = "작성중이던 내용이 사라집니다."
