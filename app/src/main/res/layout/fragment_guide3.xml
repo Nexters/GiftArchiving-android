@@ -12,6 +12,7 @@
         android:text="@string/login_guide_title3"
         android:textColor="@color/white"
         android:textStyle="bold"
+        android:lineHeight="35dp"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
