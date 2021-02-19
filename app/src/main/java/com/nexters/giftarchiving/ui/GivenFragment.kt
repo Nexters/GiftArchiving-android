@@ -44,6 +44,11 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                     }
                     frames.add(item.frameType)
                 }
+            } else {
+                bgColors.clear()
+                frames.clear()
+                bgColors.add(R.color.gray)
+                frames.add("SQUARE")
             }
         }
         val pageTransformer = PreviewSidePageTransformer()
