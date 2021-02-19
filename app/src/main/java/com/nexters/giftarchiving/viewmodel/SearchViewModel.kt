@@ -157,7 +157,7 @@ internal class SearchViewModel(
     }
 
     fun onClickDetail(giftId: String) {
-        navDirections.value = SearchFragmentDirections.actionSearchFragmentToDetailFragment(giftId, false)
+        navDirections.value = SearchFragmentDirections.actionSearchFragmentToDetailFragment(giftId)
     }
 
     init {

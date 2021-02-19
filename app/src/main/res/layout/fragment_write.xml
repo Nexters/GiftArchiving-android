@@ -273,7 +273,8 @@
                         android:adjustViewBounds="true"
                         android:src="@{viewModel.noBgImgUrl}"
                         android:visibility="@{viewModel.editMode}"
-                        tools:src="@drawable/icon_share_kakao"/>
+                        tools:src="@drawable/icon_share_kakao"
+                        tools:visibility="invisible"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -336,7 +337,7 @@
                             android:orientation="vertical"
                             android:gravity="center_horizontal"
                             android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_PURPOSE)}"
-                            app:layout_constraintHorizontal_bias="0.25"
+                            app:layout_constraintHorizontal_bias="0.27"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -432,7 +433,7 @@
                             android:gravity="center_horizontal"
                             android:orientation="vertical"
                             android:onClick="@{()->viewModel.setShowMenuType(WriteMenu.INFORMATION_EMOTION)}"
-                            app:layout_constraintHorizontal_bias="0.75"
+                            app:layout_constraintHorizontal_bias="0.73"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
@@ -592,13 +593,16 @@
                 android:onClick="@{()->viewModel.preventClickOverlap()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.33"
-                app:popUpBackground="@{viewModel.backgroundColorTheme}">
+                app:popUpBackground="@{viewModel.backgroundColorTheme}"
+                tools:background="@color/colorPopupMono">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/information_menu_tab_layout"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
                     app:tabBackground="@drawable/write_information_viewpager_tab_selector"
+                    app:tabPaddingStart="9dp"
+                    app:tabPaddingEnd="9dp"
                     app:tabIndicatorHeight="0dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"

@@ -129,7 +129,6 @@ internal class WriteViewModel(
 
     fun attachSticker(@DrawableRes resId: Int) {
         addSticker.value = resId
-        hideMenu(WriteMenu.STICKER)
     }
 
     fun onClickBack() {
@@ -264,7 +263,6 @@ internal class WriteViewModel(
                 WriteFrameShape.ARCH -> CropImage.toWindowBitmap(bm)
             }
         }
-        hideMenu(WriteMenu.FRAME)
     }
 
     private fun bitmapToMultipartBody(
