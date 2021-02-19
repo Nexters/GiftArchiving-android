@@ -111,13 +111,13 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/settingsGray">
+                    android:background="#2f2f36">
                     <TextView
                         android:id="@+id/sort_latest"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintHeight_percent="0.498"
+                        app:layout_constraintHeight_percent="0.499"
                         android:background="@color/settingsBlack"
                         android:text="@string/sort_latest"
                         android:textColor="@color/white"
