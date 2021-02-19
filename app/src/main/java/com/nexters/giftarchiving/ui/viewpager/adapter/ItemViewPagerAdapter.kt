@@ -2,6 +2,7 @@ package com.nexters.giftarchiving.ui.viewpager.adapter
 
 import android.content.Context
 import android.icu.text.SimpleDateFormat
+import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,6 +35,11 @@ internal class ItemViewPagerAdapter(
         fun bind(gift : GiftResponse) {
             if(gift.giftId=="empty"){
                 val defaultText : TextView = itemView.findViewById(R.id.item_default_text)
+                itemImageView.layoutParams.width =
+                    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240F, context.resources.displayMetrics)
+                        .toInt();
+                itemImageView.layoutParams.height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 240F, context.resources.displayMetrics)
+                    .toInt();
                 defaultText.text = gift.giftContent
                 personTextView.text = gift.giftName
             } else{
@@ -61,14 +67,14 @@ internal class ItemViewPagerAdapter(
                 val date = dateFormat.parse(inputDate)
                 val calendar = Calendar.getInstance()
                 calendar.time = date
-                when(calendar.get(Calendar.DAY_OF_WEEK)){
-                    1 -> inputDate += " (일)"
-                    2 -> inputDate += " (월)"
-                    3 -> inputDate += " (화)"
-                    4 -> inputDate += " (수)"
-                    5 -> inputDate += " (목)"
-                    6 -> inputDate += " (금)"
-                    else -> inputDate += " (토)"
+                inputDate += when(calendar.get(Calendar.DAY_OF_WEEK)){
+                    1 -> " (일)"
+                    2 -> " (월)"
+                    3 -> " (화)"
+                    4 -> " (수)"
+                    5 -> " (목)"
+                    6 -> " (금)"
+                    else -> " (토)"
                 }
                 dateTextView.text = inputDate
                 viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
