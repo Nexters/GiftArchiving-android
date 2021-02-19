@@ -40,27 +40,16 @@
             android:layout_marginStart="16dp"
             android:onClick="@{() -> viewModel.onClickBack()}"/>
 
-        <TextView
-            android:id="@+id/opensource_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/opensource_detail_title"
-            android:textSize="24sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@id/opensource_title"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="38dp"
-            android:layout_marginStart="20dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/opensource_detail_text"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintTop_toBottomOf="@id/opensource_detail_title"
+            app:layout_constraintTop_toBottomOf="@id/opensource_title"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="16dp"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp"
-            android:layout_marginTop="33dp"/>
+            android:paddingEnd="20dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

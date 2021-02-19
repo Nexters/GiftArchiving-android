@@ -220,6 +220,9 @@
         android:id="@+id/searchFragment"
         android:label="SearchFragment"
         android:name="com.nexters.giftarchiving.ui.SearchFragment">
+        <action
+            android:id="@+id/action_searchFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
     <fragment
         android:id="@+id/detailFragment"

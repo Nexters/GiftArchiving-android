@@ -25,7 +25,7 @@ internal class ListType2Fragment(val giftList: List<GiftResponse>, val viewModel
         val view: View = inflater.inflate(R.layout.fragment_list_type2, container, false)
 
         val list_recyclerview = view.findViewById<RecyclerView>(R.id.list2_recyclerView)
-        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList, viewModel,isReceived)
+        val recyclerViewAdapter = ListType2RecyclerviewAdapter(requireContext(),giftList, viewModel,null,isReceived)
         list_recyclerview.adapter = recyclerViewAdapter
         val gridLayoutManager = GridLayoutManager(context,2)
         list_recyclerview.layoutManager = gridLayoutManager

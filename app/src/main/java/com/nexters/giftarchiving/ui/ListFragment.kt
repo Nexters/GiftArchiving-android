@@ -93,10 +93,10 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
         observe(viewModel.listType) {
             if (it) {
                 listTypeViewPager.currentItem = 0
-                switchButton.setImageResource(R.drawable.ic_icon_2_grid)
+                switchButton.setBackgroundResource(R.drawable.ic_icon_2_grid)
             } else {
                 listTypeViewPager.currentItem = 1
-                switchButton.setImageResource(R.drawable.ic_icon_1_grid)
+                switchButton.setBackgroundResource(R.drawable.ic_icon_1_grid)
             }
         }
         observe(viewModel.showSortBottom) {

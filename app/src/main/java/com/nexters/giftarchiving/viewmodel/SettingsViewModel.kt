@@ -15,8 +15,6 @@ internal class SettingsViewModel(
     private val noticeRepository: NoticeRepository,
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
-    val opensourceNames = arrayListOf<String>("Kakao","Koin")
-    val opensourceDetails = arrayListOf<String>("Kakao detail","Koin detail")
     val notices = MutableLiveData(mutableListOf<NoticeResponse>())
     fun onClickBack() {
         navDirections.value = BackDirections()

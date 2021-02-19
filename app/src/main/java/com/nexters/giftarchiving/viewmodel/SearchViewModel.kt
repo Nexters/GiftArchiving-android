@@ -9,6 +9,8 @@ import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.repository.GiftRepository
 import com.nexters.giftarchiving.repository.PreferenceRepository
+import com.nexters.giftarchiving.ui.ListFragmentDirections
+import com.nexters.giftarchiving.ui.SearchFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
 import kotlinx.coroutines.launch
 
@@ -152,6 +154,10 @@ internal class SearchViewModel(
             }
         }
         return result
+    }
+
+    fun onClickDetail(giftId: String) {
+        navDirections.value = SearchFragmentDirections.actionSearchFragmentToDetailFragment(giftId, false)
     }
 
     init {

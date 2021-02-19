@@ -12,15 +12,18 @@
         android:text="@string/login_guide_title2"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="20sp"
+        android:lineHeight="35dp"
+        android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginTop="60dp"/>
     
     <ImageView
-        android:layout_width="210dp"
-        android:layout_height="262dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintWidth_percent="0.58"
+        app:layout_constraintHeight_percent="0.59"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
