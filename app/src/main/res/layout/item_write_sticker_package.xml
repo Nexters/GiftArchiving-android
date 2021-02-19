@@ -16,7 +16,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_marginVertical="9dp">
+        android:padding="9dp"
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -44,10 +45,12 @@
             android:adjustViewBounds="true"
             android:visibility="@{item.stickerResId != null}"
             android:src="@{item.stickerResId}"
+            android:elevation="7dp"
+            android:outlineProvider="bounds"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintDimensionRatio="0.76:1"
+            app:layout_constraintHeight_percent="0.92"
             tools:background="@drawable/heart_diary_sticker"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

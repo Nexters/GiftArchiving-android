@@ -89,7 +89,15 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 BitmapStickerIcon.RIGHT_BOTOM
             ).apply { iconEvent = ZoomIconEvent() }
 
-            binding.stickerView.icons = listOf(deleteIcon, zoomIcon)
+            val flipIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(
+                    context,
+                    com.xiaopo.flying.sticker.R.drawable.sticker_ic_flip_white_18dp
+                ),
+                BitmapStickerIcon.LEFT_TOP
+            ).apply { iconEvent = FlipHorizontallyEvent() }
+
+            binding.stickerView.icons = listOf(deleteIcon, zoomIcon, flipIcon)
         }
     }
 
