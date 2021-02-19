@@ -14,13 +14,15 @@ import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.model.GiftListResponse
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.viewmodel.ListViewModel
+import com.nexters.giftarchiving.viewmodel.SearchViewModel
 import java.time.format.DateTimeFormatter
 import java.util.*
 
 internal class ListType2RecyclerviewAdapter(
     private val context: Context,
     private val gifts: List<GiftResponse>,
-    val viewModel: ListViewModel?,
+    val listViewModel: ListViewModel?,
+    val searchViewModel: SearchViewModel?,
     val isReceived : Boolean
 ) : RecyclerView.Adapter<ListType2RecyclerviewAdapter.ItemViewHolder>() {
     var mPosition = 0
@@ -68,7 +70,8 @@ internal class ListType2RecyclerviewAdapter(
                 else -> inputDate += " (토)"
             }
             dateTextView.text = inputDate
-            viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
+            listViewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
+            searchViewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) }  }
         }
     }
 

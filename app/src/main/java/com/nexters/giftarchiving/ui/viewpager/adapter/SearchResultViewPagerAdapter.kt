@@ -4,8 +4,9 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.nexters.giftarchiving.model.GiftResponse
 import com.nexters.giftarchiving.ui.SearchResultRecyclerFragment
+import com.nexters.giftarchiving.viewmodel.SearchViewModel
 
-class SearchResultViewPagerAdapter(fragment: Fragment, val takenList : ArrayList<GiftResponse>, val givenList : ArrayList<GiftResponse>) : FragmentStateAdapter(fragment) {
+internal class SearchResultViewPagerAdapter(fragment: Fragment, val takenList : ArrayList<GiftResponse>, val givenList : ArrayList<GiftResponse>, val viewModel : SearchViewModel) : FragmentStateAdapter(fragment) {
 
     companion object {
         private const val NUM_PAGES = 2
@@ -17,9 +18,9 @@ class SearchResultViewPagerAdapter(fragment: Fragment, val takenList : ArrayList
 
     override fun createFragment(position: Int): Fragment {
         return if(position == 0) {
-            SearchResultRecyclerFragment(takenList,true)
+            SearchResultRecyclerFragment(takenList,viewModel,true)
         }else {
-            SearchResultRecyclerFragment(givenList,false)
+            SearchResultRecyclerFragment(givenList,viewModel,false)
         }
     }
 }

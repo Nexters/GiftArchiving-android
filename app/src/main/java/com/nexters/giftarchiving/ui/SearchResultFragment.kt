@@ -29,7 +29,7 @@ internal class SearchResultFragment : BaseFragment<SearchViewModel, FragmentSear
             takenList.addAll(it)
             tabTextList = arrayListOf(String.format("%s %d",getString(R.string.search_result_taken), takenList.size), String.format("%s %d",getString(R.string.search_result_given), givenList.size))
             viewPager.isUserInputEnabled = false
-            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList)
+            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList,viewModel)
             viewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
                 page.apply {
                     val pageWidth = width
@@ -59,7 +59,7 @@ internal class SearchResultFragment : BaseFragment<SearchViewModel, FragmentSear
             givenList.addAll(it)
             tabTextList = arrayListOf(String.format("%s %d",getString(R.string.search_result_taken), takenList.size), String.format("%s %d",getString(R.string.search_result_given), givenList.size))
             viewPager.isUserInputEnabled = false
-            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList)
+            viewPager.adapter = SearchResultViewPagerAdapter(this, takenList, givenList,viewModel)
             viewPager.setPageTransformer(ViewPager2.PageTransformer { page, position ->
                 page.apply {
                     val pageWidth = width
