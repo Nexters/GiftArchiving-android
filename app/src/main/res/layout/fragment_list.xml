@@ -55,7 +55,7 @@
             android:id="@+id/list_style_button"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_icon_2_grid"
+            android:background="@drawable/ic_icon_2_grid"
             app:layout_constraintTop_toBottomOf="@id/list_title"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintBottom_toTopOf="@id/list_viewPager"
