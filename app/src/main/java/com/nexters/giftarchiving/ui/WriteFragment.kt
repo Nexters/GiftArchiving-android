@@ -1,22 +1,18 @@
 package com.nexters.giftarchiving.ui
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseConfirmDialogListener
@@ -33,7 +29,6 @@ import com.xiaopo.flying.sticker.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.time.LocalDate
 
-
 internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding>() {
     override val layoutId = R.layout.fragment_write
     override val viewModel: WriteViewModel by viewModel()
@@ -41,11 +36,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        findNavController()
-            .currentBackStackEntry
-            ?.savedStateHandle
-            ?.getLiveData<Bitmap>("image")
-            ?.observe(viewLifecycleOwner, Observer { viewModel.setNewImage(it) })
+        receiveArgFromOtherView<Bitmap>("image") { viewModel.setNewImage(it) }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -59,7 +50,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
-        observe(viewModel.loadGallery) { checkPermissionAndAccessGallery() }
+        observe(viewModel.loadGallery) { accessGallery() }
+        observe(viewModel.isBack) { showExitDialog() }
         observe(viewModel.isSaved) { saveGift() }
         observe(viewModel.addSticker) { addSticker(it) }
     }
@@ -77,47 +69,8 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 0 && resultCode == Activity.RESULT_OK) {
             data?.data?.let {
-                val source = ImageDecoder.createSource(requireActivity().contentResolver, it)
-                val bitmap = ImageDecoder.decodeBitmap(source)
                 viewModel.navDirections.value =
-                    WriteFragmentDirections.actionWriteFragmentToCropFragment(bitmap)
-            }
-        }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            REQUEST_CODE_READ_EXTERNAL_STORAGE -> {
-                if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-                    accessGallery()
-                } else {
-                    toast("갤러리에 접근할 수 없습니다")
-                }
-                return
-            }
-        }
-    }
-
-    private fun checkPermission(requestCode: Int, doAccess: () -> Unit) {
-        val permission = when (requestCode) {
-            REQUEST_CODE_READ_EXTERNAL_STORAGE -> Manifest.permission.READ_EXTERNAL_STORAGE
-            else -> null
-        }
-
-        permission?.let {
-            if (ContextCompat.checkSelfPermission(
-                    requireContext(),
-                    it
-                ) != PackageManager.PERMISSION_GRANTED
-            ) {
-                requestPermissions(arrayOf(permission), requestCode)
-            } else {
-                doAccess()
+                    WriteFragmentDirections.actionWriteFragmentToCropFragment(it)
             }
         }
     }
@@ -137,15 +90,29 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 BitmapStickerIcon.RIGHT_BOTOM
             ).apply { iconEvent = ZoomIconEvent() }
 
-            binding.stickerView.icons = listOf(deleteIcon, zoomIcon)
+            val flipIcon = BitmapStickerIcon(
+                ContextCompat.getDrawable(
+                    context,
+                    com.xiaopo.flying.sticker.R.drawable.sticker_ic_flip_white_18dp
+                ),
+                BitmapStickerIcon.LEFT_TOP
+            ).apply { iconEvent = FlipHorizontallyEvent() }
+
+            binding.stickerView.icons = listOf(deleteIcon, zoomIcon, flipIcon)
         }
     }
 
     private fun setContentEditTextSize() {
-        with(binding.contentEt) {
-            viewTreeObserver.addOnGlobalLayoutListener {
-                height = height
-            }
+        binding.contentEt.let {
+            it.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (it.height != 0) {
+                        it.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        it.height = it.height
+                    }
+                }
+            })
         }
     }
 
@@ -226,19 +193,36 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun setStickerMenuViewPager() {
+        val stickerType = WriteSticker.values()
         with(binding.menuStickerViewpager) {
-            adapter = StickerSlidePagerAdapter(requireActivity(), viewModel)
-            val stickerType = WriteSticker.values()
-            TabLayoutMediator(binding.menuStickerTabLayout, this) { tab, pos ->
+            isUserInputEnabled = false
+            resetStickerMenuViewPager()
+        }
+        with(binding.menuStickerTabLayout) {
+            TabLayoutMediator(this, binding.menuStickerViewpager) { tab, pos ->
                 tab.text = WriteSticker.valueOf(stickerType[pos].name).menuTitle
             }.attach()
+            addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 1) {
+                        resetStickerMenuViewPager()
+                        binding.menuStickerViewpager.currentItem = tab.position
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) = Unit
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    if (tab?.position == 1) {
+                        resetStickerMenuViewPager()
+                    }
+                }
+            })
         }
     }
 
-    private fun checkPermissionAndAccessGallery() {
-        checkPermission(REQUEST_CODE_READ_EXTERNAL_STORAGE) {
-            accessGallery()
-        }
+    private fun resetStickerMenuViewPager() {
+        binding.menuStickerViewpager.adapter =
+            StickerSlidePagerAdapter(requireActivity(), viewModel)
     }
 
     private fun accessGallery() {
@@ -256,12 +240,27 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun saveGift() {
-        binding.stickerView.removeStickerHandler()
-        val noBgBitmap = binding.stickerView.createBitmap()
-        binding.shareIv.setImageBitmap(noBgBitmap)
-        viewModel.delayAndCallback {
-            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
-            viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+        if (viewModel.isEditMode) {
+            sendArgToBackStack("isEdit", true)
+            viewModel.editGiftProperties()
+        } else {
+            sendArgToBackStack("needReload", true)
+            binding.stickerView.removeStickerHandler()
+            val noBgBitmap = binding.stickerView.createBitmap()
+            with(binding.shareIv) {
+                val cacheDir = requireContext().cacheDir
+                setImageBitmap(noBgBitmap)
+                viewTreeObserver.addOnGlobalLayoutListener(object :
+                    ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        if (drawable.toString() != "") {
+                            viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
+                            viewModel.save(cacheDir, noBgBitmap, bgBitmap)
+                        }
+                    }
+                })
+            }
         }
     }
 
@@ -269,7 +268,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         val listener = object : BaseConfirmDialogListener() {
             override fun onConfirm() {
                 super.onConfirm()
-                viewModel.onBackExit()
+                with(viewModel) {
+                    if (isEditMode) sendArgToBackStack("isEdit", false)
+                    onBackExit()
+                }
             }
         }
         ConfirmBottomSheet(
@@ -286,8 +288,6 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     companion object {
-        private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 100
-
         private const val EXIT_DIALOG_TAG = "exit dialog"
         private const val EXIT_DIALOG_TITLE = "저장하지 않고 나가시겠습니까?"
         private const val EXIT_DIALOG_SUB_TITLE = "작성중이던 내용이 사라집니다."

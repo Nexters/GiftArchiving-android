@@ -4,12 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.kakao.sdk.template.model.FeedTemplate
 import com.nexters.giftarchiving.base.BaseViewModel
-import com.nexters.giftarchiving.model.WriteResponse
 import com.nexters.giftarchiving.service.share.KakaoFeedMessage
 import com.nexters.giftarchiving.ui.ShareFragmentArgs
 import com.nexters.giftarchiving.ui.ShareFragmentDirections
 import com.nexters.giftarchiving.ui.data.BackgroundColorTheme
 import com.nexters.giftarchiving.ui.data.write.WriteFrameShape
+import com.nexters.giftarchiving.util.BackDirections
 import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -45,8 +45,8 @@ internal class ShareViewModel : BaseViewModel() {
         return KakaoFeedMessage.getFeed(bgImgUrl.value ?: "", name.value ?: "")
     }
 
-    fun onClickBackHome() {
-        navDirections.value = ShareFragmentDirections.actionShareFragmentToHomeFragment()
+    fun onClickBack() {
+        navDirections.value = BackDirections()
     }
 
     fun onClickSaveImage() {

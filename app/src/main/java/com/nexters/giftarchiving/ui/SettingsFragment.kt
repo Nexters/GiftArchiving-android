@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.nexters.giftarchiving.R
+import com.nexters.giftarchiving.base.BaseConfirmDialogListener
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentSettingsBinding
+import com.nexters.giftarchiving.extension.observe
 import com.nexters.giftarchiving.viewmodel.SettingsViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -15,19 +17,49 @@ internal class SettingsFragment : BaseFragment<SettingsViewModel, FragmentSettin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        observe(viewModel.clickLogout) { showLogoutConfirmDialog() }
         binding.settingQuestion.setOnClickListener {
             onClickEmail()
         }
     }
 
-    fun onClickEmail(){
-        val emailIntent = Intent(Intent.ACTION_SEND)
-        emailIntent.apply {
-            type = "text/html"
-            putExtra(Intent.EXTRA_EMAIL, arrayOf("giftzip.team@gmail.com"))
-            putExtra(Intent.EXTRA_SUBJECT,"문의 및 건의하기")
-            putExtra(Intent.EXTRA_TEXT,"- 정확한 문의 파악을 위해 아래 정보를 작성해주세요!\n\n\n1. 문의 내용: \n\n2. 기프트집(카카오) 메일계정: \n\n★문의 관련 스크린샷을 첨부하시면\n보다 정확하고 빠른 확인이 가능합니다.")
+    private fun showLogoutConfirmDialog() {
+        val listener = object : BaseConfirmDialogListener() {
+            override fun onConfirm() {
+                super.onConfirm()
+                viewModel.logout()
+            }
         }
-        startActivity(Intent.createChooser(emailIntent, "Send Email"))
+        ConfirmBottomSheet(
+            title = "로그아웃 하시겠어요?",
+            subTitle = "선물 등록을 할 수 없어요.",
+            confirmTitle = "로그아웃",
+            listener = listener
+        ).show(parentFragmentManager, LOGOUT_DIALOG_TAG)
+    }
+
+    private fun onClickEmail() {
+        val emails = arrayOf(getString(R.string.gift_zip_email))
+        val emailIntent = Intent(Intent.ACTION_SEND).apply {
+            type = INTENT_EMAIL_TYPE
+            putExtra(Intent.EXTRA_EMAIL, emails)
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.qna_title))
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.qna_content))
+        }
+        try {
+            emailIntent.`package` = INTENT_GMAIL_PACKAGE
+            startActivity(emailIntent)
+        } catch (e: Exception) {
+            startActivity(Intent.createChooser(emailIntent, INTENT_EMAIL_TITLE))
+        }
+    }
+
+    companion object {
+        private const val INTENT_EMAIL_TITLE = "Send Email"
+        private const val INTENT_EMAIL_TYPE = "text/html"
+        private const val INTENT_GMAIL_PACKAGE = "com.google.android.gm"
+
+        private const val LOGOUT_DIALOG_TAG = "logout dialog"
     }
 }

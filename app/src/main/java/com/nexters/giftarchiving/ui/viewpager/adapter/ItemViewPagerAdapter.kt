@@ -22,7 +22,7 @@ internal class ItemViewPagerAdapter(
     val context: Context,
     private val giftListResponse: List<GiftResponse>,
     private val viewType: Int,
-    private val viewModel: ListViewModel?
+    private val giftItemTouchCallback: ((String) -> Unit)?
 ) : RecyclerView.Adapter<ItemViewPagerAdapter.PagerViewHolder>() {
 
     inner class PagerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -77,7 +77,7 @@ internal class ItemViewPagerAdapter(
                     else -> " (토)"
                 }
                 dateTextView.text = inputDate
-                viewModel?.let { vm -> itemView.setOnClickListener { vm.onClickDetail(gift.giftId) } }
+                giftItemTouchCallback?.let { callback -> itemView.setOnClickListener { callback(gift.giftId) } }
             }
         }
     }

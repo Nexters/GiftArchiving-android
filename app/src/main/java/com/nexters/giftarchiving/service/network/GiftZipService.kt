@@ -11,7 +11,7 @@ internal interface GiftZipService {
     @POST("/api/user/signIn")
     suspend fun signIn(
         @Body user: User
-    ): LoginResponse
+    ): Response<LoginResponse>
 
     @Multipart
     @POST("/api/gift/create")

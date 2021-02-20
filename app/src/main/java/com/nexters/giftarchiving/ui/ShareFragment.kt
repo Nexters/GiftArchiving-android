@@ -26,6 +26,7 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        sendArgToBackStack("isEdit", false)
         setLetterAnimation()
         observe(viewModel.shareKakaoMessage) { shareKakaoMessage() }
         observe(viewModel.saveImage) { saveImage() }

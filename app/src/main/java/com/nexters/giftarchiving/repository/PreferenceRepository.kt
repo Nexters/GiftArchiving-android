@@ -14,6 +14,13 @@ internal class PreferenceRepository(context: Context) {
 
     fun getUserId() = sf.getLong(PREFERENCE_USER_ID, DEFAULT_VALUE_LONG)
 
+    fun deleteUserId() {
+        with(sf.edit()) {
+            remove(PREFERENCE_USER_ID)
+            apply()
+        }
+    }
+
     companion object {
         private const val PREFERENCE_USER_KEY = "user"
         private const val PREFERENCE_USER_ID = "user_id"

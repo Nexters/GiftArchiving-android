@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Gift.zip</string>
+    <string name="gift_zip_email">giftzip.team@gmail.com</string>
     <string name="login_kakao">카카오톡으로 로그인</string>
     <string name="notice_select_image">사진을 등록해보세요.</string>
     <string name="write_emotion_hint">지금 이 감정을 기록해 보세요.</string>
@@ -22,9 +23,10 @@
     <string name="home_detail_button_name">선물함</string>
     <string name="setting_title">설정 · 문의</string>
     <string name="setting_service">서비스 설정</string>
-    <string name="setting_current_version">현재버젼 1.1.0</string>
+    <string name="setting_current_version">현재버전 1.1.0</string>
     <string name="setting_using_current_version">최신 버전 사용 중</string>
     <string name="setting_using_old_version">업데이트 필요</string>
+    <string name="setting_about_us">기프트집에 대해</string>
     <string name="setting_user_support">사용자 지원</string>
     <string name="setting_notice">공지사항</string>
     <string name="setting_question">앱 문의 · 건의</string>
@@ -33,6 +35,22 @@
     <string name="setting_opensource_license">오픈 소스 라이센스</string>
     <string name="setting_privacy_policy">개인정보 이용방침</string>
     <string name="setting_logout">로그아웃</string>
+    <string name="about_us_producers">Gift.zip team\n기프트집을 만든 사람들</string>
+    <string name="designer">Designer</string>
+    <string name="backend">Backend Dev</string>
+    <string name="ios">iOS Dev</string>
+    <string name="android">Android Dev</string>
+    <string name="jiyoung">jiyoung Kim</string>
+    <string name="soyoung">soyoung Kim</string>
+    <string name="jinna">jinna Choi</string>
+    <string name="jihye">jihye  Park</string>
+    <string name="jaeyong">jaeyong Lee</string>
+    <string name="jeonghun">jeonghun Choi</string>
+    <string name="junho">junho Seo</string>
+    <string name="yujin">yujin Jin</string>
+    <string name="about_us_qna">기프트집팀에 궁금한점?</string>
+    <string name="qna_title">Gift.zip 문의/건의 메일</string>
+    <string name="qna_content">- 정확한 문의 파악을 위해 아래 정보를 작성해주세요!\n\n\n1. 문의 내용:\n\n2. 기프트집(카카오) 메일계정:\n\n★ 문의 관련 스크린샷을 첨부하시면\n보다 정확하고 빠른 확인이 가능합니다.</string>
     <string name="notice_none_data_text1">아직 공지 사항이 없습니다</string>
     <string name="notice_none_data_text2">추후에 확인해주세요</string>
     <string name="terms_detail_title">기프트집 서비스 이용약관\n</string>
@@ -89,6 +107,7 @@
     <string name="detail_notice_edit_success">수정이 완료되었습니다.</string>
     <string name="sort_latest">최신순</string>
     <string name="sort_past">과거순</string>
+    <string name="sticker_update_scheduled">업데이트 예정</string>
     <string name="setting_terms_detail">"제1조 (목적)
 
 본 약관은 회원(본 약관에 동의한 자를 말합니다. 이하 “회원”이라고 합니다.) 이 gift.zip(이하 “회사”라고 합니다.) 이 제공하는 gift.zip 앱 서비스(이하 “서비스”라고 합니다.)를 이용함에 있어 회사와 회원의 권리·의무 및 책임사항을 규정함을 목적으로 합니다.

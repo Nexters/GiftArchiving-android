@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_homeFragment_to_searchFramgent"
             app:destination="@id/searchFragment"/>
+        <action
+            android:id="@+id/action_homeFragment_to_detailFragment"
+            app:destination="@id/detailFragment" />
     </fragment>
 
     <fragment
@@ -106,11 +109,6 @@
         <action
             android:id="@+id/action_writeFragment_to_cropFragment"
             app:destination="@id/cropFragment" />
-        <action
-            android:id="@+id/action_writeFragment_to_detailFragment"
-            app:destination="@id/detailFragment"
-            app:popUpTo="@id/writeFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/shareFragment"
@@ -146,19 +144,14 @@
         <action
             android:id="@+id/action_shareFragment_to_shareInstagramFragment"
             app:destination="@id/shareInstagramFragment" />
-        <action
-            android:id="@+id/action_shareFragment_to_homeFragment"
-            app:destination="@id/homeFragment"
-            app:popUpTo="@id/shareFragment"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/cropFragment"
         android:name="com.nexters.giftarchiving.ui.CropFragment"
         android:label="CropFragment" >
         <argument
-            android:name="bitmap"
-            app:argType="android.graphics.Bitmap" />
+            android:name="image_uri"
+            app:argType="android.net.Uri" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -176,6 +169,14 @@
         <action
             android:id="@+id/action_settingFragment_to_privacyFragment"
             app:destination="@id/privacyFragment"/>
+        <action
+            android:id="@+id/action_settingsFragment_to_splashFragment"
+            app:destination="@id/splashFragment"
+            app:popUpTo="@id/gift_archiving_nav"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_settingsFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
     </fragment>
     <fragment
         android:id="@+id/noticeFragment"
@@ -238,12 +239,10 @@
             app:destination="@id/shareFragment" />
         <action
             android:id="@+id/action_detailFragment_to_writeFragment"
-            app:destination="@id/writeFragment"
-            app:popUpTo="@id/detailFragment"
-            app:popUpToInclusive="true" />
-        <argument
-            android:name="is_finish_edit"
-            app:argType="boolean"
-            android:defaultValue="false" />
+            app:destination="@id/writeFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.nexters.giftarchiving.ui.AboutUsFragment"
+        android:label="AboutUsFragment" />
 </navigation>

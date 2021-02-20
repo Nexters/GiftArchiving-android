@@ -32,6 +32,7 @@ internal class ListViewModel(
 
     init {
         viewModelScope.launch {
+            getAllList()
             navArgs<ListFragmentArgs>()
                 .collect {
                     isReceived = it.title=="받은 선물"
@@ -78,6 +79,8 @@ internal class ListViewModel(
     }
 
     fun getAllList(){
+        getAllReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
+        getAllNotReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
         viewModelScope.launch {
             totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
             totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
@@ -95,6 +98,6 @@ internal class ListViewModel(
     }
 
     fun onClickDetail(giftId: String) {
-        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId, false)
+        navDirections.value = ListFragmentDirections.actionListFragmentToDetailFragment(giftId)
     }
 }

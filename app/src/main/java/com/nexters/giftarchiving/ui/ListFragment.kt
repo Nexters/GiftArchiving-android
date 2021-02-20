@@ -21,6 +21,10 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        receiveArgFromOtherView<Boolean>("needReload") {
+            if(it) viewModel.getAllList()
+        }
+
         val listTypeViewPager = binding.listViewPager
         val switchButton = binding.listStyleButton
         listTypeViewPager.isUserInputEnabled = false
@@ -102,11 +106,6 @@ internal class ListFragment : BaseFragment<ListViewModel, FragmentListBinding>()
                 hideSortBottom()
             }
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.getAllList()
     }
 
     private fun showSortBottom(){

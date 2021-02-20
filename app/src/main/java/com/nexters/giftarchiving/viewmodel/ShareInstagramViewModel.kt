@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.viewmodel
 
+import android.net.Uri
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.nexters.giftarchiving.base.BaseViewModel
@@ -16,6 +17,7 @@ internal class ShareInstagramViewModel: BaseViewModel() {
     val name = MutableLiveData<String>()
     val instagramStory = LiveEvent<Unit?>()
     val instagramFeed = LiveEvent<Unit?>()
+    var shareImgUri: Uri? = null
     var isReceive = true
 
     init {

@@ -1,5 +1,6 @@
 package com.nexters.giftarchiving.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.navigation.fragment.navArgs
@@ -26,17 +27,37 @@ internal class ShareInstagramFragment :
         observe(viewModel.instagramFeed) { instagramFeed() }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        deleteShareImage()
+    }
+
+
     private fun instagramStory() {
-        val bitmap = ImageConverter.layoutToBitmap(binding.shareImageLayout)
-        ImageManager.saveImage(requireContext().contentResolver, bitmap)?.let {
+        getUriFromInstaLayout()?.let {
             InstagramSharedService.shareInstagramStory(requireActivity(), it)
         }
     }
 
     private fun instagramFeed() {
-        val bitmap = ImageConverter.layoutToBitmap(binding.shareImageLayout)
-        ImageManager.saveImage(requireContext().contentResolver, bitmap)?.let {
-            InstagramSharedService.shareInstagramFeed(requireActivity(), it)
+        getUriFromInstaLayout()?.let {
+            InstagramSharedService.shareInstagramStory(requireActivity(), it)
         }
+    }
+
+    private fun getUriFromInstaLayout(): Uri? {
+        if (viewModel.shareImgUri == null) {
+            val bitmap = ImageConverter.layoutToBitmap(binding.shareImageLayout)
+            viewModel.shareImgUri = ImageManager.saveImage(requireContext().contentResolver, bitmap)
+        }
+        return viewModel.shareImgUri
+    }
+
+    private fun deleteShareImage() {
+        viewModel.shareImgUri?.let { deleteFileUsingUri(it) }
+    }
+
+    private fun deleteFileUsingUri(uri: Uri) {
+        requireContext().contentResolver.delete(uri, null, null)
     }
 }

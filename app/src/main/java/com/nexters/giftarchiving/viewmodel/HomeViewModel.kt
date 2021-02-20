@@ -69,6 +69,8 @@ internal class HomeViewModel(
     }
 
     fun getAllList(){
+        getAllReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
+        getAllNotReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
         viewModelScope.launch {
             totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
             totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
@@ -81,5 +83,9 @@ internal class HomeViewModel(
             getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountReceive, true)
             getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
         }
+    }
+
+    fun onClickDetail(giftId: String) {
+        navDirections.value = HomeFragmentDirections.actionHomeFragmentToDetailFragment(giftId)
     }
 }
