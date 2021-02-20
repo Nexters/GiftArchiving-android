@@ -25,6 +25,12 @@ internal class SettingsViewModel(
         }
     }
 
+    fun onClickAboutUs() {
+        viewModelScope.launch {
+            navDirections.value = SettingsFragmentDirections.actionSettingsFragmentToAboutUsFragment()
+        }
+    }
+
     fun onClickTerms(){
         viewModelScope.launch {
             navDirections.value= SettingsFragmentDirections.actionSettingFragmentToTermsFragment()
