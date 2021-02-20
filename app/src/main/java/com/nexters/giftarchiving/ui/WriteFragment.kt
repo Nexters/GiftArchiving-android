@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.content.ContextCompat
@@ -102,10 +103,16 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     private fun setContentEditTextSize() {
-        with(binding.contentEt) {
-            viewTreeObserver.addOnGlobalLayoutListener {
-                height = height
-            }
+        binding.contentEt.let {
+            it.viewTreeObserver.addOnGlobalLayoutListener(object :
+                ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (it.height != 0) {
+                        it.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                        it.height = it.height
+                    }
+                }
+            })
         }
     }
 
@@ -240,10 +247,19 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
             sendArgToBackStack("needReload", true)
             binding.stickerView.removeStickerHandler()
             val noBgBitmap = binding.stickerView.createBitmap()
-            binding.shareIv.setImageBitmap(noBgBitmap)
-            viewModel.delayAndCallback {
-                val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
-                viewModel.goNext(requireContext().cacheDir, noBgBitmap, bgBitmap)
+            with(binding.shareIv) {
+                val cacheDir = requireContext().cacheDir
+                setImageBitmap(noBgBitmap)
+                viewTreeObserver.addOnGlobalLayoutListener(object :
+                    ViewTreeObserver.OnGlobalLayoutListener {
+                    override fun onGlobalLayout() {
+                        if (drawable.toString() != "") {
+                            viewTreeObserver.removeOnGlobalLayoutListener(this)
+                            val bgBitmap = viewModel.convertLayoutToBitmap(binding.shareLayout)
+                            viewModel.save(cacheDir, noBgBitmap, bgBitmap)
+                        }
+                    }
+                })
             }
         }
     }

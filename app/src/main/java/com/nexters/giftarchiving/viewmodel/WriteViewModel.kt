@@ -29,7 +29,6 @@ import com.nexters.giftarchiving.util.ImageConverter
 import com.theartofdev.edmodo.cropper.CropImage
 import com.xiaopo.flying.sticker.Sticker
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
@@ -181,7 +180,7 @@ internal class WriteViewModel(
 
     fun preventClickOverlap() {}
 
-    fun goNext(parentDir: File, noBgBitmap: Bitmap, bgBitmap: Bitmap) {
+    fun save(parentDir: File, noBgBitmap: Bitmap, bgBitmap: Bitmap) {
         viewModelScope.launch(Dispatchers.IO) {
             val noBgImg = bitmapToMultipartBody(parentDir, noBgBitmap, "noBgImg")
             val bgImg = bitmapToMultipartBody(parentDir, bgBitmap, "bgImg")
@@ -226,13 +225,6 @@ internal class WriteViewModel(
         val canvas = Canvas(bmp)
         v.draw(canvas)
         return bmp
-    }
-
-    fun delayAndCallback(callback: () -> Unit) {
-        viewModelScope.launch(Dispatchers.IO) {
-            delay(100L)
-            callback()
-        }
     }
 
     fun editGiftProperties() {

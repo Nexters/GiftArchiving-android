@@ -24,8 +24,8 @@ internal class AboutUsFragment : BaseFragment<AboutUsViewModel, FragmentAboutUsB
         val emailIntent = Intent(Intent.ACTION_SEND).apply {
             type = INTENT_EMAIL_TYPE
             putExtra(Intent.EXTRA_EMAIL, emails)
-            putExtra(Intent.EXTRA_SUBJECT,getString(R.string.qna_title))
-            putExtra(Intent.EXTRA_TEXT,getString(R.string.qna_content))
+            putExtra(Intent.EXTRA_SUBJECT, getString(R.string.qna_title))
+            putExtra(Intent.EXTRA_TEXT, getString(R.string.qna_content))
         }
         try {
             emailIntent.`package` = INTENT_GMAIL_PACKAGE
