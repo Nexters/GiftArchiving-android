@@ -9,6 +9,7 @@ import com.nexters.giftarchiving.repository.NoticeRepository
 import com.nexters.giftarchiving.repository.PreferenceRepository
 import com.nexters.giftarchiving.ui.SettingsFragmentDirections
 import com.nexters.giftarchiving.util.BackDirections
+import com.nexters.giftarchiving.util.LiveEvent
 import kotlinx.coroutines.launch
 
 internal class SettingsViewModel(
@@ -16,6 +17,8 @@ internal class SettingsViewModel(
     private val preferenceRepository: PreferenceRepository
 ) : BaseViewModel() {
     val notices = MutableLiveData(mutableListOf<NoticeResponse>())
+    val clickLogout = LiveEvent<Unit?>()
+
     fun onClickBack() {
         navDirections.value = BackDirections()
     }
@@ -49,6 +52,10 @@ internal class SettingsViewModel(
     }
 
     fun onClickLogout() {
+        clickLogout.call()
+    }
+
+    fun logout() {
         UserApiClient.instance.logout { error ->
             if(error != null) toast.value = NOTICE_FAIL_LOGOUT
             else {

@@ -13,17 +13,17 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="24dp"
         tools:background="@color/colorPopupMono">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/sticker_rv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:padding="24dp"
+            android:clipToPadding="false"
             android:orientation="horizontal"
             android:overScrollMode="never"
             android:scrollbars="none"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

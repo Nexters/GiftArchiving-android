@@ -49,6 +49,8 @@
     <string name="junho">junho Seo</string>
     <string name="yujin">yujin Jin</string>
     <string name="about_us_qna">기프트집팀에 궁금한점?</string>
+    <string name="qna_title">Gift.zip 문의/건의 메일</string>
+    <string name="qna_content">- 정확한 문의 파악을 위해 아래 정보를 작성해주세요!\n\n\n1. 문의 내용:\n\n2. 기프트집(카카오) 메일계정:\n\n★ 문의 관련 스크린샷을 첨부하시면\n보다 정확하고 빠른 확인이 가능합니다.</string>
     <string name="notice_none_data_text1">아직 공지 사항이 없습니다</string>
     <string name="notice_none_data_text2">추후에 확인해주세요</string>
     <string name="terms_detail_title">기프트집 서비스 이용약관\n</string>
