@@ -7,7 +7,7 @@ import com.nexters.giftarchiving.data.write.WriteStickerMenuItem
 import com.nexters.giftarchiving.ui.data.write.WritePackageSticker
 import com.nexters.giftarchiving.viewmodel.WriteViewModel
 
-internal class WritePackageStickerDetailMenuAdapter(
+internal class WritePackageStickerSingleMenuAdapter(
     private val viewModel: WriteViewModel,
     private val packageType: WritePackageSticker
 ) : BaseListAdapter<WriteStickerMenuItem>() {
