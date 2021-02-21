@@ -1,11 +1,15 @@
 package com.nexters.giftarchiving.ui
 
+import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.View
 import android.view.animation.BounceInterpolator
 import android.view.animation.TranslateAnimation
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.kakao.sdk.link.LinkClient
 import com.nexters.giftarchiving.R
@@ -29,7 +33,7 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
         sendArgToBackStack("isEdit", false)
         setLetterAnimation()
         observe(viewModel.shareKakaoMessage) { shareKakaoMessage() }
-        observe(viewModel.saveImage) { saveImage() }
+        observe(viewModel.saveImage) { if (checkWritePermission()) saveImage() }
     }
 
     private fun setLetterAnimation() {
@@ -44,6 +48,31 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
             interpolator = BounceInterpolator()
         }
         binding.shareLetterPaperLayout.startAnimation(transAnim)
+    }
+
+    private fun checkWritePermission(): Boolean {
+        val permissions = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            val readPermission = ActivityCompat.shouldShowRequestPermissionRationale(
+                requireActivity(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+            toast(NOTICE_DO_NOT_USE_SAVE_IMG)
+            if (readPermission) {
+                requestPermissions(permissions,
+                    REQUEST_CODE_WRITE_EXTERNAL_STORAGE
+                )
+            }
+            return false
+        } else {
+            return true
+        }
     }
 
     private fun saveImage() {
@@ -86,12 +115,14 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
     }
 
     companion object {
+        private const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 101
+
         private const val ANIMATION_DEFAULT_DELTA = 0f
         private const val ANIMATION_FROM_Y_DELTA = -150f
         private const val ANIMATION_START_OFFSET = 200L
         private const val ANIMATION_DURATION = 2500L
 
-        private const val FAIL_SAVE_IAMGE = "이미지 저장에 실패하였습니다"
         private const val FAIL_SHARE_KAKAO_MESSAGE = "카카오 메세지 공유가 불가능합니다"
+        private const val NOTICE_DO_NOT_USE_SAVE_IMG = "이미지 저장을 위해 접근권한이 필요합니다."
     }
 }
