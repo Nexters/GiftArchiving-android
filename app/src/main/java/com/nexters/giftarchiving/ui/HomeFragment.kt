@@ -21,7 +21,10 @@ internal class HomeFragment : BaseFragment<HomeViewModel, FragmentHomeBinding>()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         receiveArgFromOtherView<Boolean>("needReload") {
-            if(it) viewModel.getAllList()
+            if(it) {
+                viewModel.needReload = it
+                viewModel.getAllList()
+            }
         }
 
         val tabLayout = binding.homeTabLayout

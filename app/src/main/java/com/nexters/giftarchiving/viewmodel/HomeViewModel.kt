@@ -22,6 +22,7 @@ internal class HomeViewModel(
     val currentFrame = MutableLiveData("SQUARE")
     var totalReceive = 0
     var totalNotReceive = 0
+    var needReload = false
     init {
         getAllList()
     }

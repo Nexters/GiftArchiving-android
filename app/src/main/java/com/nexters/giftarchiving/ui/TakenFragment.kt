@@ -119,6 +119,7 @@ internal class TakenFragment : BaseFragment<HomeViewModel, FragmentTakenBinding>
 
     override fun onResume() {
         super.onResume()
+        if(viewModel.needReload) current = 0
         viewModel.setCurrentBgColorAndFrame(bgColors[current],frames[current])
     }
 
