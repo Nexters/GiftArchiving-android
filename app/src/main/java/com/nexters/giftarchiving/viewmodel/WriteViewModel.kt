@@ -280,9 +280,6 @@ internal class WriteViewModel(
         val INFORMATION_NUMBER_OF_PAGE = 8
 
         @JvmStatic
-        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
-
-        @JvmStatic
         val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
 
         @JvmStatic

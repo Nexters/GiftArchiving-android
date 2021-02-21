@@ -133,21 +133,13 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 binding.menuInformationLayout
             }
             WriteMenu.FRAME -> binding.menuFrameLayout
-            WriteMenu.STICKER -> {
-                if (viewModel.editedImage.value != null) {
-                    binding.menuStickerLayout
-                } else {
-                    viewModel.hideCurrentMenu()
-                    toast(WriteViewModel.NOTICE_SELECT_IMAGE)
-                    null
-                }
-            }
+            WriteMenu.STICKER -> binding.menuStickerLayout
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> {
                 loadDate()
                 binding.menuDateLayout
             }
-        }?.visibility = View.VISIBLE
+        }.visibility = View.VISIBLE
     }
 
     private fun hideSelectedMenu(menuType: WriteMenu) {
