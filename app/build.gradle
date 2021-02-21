@@ -13,8 +13,8 @@ android {
         applicationId "com.nexters.giftarchiving"
         minSdkVersion rootProject.min_sdk_version
         targetSdkVersion rootProject.target_sdk_version
-        versionCode 2
-        versionName "1.1"
+        versionCode 4
+        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
