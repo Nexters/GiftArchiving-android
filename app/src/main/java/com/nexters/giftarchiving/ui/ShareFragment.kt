@@ -54,24 +54,16 @@ internal class ShareFragment : BaseFragment<ShareViewModel, FragmentShareBinding
         val permissions = arrayOf(
             Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
-        if (ContextCompat.checkSelfPermission(
+        return if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            val readPermission = ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(),
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
             toast(NOTICE_DO_NOT_USE_SAVE_IMG)
-            if (readPermission) {
-                requestPermissions(permissions,
-                    REQUEST_CODE_WRITE_EXTERNAL_STORAGE
-                )
-            }
-            return false
+            requestPermissions(permissions, REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
+            false
         } else {
-            return true
+            true
         }
     }
 

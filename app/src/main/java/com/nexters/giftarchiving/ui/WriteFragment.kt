@@ -82,24 +82,16 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         val permissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE
         )
-        if (ContextCompat.checkSelfPermission(
+        return if (ContextCompat.checkSelfPermission(
                 requireContext(),
                 Manifest.permission.READ_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED
         ) {
-            val readPermission = ActivityCompat.shouldShowRequestPermissionRationale(
-                requireActivity(),
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
             toast(NOTICE_DO_NOT_LOAD_GALLERY)
-            if (readPermission) {
-                requestPermissions(permissions,
-                    REQUEST_CODE_READ_EXTERNAL_STORAGE
-                )
-            }
-            return false
+            requestPermissions(permissions, REQUEST_CODE_READ_EXTERNAL_STORAGE)
+            false
         } else {
-            return true
+            true
         }
     }
 
