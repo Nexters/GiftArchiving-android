@@ -6,6 +6,7 @@ import com.nexters.giftarchiving.model.WriteResponse
 import com.nexters.giftarchiving.service.network.GiftZipService
 import com.nexters.giftarchiving.util.DateConvert
 import okhttp3.MultipartBody
+import retrofit2.Response
 import java.time.LocalDate
 
 internal class WriteRepository(private val giftZipService: GiftZipService) {
@@ -24,7 +25,7 @@ internal class WriteRepository(private val giftZipService: GiftZipService) {
         bgColor: String,
         noBgImg: MultipartBody.Part,
         bgImg: MultipartBody.Part
-    ): WriteResponse {
+    ): Response<WriteResponse> {
         val date = DateConvert.localDateToLocalDateTimeStr(receiveDate)
         return giftZipService.createGift(
             createdBy,

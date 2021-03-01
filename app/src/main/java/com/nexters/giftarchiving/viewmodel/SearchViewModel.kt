@@ -116,42 +116,80 @@ internal class SearchViewModel(
         }
     }
 
-    suspend fun searchByCategory() : List<GiftResponse>{
-        val all = giftRepository.getGiftListByCategory(userId.toString(),currentCategory.value,totalCount.value).giftListGifts
-        for(item in all){
-            if (item.isReceiveGift){
-                searchResultTaken.value!!.add(item)
-            } else{
-                searchResultGiven.value!!.add(item)
+    suspend fun searchByCategory(): List<GiftResponse> {
+        val giftResponse = giftRepository.getGiftListByCategory(
+            userId.toString(),
+            currentCategory.value,
+            totalCount.value
+        )
+        var all = listOf<GiftResponse>()
+        if (giftResponse.isSuccessful) {
+            all = giftResponse.body()?.giftListGifts ?: listOf()
+            for (item in all) {
+                if (item.isReceiveGift) {
+                    searchResultTaken.value!!.add(item)
+                } else {
+                    searchResultGiven.value!!.add(item)
+                }
             }
+        } else {
+            toast.postValue(NOTICE_FAIL_SEARCH)
         }
         return all
     }
 
-    suspend fun searchByReason() : List<GiftResponse>{
-        val all = giftRepository.getGiftListByReason(userId.toString(),currentReason.value,totalCount.value).giftListGifts
-        for(item in all){
-            if (item.isReceiveGift){
-                searchResultTaken.value!!.add(item)
-            } else{
-                searchResultGiven.value!!.add(item)
+    suspend fun searchByReason(): List<GiftResponse> {
+        val giftResponse = giftRepository.getGiftListByReason(
+            userId.toString(),
+            currentReason.value,
+            totalCount.value
+        )
+        var all = listOf<GiftResponse>()
+        if (giftResponse.isSuccessful) {
+            all = giftResponse.body()?.giftListGifts ?: listOf()
+            for (item in all) {
+                if (item.isReceiveGift) {
+                    searchResultTaken.value!!.add(item)
+                } else {
+                    searchResultGiven.value!!.add(item)
+                }
             }
+        } else {
+            toast.postValue(NOTICE_FAIL_SEARCH)
         }
         return all
     }
 
     suspend fun searchByText() : List<GiftResponse>{
         val temp = mutableSetOf<GiftResponse>()
-        temp.addAll(giftRepository.getGiftListByName(userId.toString(),currentSearchText.value,currentCategory.value,currentReason.value,totalCount.value).giftListGifts)
-        temp.addAll(giftRepository.getGiftListByContent(userId.toString(),currentSearchText.value,currentCategory.value,currentReason.value,totalCount.value).giftListGifts)
         val result = arrayListOf<GiftResponse>()
-        result.addAll(temp)
-        for(item in result){
-            if (item.isReceiveGift){
-                searchResultTaken.value!!.add(item)
-            } else{
-                searchResultGiven.value!!.add(item)
+        val giftByNameResponse = giftRepository.getGiftListByName(
+            userId.toString(),
+            currentSearchText.value,
+            currentCategory.value,
+            currentReason.value,
+            totalCount.value
+        )
+        val giftByContentResponse = giftRepository.getGiftListByContent(
+            userId.toString(),
+            currentSearchText.value,
+            currentCategory.value,
+            currentReason.value,
+            totalCount.value
+        )
+        if(giftByNameResponse.isSuccessful && giftByContentResponse.isSuccessful) {
+            temp.addAll(giftByNameResponse.body()?.giftListGifts ?: setOf())
+            temp.addAll(giftByContentResponse.body()?.giftListGifts ?: setOf())
+            result.addAll(temp)
+            for (item in result) {
+                if (item.isReceiveGift){
+                    searchResultTaken.value!!.add(item)
+                } else{
+                    searchResultGiven.value!!.add(item)
+                }
             }
+        } else {
+            toast.postValue(NOTICE_FAIL_SEARCH)
         }
         return result
     }
@@ -162,26 +200,46 @@ internal class SearchViewModel(
 
     init {
         viewModelScope.launch {
-            var totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
-            var totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
-            totalCount.value = totalReceive+totalNotReceive
-            if (totalReceive==0)
-                totalReceive=1
-            if(totalNotReceive==0)
-                totalNotReceive=1
-            if(totalCount.value==0){
-                totalCount.value=1
+            val receiveGiftCntResponse =
+                giftRepository.getGiftListAll(userId.toString(), 0, 1, true)
+            val sendGiftListCntResponse =
+                giftRepository.getGiftListAll(userId.toString(), 0, 1, false)
+            if (receiveGiftCntResponse.isSuccessful && sendGiftListCntResponse.isSuccessful) {
+                var totalReceive = receiveGiftCntResponse.body()?.giftListTotalCount ?: 0
+                var totalNotReceive = sendGiftListCntResponse.body()?.giftListTotalCount ?: 0
+                totalCount.value = totalReceive + totalNotReceive
+                if (totalReceive == 0)
+                    totalReceive = 1
+                if (totalNotReceive == 0)
+                    totalNotReceive = 1
+                if (totalCount.value == 0) {
+                    totalCount.value = 1
+                }
+                val receiveGiftListResponse =
+                    giftRepository.getGiftListAll(userId.toString(), 0, totalReceive, true)
+                val sendGiftListResponse =
+                    giftRepository.getGiftListAll(userId.toString(), 0, totalNotReceive, false)
+                if (receiveGiftListResponse.isSuccessful && sendGiftListResponse.isSuccessful) {
+                    getAllReceivedGiftListResponse.value = receiveGiftListResponse.body()
+                    getAllNotReceivedGiftListResponse.value = sendGiftListResponse.body()
+                    val tempSet = mutableSetOf<String>()
+                    for (item in getAllReceivedGiftListResponse.value!!.giftListGifts) {
+                        tempSet.add(item.giftName)
+                    }
+                    for (item in getAllNotReceivedGiftListResponse.value!!.giftListGifts) {
+                        tempSet.add(item.giftName)
+                    }
+                    getAllName.value!!.addAll(tempSet)
+                } else {
+                    toast.postValue(NOTICE_FAIL_SEARCH)
+                }
+            } else {
+                toast.postValue(NOTICE_FAIL_SEARCH)
             }
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0, totalReceive, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,totalNotReceive,false)
-            val tempSet = mutableSetOf<String>()
-            for (item in getAllReceivedGiftListResponse.value!!.giftListGifts){
-                tempSet.add(item.giftName)
-            }
-            for (item in getAllNotReceivedGiftListResponse.value!!.giftListGifts){
-                tempSet.add(item.giftName)
-            }
-            getAllName.value!!.addAll(tempSet)
         }
+    }
+
+    companion object {
+        private const val NOTICE_FAIL_SEARCH = "검색에 실패하였습니다"
     }
 }

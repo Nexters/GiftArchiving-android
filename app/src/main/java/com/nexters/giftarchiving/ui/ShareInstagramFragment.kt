@@ -1,13 +1,18 @@
 package com.nexters.giftarchiving.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.nexters.giftarchiving.R
 import com.nexters.giftarchiving.base.BaseFragment
 import com.nexters.giftarchiving.databinding.FragmentShareInstagramBinding
 import com.nexters.giftarchiving.extension.observe
+import com.nexters.giftarchiving.extension.toast
 import com.nexters.giftarchiving.service.share.InstagramSharedService
 import com.nexters.giftarchiving.util.ImageConverter
 import com.nexters.giftarchiving.util.ImageManager
@@ -32,6 +37,39 @@ internal class ShareInstagramFragment :
         deleteShareImage()
     }
 
+    private fun checkReadPermission(): Boolean {
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        return if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            toast(NOTICE_DO_NOT_USE_INSTA_SHARE)
+            requestPermissions(permissions, REQUEST_CODE_READ_EXTERNAL_STORAGE)
+            false
+        } else {
+            true
+        }
+    }
+
+    private fun checkWritePermission(): Boolean {
+        val permissions = arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        return if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            toast(NOTICE_DO_NOT_USE_INSTA_SHARE)
+            requestPermissions(permissions, REQUEST_CODE_WRITE_EXTERNAL_STORAGE)
+            false
+        } else {
+            true
+        }
+    }
 
     private fun instagramStory() {
         getUriFromInstaLayout()?.let {
@@ -41,11 +79,12 @@ internal class ShareInstagramFragment :
 
     private fun instagramFeed() {
         getUriFromInstaLayout()?.let {
-            InstagramSharedService.shareInstagramStory(requireActivity(), it)
+            InstagramSharedService.shareInstagramFeed(requireActivity(), it)
         }
     }
 
     private fun getUriFromInstaLayout(): Uri? {
+        if (!checkReadPermission() || !checkWritePermission()) return null
         if (viewModel.shareImgUri == null) {
             val bitmap = ImageConverter.layoutToBitmap(binding.shareImageLayout)
             viewModel.shareImgUri = ImageManager.saveImage(requireContext().contentResolver, bitmap)
@@ -59,5 +98,11 @@ internal class ShareInstagramFragment :
 
     private fun deleteFileUsingUri(uri: Uri) {
         requireContext().contentResolver.delete(uri, null, null)
+    }
+
+    companion object {
+        private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 102
+        private const val REQUEST_CODE_WRITE_EXTERNAL_STORAGE = 103
+        private const val NOTICE_DO_NOT_USE_INSTA_SHARE = "인스타 공유를 위해 접근권한이 필요합니다."
     }
 }

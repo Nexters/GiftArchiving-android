@@ -200,18 +200,25 @@ internal class WriteViewModel(
                     bgImg = bgImg
                 )
 
-                val directions =
-                    WriteFragmentDirections.actionWriteFragmentToShareFragment(
-                        giftId = response.id,
-                        isReceive = isReceiveGift,
-                        name = name.value,
-                        backgroundTheme = backgroundColorTheme.value
-                            ?: BackgroundColorTheme.MONO,
-                        frameShape = frameShape.value ?: WriteFrameShape.SQUARE,
-                        noBgImgUrl = response.noBgImgUrl,
-                        bgImgUrl = response.bgImgUrl
-                    )
-                navDirections.postValue(directions)
+                if (response.isSuccessful) {
+                    response.body()?.let {
+                        val directions =
+                            WriteFragmentDirections.actionWriteFragmentToShareFragment(
+                                giftId = it.id,
+                                isReceive = isReceiveGift,
+                                name = name.value,
+                                backgroundTheme = backgroundColorTheme.value
+                                    ?: BackgroundColorTheme.MONO,
+                                frameShape = frameShape.value ?: WriteFrameShape.SQUARE,
+                                noBgImgUrl = it.noBgImgUrl,
+                                bgImgUrl = it.bgImgUrl
+                            )
+                        navDirections.postValue(directions)
+                    }
+                } else {
+                    toast.postValue(NOTICE_FAIL_SAVE)
+                }
+
             } else {
                 toast.postValue(NOTICE_FAIL_CONVERT_IMG)
             }
@@ -279,13 +286,8 @@ internal class WriteViewModel(
         @JvmStatic
         val INFORMATION_NUMBER_OF_PAGE = 8
 
-        @JvmStatic
-        val NOTICE_SELECT_IMAGE = "이미지를 선택하세요"
-
-        @JvmStatic
-        val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
-
-        @JvmStatic
-        val NOTICE_MORE_WRITE = "모든 항목을 입력해야 합니다"
+        private const val NOTICE_FAIL_CONVERT_IMG = "이미지 변환에 실패하였습니다"
+        private const val NOTICE_MORE_WRITE = "모든 항목을 입력해야 합니다"
+        private const val NOTICE_FAIL_SAVE = "선물 저장에 실패하였습니다"
     }
 }

@@ -28,7 +28,7 @@ internal interface GiftZipService {
         @Query("bgColor") bgColor: String,
         @Part noBgImg: MultipartBody.Part,
         @Part bgImg: MultipartBody.Part
-    ): WriteResponse
+    ): Response<WriteResponse>
 
     @Multipart
     @POST("/api/gift/testImg")
@@ -39,24 +39,24 @@ internal interface GiftZipService {
     @GET("/api/gift/user/{createdBy}")
     suspend fun getGiftListAll(
         @Path("createdBy") createdBy: String,
-        @Query("page") page : Int,
-        @Query("size") size : Int,
+        @Query("page") page: Int,
+        @Query("size") size: Int,
         @Query("isReceiveGift") isReceiveGift: Boolean
-    ) : GiftListResponse
+    ): Response<GiftListResponse>
 
     @GET("/api/gift/{createdBy}/tag")
     suspend fun getGiftListByCategory(
         @Path("createdBy") createdBy: String,
         @Query("category") category: String?,
-        @Query("size") size : Int?
-    ) :GiftListResponse
+        @Query("size") size: Int?
+    ): Response<GiftListResponse>
 
     @GET("/api/gift/{createdBy}/tag")
     suspend fun getGiftListByReason(
         @Path("createdBy") createdBy: String,
         @Query("reason") reason: String?,
-        @Query("size") size : Int?
-    ) :GiftListResponse
+        @Query("size") size: Int?
+    ): Response<GiftListResponse>
 
     @GET("/api/gift/{createdBy}/tag")
     suspend fun getGiftListByName(
@@ -64,8 +64,8 @@ internal interface GiftZipService {
         @Query("name") name: String?,
         @Query("category") category: String?,
         @Query("reason") reason: String?,
-        @Query("size") size : Int?
-    ) :GiftListResponse
+        @Query("size") size: Int?
+    ): Response<GiftListResponse>
 
     @GET("/api/gift/{createdBy}/tag")
     suspend fun getGiftListByContent(
@@ -73,16 +73,16 @@ internal interface GiftZipService {
         @Query("content") content: String?,
         @Query("category") category: String?,
         @Query("reason") reason: String?,
-        @Query("size") size : Int?
-    ) :GiftListResponse
+        @Query("size") size: Int?
+    ): Response<GiftListResponse>
 
     @GET("/api/gift/{giftId}")
     suspend fun getGift(
         @Path("giftId") giftId: String
-    ): GiftDetailResponse
+    ): Response<GiftDetailResponse>
 
     @GET("/api/admin")
-    suspend fun getNoticeList() :NoticeListResponse
+    suspend fun getNoticeList(): Response<NoticeListResponse>
 
     @PUT("/api/gift/{giftId}")
     suspend fun updateGift(

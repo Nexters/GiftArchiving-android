@@ -42,8 +42,13 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
             navArgs<DetailFragmentArgs>()
                 .collect {
                     giftId = it.giftId
-                    giftDetail = repository.getGift(giftId)
-                    giftDetail?.let { gift -> setGiftProperties(gift) }
+                    val response = repository.getGift(giftId)
+                    if (response.isSuccessful) {
+                        giftDetail = response.body()
+                        giftDetail?.let { gift -> setGiftProperties(gift) }
+                    } else {
+                        toast.postValue(NOTICE_FAIL_LOAD)
+                    }
                 }
         }
     }
@@ -88,6 +93,11 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
     }
 
     private fun setGiftProperties(gift: GiftDetailResponse) {
+        val bgColor = when (BackgroundColorTheme.values().map { it.name }.contains(gift.bgColor)) {
+            true -> BackgroundColorTheme.valueOf(gift.bgColor)
+            false -> BackgroundColorTheme.MONO
+        }
+
         isReceiveGift.postValue(gift.isReceiveGift)
         name.postValue(gift.name)
         content.postValue(gift.content)
@@ -96,12 +106,13 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
         purpose.postValue(WriteInformationMenuList.findPurpose(gift.reason))
         category.postValue(WriteInformationMenuList.findCategory(gift.category))
         emotion.postValue(WriteInformationMenuList.findEmotion(gift.emotion, gift.isReceiveGift))
-        backgroundColorTheme.postValue(BackgroundColorTheme.valueOf(gift.bgColor))
+        backgroundColorTheme.postValue(bgColor)
         frameShape = WriteFrameShape.valueOf(gift.frameType)
         bgImgUrl = gift.bgImgUrl
     }
 
     companion object {
         private const val EMPTY_STRING = ""
+        private const val NOTICE_FAIL_LOAD = "선물 정보를 불러올 수 없습니다"
     }
 }

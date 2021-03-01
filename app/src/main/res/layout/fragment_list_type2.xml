@@ -20,7 +20,8 @@
             android:id="@+id/list2_recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="42dp"/>
+            android:layout_marginVertical="12dp"
+            android:layout_marginHorizontal="14dp"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

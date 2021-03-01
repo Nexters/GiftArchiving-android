@@ -1,8 +1,10 @@
 package com.nexters.giftarchiving.ui
 
+import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.tabs.TabLayout
@@ -50,7 +53,7 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
         observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
-        observe(viewModel.loadGallery) { accessGallery() }
+        observe(viewModel.loadGallery) { if (checkReadPermission()) accessGallery() }
         observe(viewModel.isBack) { showExitDialog() }
         observe(viewModel.isSaved) { saveGift() }
         observe(viewModel.addSticker) { addSticker(it) }
@@ -72,6 +75,23 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 viewModel.navDirections.value =
                     WriteFragmentDirections.actionWriteFragmentToCropFragment(it)
             }
+        }
+    }
+
+    private fun checkReadPermission(): Boolean {
+        val permissions = arrayOf(
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
+        return if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            toast(NOTICE_DO_NOT_LOAD_GALLERY)
+            requestPermissions(permissions, REQUEST_CODE_READ_EXTERNAL_STORAGE)
+            false
+        } else {
+            true
         }
     }
 
@@ -133,21 +153,13 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
                 binding.menuInformationLayout
             }
             WriteMenu.FRAME -> binding.menuFrameLayout
-            WriteMenu.STICKER -> {
-                if (viewModel.editedImage.value != null) {
-                    binding.menuStickerLayout
-                } else {
-                    viewModel.hideCurrentMenu()
-                    toast(WriteViewModel.NOTICE_SELECT_IMAGE)
-                    null
-                }
-            }
+            WriteMenu.STICKER -> binding.menuStickerLayout
             WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
             WriteMenu.DATE -> {
                 loadDate()
                 binding.menuDateLayout
             }
-        }?.visibility = View.VISIBLE
+        }.visibility = View.VISIBLE
     }
 
     private fun hideSelectedMenu(menuType: WriteMenu) {
@@ -288,8 +300,11 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     }
 
     companion object {
+        private const val REQUEST_CODE_READ_EXTERNAL_STORAGE = 100
+
         private const val EXIT_DIALOG_TAG = "exit dialog"
         private const val EXIT_DIALOG_TITLE = "저장하지 않고 나가시겠습니까?"
         private const val EXIT_DIALOG_SUB_TITLE = "작성중이던 내용이 사라집니다."
+        private const val NOTICE_DO_NOT_LOAD_GALLERY = "이미지를 로드하려면 권한이 필요합니다."
     }
 }
