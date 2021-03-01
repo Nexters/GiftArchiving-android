@@ -11,9 +11,8 @@
 
         <ImageView
             android:id="@+id/item_image"
-            android:layout_width="271dp"
-            android:layout_height="271dp"
-            android:scaleType="fitXY"
+            android:layout_width="match_parent"
+            android:layout_height="266dp"
             android:src="@drawable/default_circle"
             app:layout_constraintBottom_toTopOf="@id/item_date"
             app:layout_constraintHorizontal_bias="0.497"
