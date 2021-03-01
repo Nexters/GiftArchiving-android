@@ -93,6 +93,11 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
     }
 
     private fun setGiftProperties(gift: GiftDetailResponse) {
+        val bgColor = when (BackgroundColorTheme.values().map { it.name }.contains(gift.bgColor)) {
+            true -> BackgroundColorTheme.valueOf(gift.bgColor)
+            false -> BackgroundColorTheme.MONO
+        }
+
         isReceiveGift.postValue(gift.isReceiveGift)
         name.postValue(gift.name)
         content.postValue(gift.content)
@@ -101,7 +106,7 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
         purpose.postValue(WriteInformationMenuList.findPurpose(gift.reason))
         category.postValue(WriteInformationMenuList.findCategory(gift.category))
         emotion.postValue(WriteInformationMenuList.findEmotion(gift.emotion, gift.isReceiveGift))
-        backgroundColorTheme.postValue(BackgroundColorTheme.valueOf(gift.bgColor))
+        backgroundColorTheme.postValue(bgColor)
         frameShape = WriteFrameShape.valueOf(gift.frameType)
         bgImgUrl = gift.bgImgUrl
     }
