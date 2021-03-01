@@ -1,5 +1,5 @@
 package com.nexters.giftarchiving.util
 
-object KakaoParamKey {
+internal object KakaoParamKey {
     const val GIFT_ID = "gift_id"
 }

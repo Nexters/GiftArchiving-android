@@ -42,8 +42,13 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
             navArgs<DetailFragmentArgs>()
                 .collect {
                     giftId = it.giftId
-                    giftDetail = repository.getGift(giftId)
-                    giftDetail?.let { gift -> setGiftProperties(gift) }
+                    val response = repository.getGift(giftId)
+                    if (response.isSuccessful) {
+                        giftDetail = response.body()
+                        giftDetail?.let { gift -> setGiftProperties(gift) }
+                    } else {
+                        toast.postValue(NOTICE_FAIL_LOAD)
+                    }
                 }
         }
     }
@@ -103,5 +108,6 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
 
     companion object {
         private const val EMPTY_STRING = ""
+        private const val NOTICE_FAIL_LOAD = "선물 정보를 불러올 수 없습니다"
     }
 }

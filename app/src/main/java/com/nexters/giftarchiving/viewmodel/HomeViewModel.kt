@@ -69,24 +69,44 @@ internal class HomeViewModel(
         currentFrame.value = frame
     }
 
-    fun getAllList(){
-        getAllReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
-        getAllNotReceivedGiftListResponse.value = GiftListResponse(listOf(),0,0,0)
+    fun getAllList() {
+        getAllReceivedGiftListResponse.value = GiftListResponse(listOf(), 0, 0, 0)
+        getAllNotReceivedGiftListResponse.value = GiftListResponse(listOf(), 0, 0, 0)
         viewModelScope.launch {
-            totalReceive = giftRepository.getGiftListAll(userId.toString(),0,1, true).giftListTotalCount
-            totalNotReceive = giftRepository.getGiftListAll(userId.toString(),0,1, false).giftListTotalCount
-            var tempCountReceive = totalReceive
-            var tempCountNotReceive = totalNotReceive
-            if (totalReceive==0)
-                tempCountReceive=1
-            if(totalNotReceive==0)
-                tempCountNotReceive=1
-            getAllReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountReceive, true)
-            getAllNotReceivedGiftListResponse.value = giftRepository.getGiftListAll(userId.toString(),0,tempCountNotReceive,false)
+            val receiveGiftCntResponse =
+                giftRepository.getGiftListAll(userId.toString(), 0, 1, true)
+            val sendGiftListCntResponse =
+                giftRepository.getGiftListAll(userId.toString(), 0, 1, false)
+            if (receiveGiftCntResponse.isSuccessful && sendGiftListCntResponse.isSuccessful) {
+                totalReceive = receiveGiftCntResponse.body()?.giftListTotalCount ?: 0
+                totalNotReceive = sendGiftListCntResponse.body()?.giftListTotalCount ?: 0
+                var tempCountReceive = totalReceive
+                var tempCountNotReceive = totalNotReceive
+                if (totalReceive == 0)
+                    tempCountReceive = 1
+                if (totalNotReceive == 0)
+                    tempCountNotReceive = 1
+                val receiveGiftListResponse =
+                    giftRepository.getGiftListAll(userId.toString(), 0, tempCountReceive, true)
+                val sendGiftListResponse =
+                    giftRepository.getGiftListAll(userId.toString(), 0, tempCountNotReceive, false)
+                if (receiveGiftListResponse.isSuccessful && sendGiftListResponse.isSuccessful) {
+                    getAllReceivedGiftListResponse.value = receiveGiftListResponse.body()
+                    getAllNotReceivedGiftListResponse.value = sendGiftListResponse.body()
+                } else {
+                    toast.postValue(NOTICE_FAIL_LOAD_LIST)
+                }
+            } else {
+                toast.postValue(NOTICE_FAIL_LOAD_LIST)
+            }
         }
     }
 
     fun onClickDetail(giftId: String) {
         navDirections.value = HomeFragmentDirections.actionHomeFragmentToDetailFragment(giftId)
+    }
+
+    companion object {
+        private const val NOTICE_FAIL_LOAD_LIST = "선물 리스트를 불러올 수 없습니다"
     }
 }

@@ -68,9 +68,14 @@ internal class SettingsViewModel(
 
     init {
         viewModelScope.launch {
-            val temp = mutableListOf<NoticeResponse>()
-            temp.addAll(noticeRepository.getNoticeList().noticeList)
-            notices.value = temp
+            val noticeResponse = noticeRepository.getNoticeList()
+            if (noticeResponse.isSuccessful) {
+                noticeRepository.getNoticeList().body()?.noticeList?.let {
+                    val temp = mutableListOf<NoticeResponse>()
+                    temp.addAll(it)
+                    notices.postValue(temp)
+                }
+            }
         }
     }
 
