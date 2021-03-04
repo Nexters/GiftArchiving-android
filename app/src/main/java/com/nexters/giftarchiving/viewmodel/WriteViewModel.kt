@@ -52,7 +52,6 @@ internal class WriteViewModel(
     val isLoading = MutableLiveData(false)
     val currentMenuType = MutableLiveData<WriteMenu>()
     val showMenuType = LiveEvent<WriteMenu>()
-    val hideMenuType = LiveEvent<WriteMenu>()
     val changeDate = LiveEvent<Unit?>()
     val addSticker = LiveEvent<Int>()
     val loadGallery = LiveEvent<Unit?>()
@@ -110,13 +109,13 @@ internal class WriteViewModel(
     }
 
     fun loadGallery() {
-        currentMenuType.value?.let { hideMenu(it) }
+        hideMenu()
         loadGallery.call()
     }
 
     fun hideStickerView() {
         if (currentMenuType.value == WriteMenu.STICKER) {
-            hideMenu(WriteMenu.STICKER)
+            hideMenu()
         }
     }
 
@@ -150,13 +149,12 @@ internal class WriteViewModel(
         showMenuType.value = menuType
     }
 
-    private fun hideMenu(menuType: WriteMenu) {
+    private fun hideMenu() {
         currentMenuType.value = null
-        hideMenuType.value = menuType
     }
 
     fun hideCurrentMenu() {
-        currentMenuType.value?.let { hideMenu(it) }
+        hideMenu()
     }
 
     fun setShowMenuType(menuType: WriteMenu) {
@@ -168,13 +166,9 @@ internal class WriteViewModel(
         showMenu(menuType)
     }
 
-    fun setHideMenuType(menuType: WriteMenu) {
-        hideMenu(menuType)
-    }
-
     fun changeDate() {
         changeDate.call()
-        setHideMenuType(WriteMenu.DATE)
+        hideMenu()
     }
 
     fun onClickNext() {
