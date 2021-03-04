@@ -181,6 +181,7 @@
                 android:layout_height="24dp"
                 android:background="@{viewModel.backgroundColorTheme.isDarkMode ? @drawable/ic_icon_check : @drawable/ic_icon_check_bk}"
                 android:onClick="@{() -> viewModel.onClickNext()}"
+                android:clickable="@{!viewModel.isLoading()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -576,7 +577,8 @@
             android:id="@+id/menu_information_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="@{viewModel.currentMenuType == WriteMenu.INFORMATION_CATEGORY||viewModel.currentMenuType == WriteMenu.INFORMATION_EMOTION||viewModel.currentMenuType == WriteMenu.INFORMATION_PURPOSE}"
+            tools:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -626,7 +628,8 @@
             android:id="@+id/menu_date_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="@{viewModel.currentMenuType == WriteMenu.DATE}"
+            tools:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -685,7 +688,8 @@
             android:id="@+id/menu_background_color_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone">
+            android:visibility="@{viewModel.currentMenuType == WriteMenu.BACKGROUND_COLOR}"
+            tools:visibility="gone">
 
             <View
                 android:layout_width="match_parent"
@@ -756,7 +760,8 @@
             android:id="@+id/menu_sticker_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.currentMenuType == WriteMenu.STICKER}"
+            tools:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom_layout">
 
@@ -798,7 +803,8 @@
             android:id="@+id/menu_frame_layout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:visibility="gone"
+            android:visibility="@{viewModel.currentMenuType == WriteMenu.FRAME}"
+            tools:visibility="gone"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@id/bottom_layout">
 

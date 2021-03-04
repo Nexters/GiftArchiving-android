@@ -110,6 +110,7 @@ internal class WriteViewModel(
     }
 
     fun loadGallery() {
+        currentMenuType.value?.let { hideMenu(it) }
         loadGallery.call()
     }
 
@@ -178,7 +179,7 @@ internal class WriteViewModel(
 
     fun onClickNext() {
         isLoading.value = true
-        if((isEditMode && needMoreEdit()) || (!isEditMode && needMoreWrite())) {
+        if ((isEditMode && needMoreEdit()) || (!isEditMode && needMoreWrite())) {
             toast.postValue(NOTICE_MORE_WRITE)
             isLoading.value = false
         } else {

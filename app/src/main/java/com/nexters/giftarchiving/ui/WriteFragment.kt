@@ -51,7 +51,6 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
         setBackPressedDispatcher()
 
         observe(viewModel.showMenuType) { showSelectedMenu(it) }
-        observe(viewModel.hideMenuType) { hideSelectedMenu(it) }
         observe(viewModel.changeDate) { changeDate() }
         observe(viewModel.loadGallery) { if (checkReadPermission()) accessGallery() }
         observe(viewModel.isBack) { showExitDialog() }
@@ -148,28 +147,10 @@ internal class WriteFragment : BaseFragment<WriteViewModel, FragmentWriteBinding
     private fun showSelectedMenu(menuType: WriteMenu) {
         hideSoftKeypad()
         when (menuType) {
-            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> {
+            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION ->
                 setInformationMenuViewPager(menuType)
-                binding.menuInformationLayout
-            }
-            WriteMenu.FRAME -> binding.menuFrameLayout
-            WriteMenu.STICKER -> binding.menuStickerLayout
-            WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
-            WriteMenu.DATE -> {
-                loadDate()
-                binding.menuDateLayout
-            }
-        }.visibility = View.VISIBLE
-    }
-
-    private fun hideSelectedMenu(menuType: WriteMenu) {
-        when (menuType) {
-            WriteMenu.INFORMATION_CATEGORY, WriteMenu.INFORMATION_PURPOSE, WriteMenu.INFORMATION_EMOTION -> binding.menuInformationLayout
-            WriteMenu.FRAME -> binding.menuFrameLayout
-            WriteMenu.STICKER -> binding.menuStickerLayout
-            WriteMenu.BACKGROUND_COLOR -> binding.menuBackgroundColorLayout
-            WriteMenu.DATE -> binding.menuDateLayout
-        }.visibility = View.GONE
+            WriteMenu.DATE -> loadDate()
+        }
     }
 
     private fun loadDate() {
