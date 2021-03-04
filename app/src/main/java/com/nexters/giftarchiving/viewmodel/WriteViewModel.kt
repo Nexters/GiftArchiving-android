@@ -283,10 +283,6 @@ internal class WriteViewModel(
 
     private fun needMoreEdit() =
         name.value.isNullOrEmpty()
-                || content.value.isNullOrEmpty()
-                || category.value?.title == WriteCategoryMenu().title
-                || purpose.value?.title == WritePurposeMenu().title
-                || emotion.value?.title == WriteEmotionMenu().title
 
     private fun needMoreWrite() =
         originBitmap == null || needMoreEdit()
