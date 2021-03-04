@@ -113,6 +113,12 @@ internal class WriteViewModel(
         loadGallery.call()
     }
 
+    fun hideStickerView() {
+        if (currentMenuType.value == WriteMenu.STICKER) {
+            hideMenu(WriteMenu.STICKER)
+        }
+    }
+
     fun setFrameShape(shape: WriteFrameShape) {
         frameShape.value = shape
         convertImageShape()
@@ -153,8 +159,10 @@ internal class WriteViewModel(
     }
 
     fun setShowMenuType(menuType: WriteMenu) {
-        if (currentMenuType.value != null && menuType != currentMenuType.value) {
+        if (currentMenuType.value != null) {
+            val type = currentMenuType.value
             hideCurrentMenu()
+            if (type == menuType) return
         }
         showMenu(menuType)
     }
