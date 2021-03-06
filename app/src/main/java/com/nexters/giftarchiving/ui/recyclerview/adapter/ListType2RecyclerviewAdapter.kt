@@ -45,9 +45,9 @@ internal class ListType2RecyclerviewAdapter(
             Glide.with(context).load(gift.giftImgUrl).into(itemImageView)
             itemImageView.clipToOutline = true
             when(gift.bgColor){
-                "ORANGE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_orange_background)
-                "BLUE" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_blue_background)
-                "YELLOW" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_yellow_background)
+                "ORANGE", "pinkishOrange" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_orange_background)
+                "BLUE", "ceruleanBlue" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_blue_background)
+                "YELLOW", "wheat" -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_yellow_background)
                 else -> itemImageView.background = ContextCompat.getDrawable(itemImageView.context,R.drawable.round_gray_background)
             }
             if(isReceived){

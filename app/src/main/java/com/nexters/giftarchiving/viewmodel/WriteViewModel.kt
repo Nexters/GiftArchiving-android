@@ -198,7 +198,7 @@ internal class WriteViewModel(
                     reason = purpose.value?.titleEng ?: "",
                     emotion = emotion.value?.titleEng ?: "",
                     frameType = (frameShape.value ?: WriteFrameShape.SQUARE).toString(),
-                    bgColor = backgroundColorTheme.value?.toString() ?: "",
+                    bgColor = backgroundColorTheme.value?.iosName ?: "",
                     noBgImg = noBgImg,
                     bgImg = bgImg
                 )

@@ -93,10 +93,11 @@ internal class DetailViewModel(private val repository: DetailRepository) : BaseV
     }
 
     private fun setGiftProperties(gift: GiftDetailResponse) {
-        val bgColor = when (BackgroundColorTheme.values().map { it.name }.contains(gift.bgColor)) {
-            true -> BackgroundColorTheme.valueOf(gift.bgColor)
-            false -> BackgroundColorTheme.MONO
-        }
+        val bgColor =
+            BackgroundColorTheme
+                .values()
+                .firstOrNull { it.name == gift.bgColor || it.iosName == gift.bgColor }
+                ?: BackgroundColorTheme.MONO
 
         isReceiveGift.postValue(gift.isReceiveGift)
         name.postValue(gift.name)

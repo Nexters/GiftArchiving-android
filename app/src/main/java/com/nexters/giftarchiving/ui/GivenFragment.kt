@@ -36,11 +36,11 @@ internal class GivenFragment : BaseFragment<HomeViewModel, FragmentGivenBinding>
                 bgColors.clear()
                 frames.clear()
                 for(item in it.giftListGifts){
-                    when(item.bgColor){
-                        "ORANGE"->bgColors.add(R.color.orange)
-                        "YELLOW"->bgColors.add(R.color.yellow)
-                        "BLUE"->bgColors.add(R.color.blue)
-                        else->bgColors.add(R.color.gray)
+                    when (item.bgColor) {
+                        "ORANGE", "pinkishOrange" -> bgColors.add(R.color.orange)
+                        "YELLOW", "wheat" -> bgColors.add(R.color.yellow)
+                        "BLUE", "ceruleanBlue" -> bgColors.add(R.color.blue)
+                        else -> bgColors.add(R.color.gray)
                     }
                     frames.add(item.frameType)
                 }

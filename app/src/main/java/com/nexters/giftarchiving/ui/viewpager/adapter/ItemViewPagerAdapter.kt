@@ -47,13 +47,13 @@ internal class ItemViewPagerAdapter(
                 if(viewType==2||viewType==3){
                     constraintLayout.clipToOutline = true
                     when(gift.bgColor){
-                        "ORANGE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
-                        "BLUE" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
-                        "YELLOW" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context, R.drawable.round_yellow_background)
+                        "ORANGE", "pinkishOrange" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_orange_background)
+                        "BLUE", "ceruleanBlue" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_blue_background)
+                        "YELLOW", "wheat" -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context, R.drawable.round_yellow_background)
                         else -> constraintLayout.background = ContextCompat.getDrawable(constraintLayout.context,R.drawable.round_gray_background)
                     }
                 }
-                if (gift.bgColor=="YELLOW"){
+                if (gift.bgColor == "YELLOW" || gift.bgColor == "wheat") {
                     personTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
                     dateTextView.setTextColor(ContextCompat.getColor(context,R.color.black))
                 }
